@@ -1,23 +1,23 @@
 protocol Renderable {
-    init(properties: Any, children: [RenderTree]?)
-    func render() -> [RenderTree]?
+    init(properties: Any, children: [Node]?)
+    func render() -> [Node]?
 }
 
-protocol RenderTree {
-    typealias Create = (Any, [RenderTree]?) -> Renderable
+protocol Node {
+    typealias Create = (Any, [Node]?) -> Renderable
     var create: Create { get }
     var properties: Any { get }
-    var children: [RenderTree]? { get }
+    var children: [Node]? { get }
 }
 
-class Component: RenderTree {
+class Component: Node {
     struct NoProperties {}
-    typealias Create = (Any, [RenderTree]?) -> Renderable
+    typealias Create = (Any, [Node]?) -> Renderable
     var create: Create
     var properties: Any
-    var children: [RenderTree]?
+    var children: [Node]?
 
-    init(create: @escaping Create, properties: Any = NoProperties(), _ children: [RenderTree]? = nil) {
+    init(create: @escaping Create, properties: Any = NoProperties(), _ children: [Node]? = nil) {
         self.create = create
         self.properties = properties
         self.children = children
@@ -26,20 +26,20 @@ class Component: RenderTree {
 
 class Scroll: Component {
     class Component: Renderable {
-        var children: [RenderTree]?
+        var children: [Node]?
 
-        required init(properties _: Any, children: [RenderTree]?) {
+        required init(properties _: Any, children: [Node]?) {
             self.children = children
         }
 
-        func render() -> [RenderTree]? {
+        func render() -> [Node]? {
             print("Hello \(type(of: self))")
 
             return nil
         }
     }
 
-    init(_ children: [RenderTree]? = nil) {
+    init(_ children: [Node]? = nil) {
         super.init(create: Component.init, children)
 
         print("create \(type(of: self))")
@@ -53,21 +53,21 @@ class Section: Component {
 
     class Component: Renderable {
         var properties: Properties
-        var children: [RenderTree]?
+        var children: [Node]?
 
-        required init(properties: Any, children: [RenderTree]?) {
+        required init(properties: Any, children: [Node]?) {
             self.properties = properties as! Properties
             self.children = children
         }
 
-        func render() -> [RenderTree]? {
+        func render() -> [Node]? {
             print("Hello \(type(of: self)) \(properties.heading)")
 
             return nil
         }
     }
 
-    init(heading: String, _ children: [RenderTree]? = nil) {
+    init(heading: String, _ children: [Node]? = nil) {
         super.init(create: Component.init, properties: Properties(heading: heading), children)
 
         print("create \(type(of: self))")
@@ -82,31 +82,31 @@ class Label: Component {
     class Component: Renderable {
         var properties: Properties
 
-        required init(properties: Any, children _: [RenderTree]?) {
+        required init(properties: Any, children _: [Node]?) {
             self.properties = properties as! Properties
         }
 
-        func render() -> [RenderTree]? {
+        func render() -> [Node]? {
             print("Hello \(type(of: self)) \(properties.text)")
 
             return nil
         }
     }
 
-    init(text: String, _ children: [RenderTree]? = nil) {
+    init(text: String, _ children: [Node]? = nil) {
         super.init(create: Component.init, properties: Properties(text: text), children)
 
         print("create \(type(of: self))")
     }
 }
 
-func render(_ root: RenderTree) {
+func render(_ root: Node) {
     root.create(root.properties, root.children).render()
 
     render(root.children)
 }
 
-func render(_ children: [RenderTree]?) {
+func render(_ children: [Node]?) {
     if let children = children {
         for child in children {
             for (property, value) in Mirror(reflecting: child.properties).children {
