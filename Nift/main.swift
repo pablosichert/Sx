@@ -10,7 +10,7 @@ protocol Node {
     var children: [Node]? { get }
 }
 
-class Component: Node {
+class Base: Node {
     struct NoProperties {}
     typealias Create = (Any, [Node]?) -> Renderable
     var create: Create
@@ -24,7 +24,7 @@ class Component: Node {
     }
 }
 
-class Scroll: Component {
+class Scroll: Base {
     class Component: Renderable {
         var children: [Node]?
 
@@ -46,7 +46,7 @@ class Scroll: Component {
     }
 }
 
-class Section: Component {
+class Section: Base {
     struct Properties {
         let heading: String
     }
@@ -74,7 +74,7 @@ class Section: Component {
     }
 }
 
-class Label: Component {
+class Label: Base {
     struct Properties {
         let text: String
     }
