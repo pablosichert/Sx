@@ -4,100 +4,92 @@ protocol Renderable {
 }
 
 class RenderTree {
+    struct NoProperties {}
     typealias Factory = (Any, [RenderTree]?) -> Renderable
     var factory: Factory
     var properties: Any
     var children: [RenderTree]?
 
-    init(factory: @escaping Factory, properties: Any, _ children: [RenderTree]? = nil) {
+    init(factory: @escaping Factory, properties: Any = NoProperties(), _ children: [RenderTree]? = nil) {
         self.factory = factory
         self.properties = properties
         self.children = children
     }
 }
 
-class Scroll: Renderable {
-    struct ScrollProperties {}
+class Scroll: RenderTree {
+    class Component: Renderable {
+        var children: [RenderTree]?
 
-    var children: [RenderTree]?
+        required init(properties _: Any, children: [RenderTree]?) {
+            self.children = children
+        }
 
-    static func createElement(_ children: [RenderTree]? = nil) -> RenderTree {
+        func render() -> [RenderTree]? {
+            print("Hello \(type(of: self))")
+
+            return nil
+        }
+    }
+
+    init(_ children: [RenderTree]? = nil) {
+        super.init(factory: Component.init, children)
+
         print("create \(type(of: self))")
-
-        return RenderTree(
-            factory: Scroll.init,
-            properties: ScrollProperties(),
-            children
-        )
-    }
-
-    required init(properties _: Any, children: [RenderTree]?) {
-        self.children = children
-    }
-
-    func render() -> [RenderTree]? {
-        print("Hello \(type(of: self))")
-
-        return nil
     }
 }
 
-class Section: Renderable {
-    struct SectionProperties {
+class Section: RenderTree {
+    struct Properties {
         let heading: String
     }
 
-    var properties: SectionProperties
-    var children: [RenderTree]?
+    class Component: Renderable {
+        var properties: Properties
+        var children: [RenderTree]?
 
-    static func createElement(heading: String, _ children: [RenderTree]? = nil) -> RenderTree {
+        required init(properties: Any, children: [RenderTree]?) {
+            self.properties = properties as! Properties
+            self.children = children
+        }
+
+        func render() -> [RenderTree]? {
+            print("Hello \(type(of: self)) \(properties.heading)")
+
+            return nil
+        }
+    }
+
+    init(heading: String, _ children: [RenderTree]? = nil) {
+        super.init(factory: Component.init, properties: Properties(heading: heading), children)
+
         print("create \(type(of: self))")
-
-        return RenderTree(
-            factory: Section.init,
-            properties: SectionProperties(heading: heading),
-            children
-        )
-    }
-
-    required init(properties: Any, children: [RenderTree]?) {
-        self.properties = properties as! SectionProperties
-        self.children = children
-    }
-
-    func render() -> [RenderTree]? {
-        print("Hello \(type(of: self)) \(properties.heading)")
-
-        return nil
     }
 }
 
-class Label: Renderable {
-    struct LabelProperties {
+class Label: RenderTree {
+    struct Properties {
         let text: String
     }
 
-    var properties: LabelProperties
-    var children: [RenderTree]?
+    class Component: Renderable {
+        var properties: Properties
 
-    static func createElement(text: String, _ children: [RenderTree]? = nil) -> RenderTree {
+        required init(properties: Any, children _: [RenderTree]?) {
+            self.properties = properties as! Properties
+        }
+
+        func render() -> [RenderTree]? {
+            print("Hello \(type(of: self)) \(properties.text)")
+
+            return nil
+        }
+    }
+
+    init(text: String, _ children: [RenderTree]? = nil) {
+        super.init(factory: Component.init, properties: Properties(text: text), children)
+
         print("create \(type(of: self))")
-
-        return RenderTree(
-            factory: Label.init,
-            properties: LabelProperties(text: text),
-            children
-        )
-    }
-
-    required init(properties: Any, children _: [RenderTree]?) {
-        self.properties = properties as! LabelProperties
-    }
-
-    func render() -> [RenderTree]? {
-        print("Hello \(type(of: self)) \(properties.text)")
-
-        return nil
     }
 }
 
@@ -127,16 +119,16 @@ let baz = "Some"
 let bat = "more"
 
 let tree = (
-    Scroll.createElement([
-        Section.createElement(heading: "Section one", [
-            Label.createElement(text: foo),
-            Label.createElement(text: bar),
+    Scroll([
+        Section(heading: "Section one", [
+            Label(text: foo),
+            Label(text: bar),
         ]),
-        Section.createElement(heading: "Section two", [
-            Label.createElement(text: baz),
-            Label.createElement(text: bat),
+        Section(heading: "Section two", [
+            Label(text: baz),
+            Label(text: bat),
         ]),
-        Section.createElement(heading: "Section tree"),
+        Section(heading: "Section tree"),
     ])
 )
 
