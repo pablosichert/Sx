@@ -1,17 +1,15 @@
-protocol Properties {}
-
 protocol Renderable {
-    init(properties: Properties, children: [RenderTree]?)
+    init(properties: Any, children: [RenderTree]?)
     func render() -> [RenderTree]?
 }
 
 class RenderTree {
-    typealias Factory = (Properties, [RenderTree]?) -> Renderable
+    typealias Factory = (Any, [RenderTree]?) -> Renderable
     var factory: Factory
-    var properties: Properties
+    var properties: Any
     var children: [RenderTree]?
 
-    init(factory: @escaping Factory, properties: Properties, _ children: [RenderTree]? = nil) {
+    init(factory: @escaping Factory, properties: Any, _ children: [RenderTree]? = nil) {
         self.factory = factory
         self.properties = properties
         self.children = children
@@ -19,7 +17,7 @@ class RenderTree {
 }
 
 class Scroll: Renderable {
-    struct ScrollProperties: Properties {}
+    struct ScrollProperties {}
 
     var children: [RenderTree]?
 
@@ -33,7 +31,7 @@ class Scroll: Renderable {
         )
     }
 
-    required init(properties _: Properties, children: [RenderTree]?) {
+    required init(properties _: Any, children: [RenderTree]?) {
         self.children = children
     }
 
@@ -45,7 +43,7 @@ class Scroll: Renderable {
 }
 
 class Section: Renderable {
-    struct SectionProperties: Properties {
+    struct SectionProperties {
         let heading: String
     }
 
@@ -62,7 +60,7 @@ class Section: Renderable {
         )
     }
 
-    required init(properties: Properties, children: [RenderTree]?) {
+    required init(properties: Any, children: [RenderTree]?) {
         self.properties = properties as! SectionProperties
         self.children = children
     }
@@ -75,7 +73,7 @@ class Section: Renderable {
 }
 
 class Label: Renderable {
-    struct LabelProperties: Properties {
+    struct LabelProperties {
         let text: String
     }
 
@@ -92,7 +90,7 @@ class Label: Renderable {
         )
     }
 
-    required init(properties: Properties, children _: [RenderTree]?) {
+    required init(properties: Any, children _: [RenderTree]?) {
         self.properties = properties as! LabelProperties
     }
 
