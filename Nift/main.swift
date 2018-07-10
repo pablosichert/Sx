@@ -3,7 +3,14 @@ protocol Renderable {
     func render() -> [RenderTree]?
 }
 
-class RenderTree {
+protocol RenderTree {
+    typealias Factory = (Any, [RenderTree]?) -> Renderable
+    var factory: Factory { get }
+    var properties: Any { get }
+    var children: [RenderTree]? { get }
+}
+
+class Component: RenderTree {
     struct NoProperties {}
     typealias Factory = (Any, [RenderTree]?) -> Renderable
     var factory: Factory
@@ -17,7 +24,7 @@ class RenderTree {
     }
 }
 
-class Scroll: RenderTree {
+class Scroll: Component {
     class Component: Renderable {
         var children: [RenderTree]?
 
@@ -39,7 +46,7 @@ class Scroll: RenderTree {
     }
 }
 
-class Section: RenderTree {
+class Section: Component {
     struct Properties {
         let heading: String
     }
@@ -67,7 +74,7 @@ class Section: RenderTree {
     }
 }
 
-class Label: RenderTree {
+class Label: Component {
     struct Properties {
         let text: String
     }
