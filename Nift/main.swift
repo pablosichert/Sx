@@ -4,21 +4,21 @@ protocol Renderable {
 }
 
 protocol RenderTree {
-    typealias Factory = (Any, [RenderTree]?) -> Renderable
-    var factory: Factory { get }
+    typealias Create = (Any, [RenderTree]?) -> Renderable
+    var create: Create { get }
     var properties: Any { get }
     var children: [RenderTree]? { get }
 }
 
 class Component: RenderTree {
     struct NoProperties {}
-    typealias Factory = (Any, [RenderTree]?) -> Renderable
-    var factory: Factory
+    typealias Create = (Any, [RenderTree]?) -> Renderable
+    var create: Create
     var properties: Any
     var children: [RenderTree]?
 
-    init(factory: @escaping Factory, properties: Any = NoProperties(), _ children: [RenderTree]? = nil) {
-        self.factory = factory
+    init(create: @escaping Create, properties: Any = NoProperties(), _ children: [RenderTree]? = nil) {
+        self.create = create
         self.properties = properties
         self.children = children
     }
@@ -40,7 +40,7 @@ class Scroll: Component {
     }
 
     init(_ children: [RenderTree]? = nil) {
-        super.init(factory: Component.init, children)
+        super.init(create: Component.init, children)
 
         print("create \(type(of: self))")
     }
@@ -68,7 +68,7 @@ class Section: Component {
     }
 
     init(heading: String, _ children: [RenderTree]? = nil) {
-        super.init(factory: Component.init, properties: Properties(heading: heading), children)
+        super.init(create: Component.init, properties: Properties(heading: heading), children)
 
         print("create \(type(of: self))")
     }
@@ -94,14 +94,14 @@ class Label: Component {
     }
 
     init(text: String, _ children: [RenderTree]? = nil) {
-        super.init(factory: Component.init, properties: Properties(text: text), children)
+        super.init(create: Component.init, properties: Properties(text: text), children)
 
         print("create \(type(of: self))")
     }
 }
 
 func render(_ root: RenderTree) {
-    root.factory(root.properties, root.children).render()
+    root.create(root.properties, root.children).render()
 
     render(root.children)
 }
@@ -113,7 +113,7 @@ func render(_ children: [RenderTree]?) {
                 print("\(property!): \(value)")
             }
 
-            child.factory(child.properties, child.children).render()
+            child.create(child.properties, child.children).render()
 
             render(child.children)
         }
