@@ -1,28 +1,4 @@
-protocol Renderable {
-    init(properties: Any, children: [Node]?)
-    func render() -> [Node]?
-}
-
-protocol Node {
-    typealias Create = (Any, [Node]?) -> Renderable
-    var create: Create { get }
-    var properties: Any { get }
-    var children: [Node]? { get }
-}
-
-class Base: Node {
-    struct NoProperties {}
-    typealias Create = (Any, [Node]?) -> Renderable
-    var create: Create
-    var properties: Any
-    var children: [Node]?
-
-    init(create: @escaping Create, properties: Any = NoProperties(), _ children: [Node]? = nil) {
-        self.create = create
-        self.properties = properties
-        self.children = children
-    }
-}
+import Nift
 
 class Scroll: Base {
     class Component: Renderable {
@@ -97,26 +73,6 @@ class Label: Base {
         super.init(create: Component.init, properties: Properties(text: text), children)
 
         print("create \(type(of: self))")
-    }
-}
-
-func render(_ root: Node) {
-    root.create(root.properties, root.children).render()
-
-    render(root.children)
-}
-
-func render(_ children: [Node]?) {
-    if let children = children {
-        for child in children {
-            for case let (property?, value) in Mirror(reflecting: child.properties).children {
-                print("\(property): \(value)")
-            }
-
-            child.create(child.properties, child.children).render()
-
-            render(child.children)
-        }
     }
 }
 
