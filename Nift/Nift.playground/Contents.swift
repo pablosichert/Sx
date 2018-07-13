@@ -2,20 +2,20 @@ import Nift
 
 class Scroll: Base {
     class Component: Renderable {
-        var children: [Node]?
+        var children: [Node]
 
-        required init(properties _: Any, children: [Node]?) {
+        required init(properties _: Any, children: [Node] = []) {
             self.children = children
         }
 
-        func render() -> [Node]? {
+        func render() -> [Node] {
             print("Hello \(type(of: self))")
 
-            return nil
+            return []
         }
     }
 
-    init(_ children: [Node]? = nil) {
+    init(_ children: [Node] = []) {
         super.init(create: Component.init, children)
 
         print("create \(type(of: self))")
@@ -29,21 +29,21 @@ class Section: Base {
 
     class Component: Renderable {
         var properties: Properties
-        var children: [Node]?
+        var children: [Node]
 
-        required init(properties: Any, children: [Node]?) {
+        required init(properties: Any, children: [Node] = []) {
             self.properties = properties as! Properties
             self.children = children
         }
 
-        func render() -> [Node]? {
+        func render() -> [Node] {
             print("Hello \(type(of: self)) \(properties.heading)")
 
-            return nil
+            return []
         }
     }
 
-    init(heading: String, _ children: [Node]? = nil) {
+    init(heading: String, _ children: [Node] = []) {
         super.init(create: Component.init, properties: Properties(heading: heading), children)
 
         print("create \(type(of: self))")
@@ -58,18 +58,18 @@ class Label: Base {
     class Component: Renderable {
         var properties: Properties
 
-        required init(properties: Any, children _: [Node]?) {
+        required init(properties: Any, children _: [Node]) {
             self.properties = properties as! Properties
         }
 
-        func render() -> [Node]? {
+        func render() -> [Node] {
             print("Hello \(type(of: self)) \(properties.text)")
 
-            return nil
+            return []
         }
     }
 
-    init(text: String, _ children: [Node]? = nil) {
+    init(text: String, _ children: [Node] = []) {
         super.init(create: Component.init, properties: Properties(text: text), children)
 
         print("create \(type(of: self))")
