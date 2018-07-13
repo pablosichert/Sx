@@ -1,4 +1,4 @@
-open class Base: Node {
+open class Base: Composite {
     public struct NoProperties {
         public init() {}
     }

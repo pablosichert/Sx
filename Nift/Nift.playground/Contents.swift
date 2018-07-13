@@ -1,3 +1,4 @@
+import AppKit.NSApplication
 import Nift
 
 class Scroll: Base {
@@ -95,4 +96,10 @@ let tree = (
     ])
 )
 
-render(tree)
+mount(tree)
+
+let application = mount(
+    NSApplication()
+) as! AppKit.NSApplication
+
+application.run()
