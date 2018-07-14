@@ -13,6 +13,7 @@
 		6E47C79220F67CC700612B3E /* mount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E47C79120F67CC700612B3E /* mount.swift */; };
 		6E5386A620F8E2DF0039FADB /* Native.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5386A520F8E2DF0039FADB /* Native.swift */; };
 		6E5386A820F8E7DE0039FADB /* NSApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5386A720F8E7DE0039FADB /* NSApplication.swift */; };
+		6EEDD81220F97A0D00F1883D /* NSWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEDD81120F97A0D00F1883D /* NSWindow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		6E5386A720F8E7DE0039FADB /* NSApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSApplication.swift; sourceTree = "<group>"; };
 		6EE5D94B20F53C50001851E0 /* Nift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EE5D94F20F53C50001851E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6EEDD81120F97A0D00F1883D /* NSWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSWindow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				6EE5D94F20F53C50001851E0 /* Info.plist */,
+				6EEDD81120F97A0D00F1883D /* NSWindow.swift */,
 				6E47C78B20F67C0200612B3E /* Node.swift */,
 				6E47C78F20F67C3000612B3E /* Base.swift */,
 				6E47C79120F67CC700612B3E /* mount.swift */,
@@ -147,6 +150,7 @@
 			files = (
 				6E5386A620F8E2DF0039FADB /* Native.swift in Sources */,
 				6E47C78C20F67C0200612B3E /* Node.swift in Sources */,
+				6EEDD81220F97A0D00F1883D /* NSWindow.swift in Sources */,
 				6E47C79020F67C3000612B3E /* Base.swift in Sources */,
 				6E5386A820F8E7DE0039FADB /* NSApplication.swift in Sources */,
 				6E47C79220F67CC700612B3E /* mount.swift in Sources */,

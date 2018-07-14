@@ -15,13 +15,13 @@ open class NativeBase: Native {
 }
 
 public protocol NativeRenderable {
-    init(properties: Any, children: [Node])
-    func render(_ mounts: [Any]) -> Any
+    init(properties: Any, mounts: [Any])
+    func render() -> Any
 }
 
 public protocol Native: Node {
     typealias Base = NativeBase
     typealias Renderable = NativeRenderable
-    typealias Create = (Any, [Node]) -> Renderable
+    typealias Create = (Any, [Any]) -> Renderable
     var create: Create { get }
 }

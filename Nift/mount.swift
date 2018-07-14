@@ -5,12 +5,10 @@ public func mount(_ node: Composite) -> Any {
 }
 
 public func mount(_ node: Native) -> Any {
-    let children = node.children
-    let instance = node.create(node.properties, children)
+    let mounts = node.children.map({ mount($0) })
+    let instance = node.create(node.properties, mounts)
 
-    let mounts = children.map({ mount($0) })
-
-    return instance.render(mounts)
+    return instance.render()
 }
 
 public func mount(_ node: Node) -> Any {
