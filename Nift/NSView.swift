@@ -10,7 +10,7 @@ public class NSView: Native.Base {
     class Component: Native.Renderable {
         var view: AppKit.NSView
 
-        required init(properties: Any, mounts: [Any]) {
+        required init(properties: Any, children: [Any]) {
             let properties = properties as! Properties
             let view = AppKit.NSView()
 
@@ -20,9 +20,9 @@ public class NSView: Native.Base {
                 view.layer?.backgroundColor = backgroundColor
             }
 
-            for mount in mounts {
-                if mount is AppKit.NSView {
-                    view.addSubview(mount as! AppKit.NSView)
+            for child in children {
+                if child is AppKit.NSView {
+                    view.addSubview(child as! AppKit.NSView)
                 }
             }
 

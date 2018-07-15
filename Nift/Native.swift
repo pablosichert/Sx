@@ -15,7 +15,7 @@ open class NativeBase: Native {
 }
 
 public protocol NativeRenderable {
-    init(properties: Any, mounts: [Any])
+    init(properties: Any, children: [Any])
     func render() -> Any
 }
 

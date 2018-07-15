@@ -9,19 +9,19 @@ public class NSApplication: Native.Base {
 
     class Component: Native.Renderable {
         var properties: Properties
-        var mounts: [Any]
+        var children: [Any]
         var application: AppKit.NSApplication
 
-        required init(properties: Any, mounts: [Any]) {
+        required init(properties: Any, children: [Any]) {
             self.properties = properties as! Properties
             self.application = AppKit.NSApplication.shared
             self.application.delegate = self.properties.delegate
-            self.mounts = mounts
+            self.children = children
 
-            for mount in self.mounts {
-                switch mount {
+            for child in self.children {
+                switch child {
                 case is AppKit.NSWindow:
-                    (mount as! AppKit.NSWindow).orderFront(self)
+                    (child as! AppKit.NSWindow).orderFront(self)
                 default: break
                 }
             }

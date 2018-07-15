@@ -12,7 +12,7 @@ public class NSText: Native.Base {
     class Component: Native.Renderable {
         var text: AppKit.NSText
 
-        required init(properties: Any, mounts _: [Any]) {
+        required init(properties: Any, children _: [Any]) {
             let properties = properties as! Properties
             let text = AppKit.NSText()
 

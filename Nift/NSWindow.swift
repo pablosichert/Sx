@@ -15,7 +15,7 @@ public class NSWindow: Native.Base {
         var properties: Properties
         var window: AppKit.NSWindow
 
-        required init(properties: Any, mounts: [Any]) {
+        required init(properties: Any, children: [Any]) {
             self.properties = properties as! Properties
 
             window = AppKit.NSWindow(
@@ -27,10 +27,10 @@ public class NSWindow: Native.Base {
 
             window.titlebarAppearsTransparent = self.properties.titlebarAppearsTransparent
 
-            assert(mounts.count == 1, "You must pass in exactly one view – AppKit.NSWindow.contentView expects a single AppKit.NSView")
+            assert(children.count == 1, "You must pass in exactly one view – AppKit.NSWindow.contentView expects a single AppKit.NSView")
 
-            if mounts.count == 1 {
-                if let view = mounts[0] as? AppKit.NSView {
+            if children.count == 1 {
+                if let view = children[0] as? AppKit.NSView {
                     window.contentView = view
                 } else {
                     assertionFailure("Child must be an AppKit.NSView")

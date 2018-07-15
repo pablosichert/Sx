@@ -5,8 +5,8 @@ public func render(_ node: Composite) -> Any {
 }
 
 public func render(_ node: Native) -> Any {
-    let mounts = node.children.map({ render($0) })
-    let instance = node.create(node.properties, mounts)
+    let children = node.children.map({ render($0) })
+    let instance = node.create(node.properties, children)
 
     return instance.render()
 }
