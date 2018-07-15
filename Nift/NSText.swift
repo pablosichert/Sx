@@ -2,14 +2,14 @@ import class AppKit.NSColor
 import struct AppKit.NSRect
 import class AppKit.NSText
 
-public class NSText: Native.Base {
+public class NSText: Native {
     struct Properties {
         let string: String?
         let frame: NSRect?
         let backgroundColor: NSColor?
     }
 
-    class Component: Native.Renderable {
+    class Component: Native.Component {
         var text: AppKit.NSText
 
         required init(properties: Any, children _: [Any]) {

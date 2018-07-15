@@ -1,4 +1,6 @@
-open class CompositeBase: Composite {
+open class Composite: CompositeNode {
+    typealias Component = CompositeComponent
+
     public struct NoProperties {
         public init() {}
     }
@@ -14,14 +16,12 @@ open class CompositeBase: Composite {
     }
 }
 
-public protocol CompositeRenderable {
-    init(properties: Any, children: [Node])
-    func render() -> [Node]
+public protocol CompositeNode: Node {
+    typealias Create = (Any, [Node]) -> CompositeComponent
+    var create: Create { get }
 }
 
-public protocol Composite: Node {
-    typealias Base = CompositeBase
-    typealias Renderable = CompositeRenderable
-    typealias Create = (Any, [Node]) -> Renderable
-    var create: Create { get }
+public protocol CompositeComponent {
+    init(properties: Any, children: [Node])
+    func render() -> [Node]
 }

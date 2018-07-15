@@ -2,12 +2,12 @@ import class AppKit.NSApplication
 import protocol AppKit.NSApplicationDelegate
 import class AppKit.NSWindow
 
-public class NSApplication: Native.Base {
+public class NSApplication: Native {
     struct Properties {
         let delegate: AppKit.NSApplicationDelegate
     }
 
-    class Component: Native.Renderable {
+    class Component: Native.Component {
         var application: AppKit.NSApplication
 
         required init(properties: Any, children: [Any]) {

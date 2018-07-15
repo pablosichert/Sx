@@ -1,10 +1,10 @@
-public func render(_ node: Composite) -> Any {
+public func render(_ node: CompositeNode) -> Any {
     let instance = node.create(node.properties, node.children)
 
     return render(instance.render())
 }
 
-public func render(_ node: Native) -> Any {
+public func render(_ node: NativeNode) -> Any {
     let children = node.children.map({ render($0) })
     let instance = node.create(node.properties, children)
 
@@ -13,10 +13,10 @@ public func render(_ node: Native) -> Any {
 
 public func render(_ node: Node) -> Any {
     switch node {
-    case is Native:
-        return render(node as! Native)
-    case is Composite:
-        return render(node as! Composite)
+    case is NativeNode:
+        return render(node as! NativeNode)
+    case is CompositeNode:
+        return render(node as! CompositeNode)
     default:
         return []
     }

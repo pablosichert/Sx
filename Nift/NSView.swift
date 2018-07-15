@@ -2,12 +2,12 @@ import class AppKit.NSText
 import class AppKit.NSView
 import class CoreGraphics.CGColor
 
-public class NSView: Native.Base {
+public class NSView: Native {
     struct Properties {
         let backgroundColor: CGColor?
     }
 
-    class Component: Native.Renderable {
+    class Component: Native.Component {
         var view: AppKit.NSView
 
         required init(properties: Any, children: [Any]) {

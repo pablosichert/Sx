@@ -1,4 +1,6 @@
-open class NativeBase: Native {
+open class Native: NativeNode {
+    typealias Component = NativeComponent
+
     public struct NoProperties {
         public init() {}
     }
@@ -14,14 +16,12 @@ open class NativeBase: Native {
     }
 }
 
-public protocol NativeRenderable {
-    init(properties: Any, children: [Any])
-    func render() -> Any
+public protocol NativeNode: Node {
+    typealias Create = (Any, [Any]) -> NativeComponent
+    var create: Create { get }
 }
 
-public protocol Native: Node {
-    typealias Base = NativeBase
-    typealias Renderable = NativeRenderable
-    typealias Create = (Any, [Any]) -> Renderable
-    var create: Create { get }
+public protocol NativeComponent {
+    init(properties: Any, children: [Any])
+    func render() -> Any
 }

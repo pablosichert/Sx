@@ -2,7 +2,7 @@ import class AppKit.NSView
 import class AppKit.NSWindow
 import struct Foundation.NSRect
 
-public class NSWindow: Native.Base {
+public class NSWindow: Native {
     struct Properties {
         let contentRect: NSRect
         let styleMask: AppKit.NSWindow.StyleMask
@@ -11,7 +11,7 @@ public class NSWindow: Native.Base {
         let titlebarAppearsTransparent: Bool
     }
 
-    class Component: Native.Renderable {
+    class Component: Native.Component {
         var properties: Properties
         var window: AppKit.NSWindow
 
