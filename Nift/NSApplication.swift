@@ -8,17 +8,17 @@ public class NSApplication: Native.Base {
     }
 
     class Component: Native.Renderable {
-        var properties: Properties
-        var children: [Any]
         var application: AppKit.NSApplication
 
         required init(properties: Any, children: [Any]) {
-            self.properties = properties as! Properties
-            self.application = AppKit.NSApplication.shared
-            self.application.delegate = self.properties.delegate
-            self.children = children
+            let properties = properties as! Properties
+            let application = AppKit.NSApplication.shared
 
-            for child in self.children {
+            application.delegate = properties.delegate
+
+            self.application = application
+
+            for child in children {
                 switch child {
                 case is AppKit.NSWindow:
                     (child as! AppKit.NSWindow).orderFront(self)
