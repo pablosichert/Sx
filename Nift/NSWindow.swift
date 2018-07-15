@@ -1,3 +1,4 @@
+import class AppKit.NSView
 import class AppKit.NSWindow
 import struct Foundation.NSRect
 
@@ -14,17 +15,27 @@ public class NSWindow: Native.Base {
         var properties: Properties
         var window: AppKit.NSWindow
 
-        required init(properties: Any, mounts _: [Any]) {
+        required init(properties: Any, mounts: [Any]) {
             self.properties = properties as! Properties
 
-            self.window = AppKit.NSWindow(
+            window = AppKit.NSWindow(
                 contentRect: self.properties.contentRect,
                 styleMask: self.properties.styleMask,
                 backing: self.properties.backing,
                 defer: self.properties.defer_
             )
 
-            self.window.titlebarAppearsTransparent = self.properties.titlebarAppearsTransparent
+            window.titlebarAppearsTransparent = self.properties.titlebarAppearsTransparent
+
+            assert(mounts.count == 1, "You must pass in exactly one view – AppKit.NSWindow.contentView expects a single AppKit.NSView")
+
+            if mounts.count == 1 {
+                if let view = mounts[0] as? AppKit.NSView {
+                    window.contentView = view
+                } else {
+                    assertionFailure("Child must be an AppKit.NSView")
+                }
+            }
         }
 
         func render() -> Any {
@@ -32,7 +43,7 @@ public class NSWindow: Native.Base {
         }
     }
 
-    public init(contentRect: NSRect, styleMask: AppKit.NSWindow.StyleMask, backing: AppKit.NSWindow.BackingStoreType, defer defer_: Bool, titlebarAppearsTransparent: Bool, _ children: [Node] = []) {
+    public init(contentRect: NSRect, styleMask: AppKit.NSWindow.StyleMask, backing: AppKit.NSWindow.BackingStoreType, defer defer_: Bool, titlebarAppearsTransparent: Bool = false, _ children: [Node] = []) {
         super.init(create: Component.init, properties: Properties(contentRect: contentRect, styleMask: styleMask, backing: backing, defer_: defer_, titlebarAppearsTransparent: titlebarAppearsTransparent), children)
     }
 }
