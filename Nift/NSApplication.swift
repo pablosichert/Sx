@@ -19,10 +19,8 @@ public class NSApplication: Native {
             self.application = application
 
             for child in children {
-                switch child {
-                case is AppKit.NSWindow:
-                    (child as! AppKit.NSWindow).orderFront(self)
-                default: break
+                if let window = child as? AppKit.NSWindow {
+                    window.orderFront(self)
                 }
             }
         }

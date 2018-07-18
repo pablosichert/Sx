@@ -21,8 +21,8 @@ public class NSView: Native {
             }
 
             for child in children {
-                if child is AppKit.NSView {
-                    view.addSubview(child as! AppKit.NSView)
+                if let subview = child as? AppKit.NSView {
+                    view.addSubview(subview)
                 }
             }
 

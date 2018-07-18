@@ -20,10 +20,10 @@ public func render(_ node: NativeNode) -> Any {
 
 public func render(_ node: Node) -> Any {
     switch node {
-    case is NativeNode:
-        return render(node as! NativeNode)
-    case is CompositeNode:
-        return render(node as! CompositeNode)
+    case let node as NativeNode:
+        return render(node)
+    case let node as CompositeNode:
+        return render(node)
     default:
         return []
     }
