@@ -1,5 +1,6 @@
 open class Composite: CompositeNode {
-    public typealias Component = CompositeComponent
+    public typealias Single = CompositeComponentSingle
+    public typealias Multiple = CompositeComponentMultiple
 
     public struct NoProperties {
         public init() {}
@@ -23,5 +24,12 @@ public protocol CompositeNode: Node {
 
 public protocol CompositeComponent {
     init(properties: Any, children: [Node])
+}
+
+public protocol CompositeComponentSingle: CompositeComponent {
+    func render() -> Node
+}
+
+public protocol CompositeComponentMultiple: CompositeComponent {
     func render() -> [Node]
 }

@@ -1,7 +1,14 @@
 public func render(_ node: CompositeNode) -> Any {
     let instance = node.create(node.properties, node.children)
 
-    return render(instance.render())
+    switch instance {
+    case let instance as CompositeComponentSingle:
+        return render(instance.render())
+    case let instance as CompositeComponentMultiple:
+        return render(instance.render())
+    default:
+        return []
+    }
 }
 
 public func render(_ node: NativeNode) -> Any {
