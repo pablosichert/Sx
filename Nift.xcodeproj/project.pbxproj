@@ -13,6 +13,7 @@
 		6E5386A620F8E2DF0039FADB /* Native.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5386A520F8E2DF0039FADB /* Native.swift */; };
 		6E5386A820F8E7DE0039FADB /* NSApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5386A720F8E7DE0039FADB /* NSApplication.swift */; };
 		6E5B2C3620FBB50D00F20E00 /* NSText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5B2C3520FBB50D00F20E00 /* NSText.swift */; };
+		6E71388220FF56010000F7BA /* NSMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E71388120FF56010000F7BA /* NSMenu.swift */; };
 		6EE612EC20FBBBCA00BCDDEB /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE612EB20FBBBCA00BCDDEB /* NSView.swift */; };
 		6EEDD81220F97A0D00F1883D /* NSWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEDD81120F97A0D00F1883D /* NSWindow.swift */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,7 @@
 		6E5386A520F8E2DF0039FADB /* Native.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Native.swift; sourceTree = "<group>"; };
 		6E5386A720F8E7DE0039FADB /* NSApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSApplication.swift; sourceTree = "<group>"; };
 		6E5B2C3520FBB50D00F20E00 /* NSText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSText.swift; sourceTree = "<group>"; };
+		6E71388120FF56010000F7BA /* NSMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMenu.swift; sourceTree = "<group>"; };
 		6EE5D94B20F53C50001851E0 /* Nift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EE5D94F20F53C50001851E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6EE612EB20FBBBCA00BCDDEB /* NSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				6E1827BD20F93A5900687325 /* Composite.swift */,
 				6E5B2C3520FBB50D00F20E00 /* NSText.swift */,
 				6EE612EB20FBBBCA00BCDDEB /* NSView.swift */,
+				6E71388120FF56010000F7BA /* NSMenu.swift */,
 			);
 			path = Nift;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E5386A620F8E2DF0039FADB /* Native.swift in Sources */,
+				6E71388220FF56010000F7BA /* NSMenu.swift in Sources */,
 				6E47C78C20F67C0200612B3E /* Node.swift in Sources */,
 				6EEDD81220F97A0D00F1883D /* NSWindow.swift in Sources */,
 				6E5386A820F8E7DE0039FADB /* NSApplication.swift in Sources */,
