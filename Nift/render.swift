@@ -16,50 +16,49 @@ class InvalidInstance: NodeInstance {
 
 class CompositeInstance: NodeInstance {
     var node: CompositeNode
-    var instance: CompositeComponent
-    var rendered: [NodeInstance]
+    var component: CompositeComponent
+    var children: [NodeInstance]
 
     init(_ node: CompositeNode) {
-        let node = node
-        let instance = node.create(node.properties, node.children)
-        let rendered: [NodeInstance] = {
-            switch instance {
-            case let instance as CompositeComponentSingle:
-                return [instantiate(instance.render())]
-            case let instance as CompositeComponentMultiple:
-                return instantiate(instance.render())
+        let component = node.create(node.properties, node.children)
+        let children: [NodeInstance] = {
+            switch component {
+            case let component as CompositeComponentSingle:
+                return [instantiate(component.render())]
+            case let component as CompositeComponentMultiple:
+                return instantiate(component.render())
             default:
-                return [InvalidInstance(instance)]
+                return [InvalidInstance(component)]
             }
         }()
 
         self.node = node
-        self.instance = instance
-        self.rendered = rendered
+        self.component = component
+        self.children = children
     }
 
     func mount() -> Any {
-        return rendered.compactMap({ $0.mount() })
+        return children.compactMap({ $0.mount() })
     }
 }
 
 class NativeInstance: NodeInstance {
     var node: NativeNode
-    var instance: NativeComponent
-    var rendered: [Any]
+    var component: NativeComponent
+    var children: [NodeInstance]
 
     init(_ node: NativeNode) {
-        let rendered = node.children.map({ instantiate($0) })
-        let children = rendered.map({ $0.mount() })
-        let instance = node.create(node.properties, children)
+        let children = node.children.map({ instantiate($0) })
+        let mounts = children.map({ $0.mount() })
+        let component = node.create(node.properties, mounts)
 
         self.node = node
-        self.instance = instance
-        self.rendered = rendered
+        self.component = component
+        self.children = children
     }
 
     func mount() -> Any {
-        return instance.render()
+        return component.render()
     }
 }
 
@@ -90,7 +89,7 @@ public func render(_ node: CompositeNode) -> Any {
     let instance = instantiate(node)
     let mount = instance.mount()
 
-    switch instance.instance {
+    switch instance.component {
     case is CompositeComponentSingle:
         return (mount as! [Any])[0]
     case is CompositeComponentMultiple:
