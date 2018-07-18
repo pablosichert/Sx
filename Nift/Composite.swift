@@ -1,5 +1,5 @@
 open class Composite: CompositeNode {
-    typealias Component = CompositeComponent
+    public typealias Component = CompositeComponent
 
     public struct NoProperties {
         public init() {}

@@ -1,5 +1,5 @@
 open class Native: NativeNode {
-    typealias Component = NativeComponent
+    public typealias Component = NativeComponent
 
     public struct NoProperties {
         public init() {}
