@@ -42,7 +42,7 @@ public class NSMenuItem: Native {
         }
     }
 
-    public init(title: String? = nil, action: Selector? = nil, keyEquivalent: String? = nil, _ children: [Node] = []) {
-        super.init(create: Component.init, properties: Properties(title: title, action: action, keyEquivalent: keyEquivalent), children)
+    public init(title: String? = nil, action: Selector? = nil, keyEquivalent: String? = nil, _ child: Node? = nil) {
+        super.init(create: Component.init, properties: Properties(title: title, action: action, keyEquivalent: keyEquivalent), child == nil ? [] : [child!])
     }
 }

@@ -29,7 +29,7 @@ public class NSWindow: Native {
 
             assert(children.count == 1, "You must pass in exactly one view – AppKit.NSWindow.contentView expects a single AppKit.NSView")
 
-            if children.count == 1 {
+            if children.count >= 1 {
                 if let view = children[0] as? AppKit.NSView {
                     window.contentView = view
                 } else {

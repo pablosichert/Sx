@@ -36,7 +36,7 @@ public class NSText: Native {
         }
     }
 
-    public init(string: String? = nil, frame: NSRect? = nil, backgroundColor: NSColor? = nil, _ children: [Node] = []) {
-        super.init(create: Component.init, properties: Properties(string: string, frame: frame, backgroundColor: backgroundColor), children)
+    public init(string: String? = nil, frame: NSRect? = nil, backgroundColor: NSColor? = nil) {
+        super.init(create: Component.init, properties: Properties(string: string, frame: frame, backgroundColor: backgroundColor))
     }
 }
