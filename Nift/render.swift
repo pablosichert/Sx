@@ -1,21 +1,91 @@
-protocol NodeInstance {
-    func mount() -> [Any]
+func keysTo(instances: EnumeratedSequence<[NodeInstance]>) -> Dictionary<String, (Int, NodeInstance)> {
+    var keysToInstances = Dictionary<String, (Int, NodeInstance)>()
+
+    for (index, instance) in instances {
+        if let key = instance.node.key {
+            keysToInstances[key] = (index, instance)
+        }
+    }
+
+    return keysToInstances
 }
 
-class InvalidInstance: NodeInstance {
-    let invalid: Any
+func keysTo(instances: [NodeInstance]) -> Dictionary<String, NodeInstance> {
+    var keysToInstances = Dictionary<String, NodeInstance>()
 
-    init(_ invalid: Any) {
-        self.invalid = invalid
+    for instance in instances {
+        if let key = instance.node.key {
+            keysToInstances[key] = instance
+        }
+    }
+
+    return keysToInstances
+}
+
+func keysTo(nodes: [Node]) -> Dictionary<String, Node> {
+    var keysToNodes = Dictionary<String, Node>()
+
+    for node in nodes {
+        if let key = node.key {
+            keysToNodes[key] = node
+        }
+    }
+
+    return keysToNodes
+}
+
+protocol NodeInstance {
+    var parent: NodeInstance? { get set }
+    var node: Node { get }
+
+    func mount() -> [Any]
+
+    func remove(_ mount: Any)
+
+    func update(_ node: Node)
+}
+
+class HostInstance: NodeInstance {
+    var parent: NodeInstance?
+    var node: Node
+
+    init(_ node: Node) {
+        self.node = node
     }
 
     func mount() -> [Any] {
-        return [invalid]
+        return []
+    }
+
+    func remove(_: Any) {}
+
+    func update(_: Node) {}
+}
+
+class InvalidInstance: NodeInstance {
+    var parent: NodeInstance?
+    var node: Node
+
+    init(_ node: Node) {
+        self.node = node
+    }
+
+    func mount() -> [Any] {
+        return [node]
+    }
+
+    func remove(_ mount: Any) {
+        parent?.remove(mount)
+    }
+
+    func update(_ node: Node) {
+        self.node = node
     }
 }
 
 class CompositeInstance: NodeInstance {
-    var node: CompositeNode
+    var parent: NodeInstance?
+    var node: Node
     var component: CompositeComponent
     var children: [NodeInstance]
 
@@ -28,22 +98,72 @@ class CompositeInstance: NodeInstance {
             case let component as CompositeComponentMultiple:
                 return instantiate(component.render())
             default:
-                return [InvalidInstance(component)]
+                return []
             }
         }()
 
         self.node = node
         self.component = component
         self.children = children
+
+        for var child in children {
+            child.parent = self
+        }
+    }
+
+    func update(_ node: Node) {
+        component.update(properties: node.properties)
+
+        var instances = keysTo(instances: self.children)
+
+        let children = { () -> [Node] in
+            switch component {
+            case let component as CompositeComponentSingle:
+                return [component.render()]
+            case let component as CompositeComponentMultiple:
+                return component.render()
+            default:
+                return []
+            }
+        }().map({ (child: Node) -> NodeInstance in
+            if let key = child.key {
+                if let instance = instances[key] {
+                    if child.type == instance.node.type {
+                        instances[key] = nil
+
+                        instance.update(child)
+
+                        return instance
+                    }
+                }
+            }
+
+            var instance = instantiate(child)
+            instance.parent = self
+
+            return instance
+        })
+
+        for (_, instance) in instances {
+            remove(instance.mount())
+        }
+
+        self.node = node
+        self.children = children
     }
 
     func mount() -> [Any] {
         return children.flatMap({ $0.mount() })
     }
+
+    func remove(_ mount: Any) {
+        parent?.remove(mount)
+    }
 }
 
 class NativeInstance: NodeInstance {
-    var node: NativeNode
+    var parent: NodeInstance?
+    var node: Node
     var component: NativeComponent
     var children: [NodeInstance]
 
@@ -55,10 +175,74 @@ class NativeInstance: NodeInstance {
         self.node = node
         self.component = component
         self.children = children
+
+        for var child in children {
+            child.parent = self
+        }
+    }
+
+    func update(_ node: Node) {
+        var instances = keysTo(instances: self.children.enumerated())
+
+        var operations: [Operation] = []
+
+        let children = node.children.enumerated().map({ (index: Int, child: Node) -> NodeInstance in
+            if let key = child.key {
+                if let (indexOld, instance) = instances[key] {
+                    if node.type == instance.node.type {
+                        instances[key] = nil
+
+                        instance.update(node)
+
+                        if index == indexOld {
+                            return instance
+                        }
+
+                        operations.append(
+                            Operation.reorder(mount: instance.mount(), index: index)
+                        )
+
+                        return instance
+                    }
+
+                    let old = instance.mount()
+
+                    let instance = instantiate(node)
+
+                    operations.append(
+                        Operation.replace(old: old, new: instance.mount())
+                    )
+
+                    return instance
+                }
+            }
+
+            let instance = instantiate(node)
+
+            operations.append(
+                Operation.add(mount: instance.mount())
+            )
+
+            return instance
+        })
+
+        for (_, (_, instance)) in instances {
+            operations.append(
+                Operation.remove(mount: instance.mount())
+            )
+        }
+
+        component.update(properties: node.properties, operations: operations)
+
+        self.children = children
     }
 
     func mount() -> [Any] {
         return [component.render()]
+    }
+
+    func remove(_ mount: Any) {
+        component.remove(mount)
     }
 }
 
@@ -86,7 +270,9 @@ func instantiate(_ nodes: [Node]) -> [NodeInstance] {
 }
 
 public func render(_ node: CompositeNode) -> Any {
+    let host = HostInstance(node)
     let instance = instantiate(node)
+    instance.parent = host
     let mount = instance.mount()
 
     switch instance.component {

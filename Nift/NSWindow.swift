@@ -1,8 +1,11 @@
 import class AppKit.NSView
 import class AppKit.NSWindow
 import struct Foundation.NSRect
+import struct Foundation.UUID
 
 public class NSWindow: Native {
+    static let type = UUID()
+
     struct Properties {
         let contentRect: NSRect
         let styleMask: AppKit.NSWindow.StyleMask
@@ -12,20 +15,14 @@ public class NSWindow: Native {
     }
 
     class Component: Native.Component {
-        var properties: Properties
         var window: AppKit.NSWindow
 
         required init(properties: Any, children: [Any]) {
-            self.properties = properties as! Properties
+            let properties = properties as! Properties
 
-            window = AppKit.NSWindow(
-                contentRect: self.properties.contentRect,
-                styleMask: self.properties.styleMask,
-                backing: self.properties.backing,
-                defer: self.properties.defer_
-            )
+            window = AppKit.NSWindow(contentRect: properties.contentRect, styleMask: properties.styleMask, backing: properties.backing, defer: properties.defer_)
 
-            window.titlebarAppearsTransparent = self.properties.titlebarAppearsTransparent
+            apply(properties)
 
             assert(children.count == 1, "You must pass in exactly one view – AppKit.NSWindow.contentView expects a single AppKit.NSView")
 
@@ -38,12 +35,53 @@ public class NSWindow: Native {
             }
         }
 
+        func apply(_ properties: Properties) {
+            window.titlebarAppearsTransparent = properties.titlebarAppearsTransparent
+        }
+
+        func update(properties: Any, operations: [Operation]) {
+            apply(properties as! Properties)
+
+            for operation in operations {
+                switch operation {
+                case let .add(mount):
+                    if window.contentView == nil {
+                        if let view = mount as? AppKit.NSView {
+                            if window.contentView == nil {
+                                window.contentView = view
+                            }
+                        }
+                    }
+                case .reorder:
+                    break
+                case let .replace(old, new):
+                    if let old = old as? AppKit.NSView {
+                        if window.contentView == old {
+                            if let new = new as? AppKit.NSView {
+                                window.contentView = new
+                            }
+                        }
+                    }
+                case let .remove(mount):
+                    remove(mount)
+                }
+            }
+        }
+
+        func remove(_ mount: Any) {
+            if let view = mount as? AppKit.NSView {
+                if window.contentView == view {
+                    window.contentView = nil
+                }
+            }
+        }
+
         func render() -> Any {
             return window
         }
     }
 
     public init(contentRect: NSRect, styleMask: AppKit.NSWindow.StyleMask, backing: AppKit.NSWindow.BackingStoreType, defer defer_: Bool, titlebarAppearsTransparent: Bool = false, _ children: [Node] = []) {
-        super.init(create: Component.init, properties: Properties(contentRect: contentRect, styleMask: styleMask, backing: backing, defer_: defer_, titlebarAppearsTransparent: titlebarAppearsTransparent), children)
+        super.init(type: NSWindow.type, create: Component.init, properties: Properties(contentRect: contentRect, styleMask: styleMask, backing: backing, defer_: defer_, titlebarAppearsTransparent: titlebarAppearsTransparent), children)
     }
 }

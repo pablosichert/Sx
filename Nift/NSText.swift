@@ -1,8 +1,11 @@
 import class AppKit.NSColor
 import struct AppKit.NSRect
 import class AppKit.NSText
+import struct Foundation.UUID
 
 public class NSText: Native {
+    static let type = UUID()
+
     struct Properties {
         let string: String?
         let frame: NSRect?
@@ -13,23 +16,26 @@ public class NSText: Native {
         var text: AppKit.NSText
 
         required init(properties: Any, children _: [Any]) {
-            let properties = properties as! Properties
-            let text = AppKit.NSText()
+            text = AppKit.NSText()
 
-            if let string = properties.string {
-                text.string = string
-            }
+            apply(properties as! Properties)
+        }
+
+        func apply(_ properties: Properties) {
+            text.string = properties.string ?? ""
 
             if let frame = properties.frame {
                 text.frame = frame
             }
 
-            if let backgroundColor = properties.backgroundColor {
-                text.backgroundColor = backgroundColor
-            }
-
-            self.text = text
+            text.backgroundColor = properties.backgroundColor
         }
+
+        func update(properties: Any, operations _: [Operation]) {
+            apply(properties as! Properties)
+        }
+
+        func remove(_: Any) {}
 
         func render() -> Any {
             return text
@@ -37,6 +43,6 @@ public class NSText: Native {
     }
 
     public init(string: String? = nil, frame: NSRect? = nil, backgroundColor: NSColor? = nil) {
-        super.init(create: Component.init, properties: Properties(string: string, frame: frame, backgroundColor: backgroundColor))
+        super.init(type: NSText.type, create: Component.init, properties: Properties(string: string, frame: frame, backgroundColor: backgroundColor))
     }
 }

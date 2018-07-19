@@ -1,8 +1,11 @@
 import class AppKit.NSApplication
 import protocol AppKit.NSApplicationDelegate
 import class AppKit.NSWindow
+import struct Foundation.UUID
 
 public class NSApplication: Native {
+    static let type = UUID()
+
     struct Properties {
         let delegate: AppKit.NSApplicationDelegate
     }
@@ -11,12 +14,9 @@ public class NSApplication: Native {
         var application: AppKit.NSApplication
 
         required init(properties: Any, children: [Any]) {
-            let properties = properties as! Properties
-            let application = AppKit.NSApplication.shared
+            application = AppKit.NSApplication.shared
 
-            application.delegate = properties.delegate
-
-            self.application = application
+            apply(properties as! Properties)
 
             for child in children {
                 if let window = child as? AppKit.NSWindow {
@@ -25,12 +25,35 @@ public class NSApplication: Native {
             }
         }
 
+        func apply(_ properties: Properties) {
+            application.delegate = properties.delegate
+        }
+
+        func update(properties _: Any, operations: [Operation]) {
+            for operation in operations {
+                switch operation {
+                case let .add(mount):
+                    if let window = mount as? AppKit.NSWindow {
+                        window.orderFront(self)
+                    }
+                case .reorder:
+                    break
+                case .replace:
+                    break
+                case .remove:
+                    break
+                }
+            }
+        }
+
+        func remove(_: Any) {}
+
         func render() -> Any {
             return application
         }
     }
 
     public init(delegate: AppKit.NSApplicationDelegate, _ children: [Node] = []) {
-        super.init(create: Component.init, properties: Properties(delegate: delegate), children)
+        super.init(type: NSApplication.type, create: Component.init, properties: Properties(delegate: delegate), children)
     }
 }

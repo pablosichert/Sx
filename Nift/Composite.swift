@@ -1,3 +1,5 @@
+import struct Foundation.UUID
+
 open class Composite: CompositeNode {
     public typealias Single = CompositeComponentSingle
     public typealias Multiple = CompositeComponentMultiple
@@ -6,14 +8,18 @@ open class Composite: CompositeNode {
         public init() {}
     }
 
+    public var type: UUID
     public var create: Composite.Create
     public var properties: Any
     public var children: [Node]
+    public var key: String?
 
-    public init(create: @escaping Composite.Create, properties: Any = NoProperties(), _ children: [Node] = []) {
+    public init(type: UUID, create: @escaping Composite.Create, properties: Any = NoProperties(), key: String? = nil, _ children: [Node] = []) {
+        self.type = type
         self.create = create
         self.properties = properties
         self.children = children
+        self.key = create is CompositeComponentSingle && key == nil ? "single" : key
     }
 }
 
@@ -23,7 +29,11 @@ public protocol CompositeNode: Node {
 }
 
 public protocol CompositeComponent {
+    var state: Any { get set }
+
     init(properties: Any, children: [Node])
+
+    func update(properties: Any)
 }
 
 public protocol CompositeComponentSingle: CompositeComponent {

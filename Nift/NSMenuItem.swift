@@ -1,8 +1,11 @@
 import class AppKit.NSMenu
 import class AppKit.NSMenuItem
+import struct Foundation.UUID
 import struct ObjectiveC.Selector
 
 public class NSMenuItem: Native {
+    static let type = UUID()
+
     struct Properties {
         let title: String?
         let action: Selector?
@@ -13,12 +16,19 @@ public class NSMenuItem: Native {
         let item: AppKit.NSMenuItem
 
         required init(properties: Any, children: [Any]) {
-            let properties = properties as! Properties
-            let item = AppKit.NSMenuItem()
+            item = AppKit.NSMenuItem()
 
-            if let title = properties.title {
-                item.title = title
+            apply(properties as! Properties)
+
+            if children.count >= 1 {
+                if let menu = children[0] as? AppKit.NSMenu {
+                    item.submenu = menu
+                }
             }
+        }
+
+        func apply(_ properties: Properties) {
+            item.title = properties.title ?? ""
 
             if let action = properties.action {
                 item.action = action
@@ -27,14 +37,39 @@ public class NSMenuItem: Native {
             if let keyEquivalent = properties.keyEquivalent {
                 item.keyEquivalent = keyEquivalent
             }
+        }
 
-            if children.count >= 1 {
-                if let menu = children[0] as? AppKit.NSMenu {
-                    item.submenu = menu
+        func update(properties: Any, operations: [Operation]) {
+            apply(properties as! Properties)
+
+            for operation in operations {
+                switch operation {
+                case let .add(mount):
+                    if let menu = mount as? AppKit.NSMenu {
+                        item.submenu = menu
+                    }
+                case .reorder:
+                    break
+                case let .replace(old, new):
+                    if let old = old as? AppKit.NSMenu {
+                        if item.submenu == old {
+                            if let new = new as? AppKit.NSMenu {
+                                item.submenu = new
+                            }
+                        }
+                    }
+                case let .remove(mount):
+                    remove(mount)
                 }
             }
+        }
 
-            self.item = item
+        func remove(_ mount: Any) {
+            if let menu = mount as? AppKit.NSMenu {
+                if item.submenu == menu {
+                    item.submenu = nil
+                }
+            }
         }
 
         func render() -> Any {
@@ -43,6 +78,6 @@ public class NSMenuItem: Native {
     }
 
     public init(title: String? = nil, action: Selector? = nil, keyEquivalent: String? = nil, _ child: Node? = nil) {
-        super.init(create: Component.init, properties: Properties(title: title, action: action, keyEquivalent: keyEquivalent), child == nil ? [] : [child!])
+        super.init(type: NSMenuItem.type, create: Component.init, properties: Properties(title: title, action: action, keyEquivalent: keyEquivalent), child == nil ? [] : [child!])
     }
 }
