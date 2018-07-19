@@ -1,5 +1,5 @@
 protocol NodeInstance {
-    func mount() -> Any
+    func mount() -> [Any]
 }
 
 class InvalidInstance: NodeInstance {
@@ -9,8 +9,8 @@ class InvalidInstance: NodeInstance {
         self.invalid = invalid
     }
 
-    func mount() -> Any {
-        return invalid
+    func mount() -> [Any] {
+        return [invalid]
     }
 }
 
@@ -37,8 +37,8 @@ class CompositeInstance: NodeInstance {
         self.children = children
     }
 
-    func mount() -> Any {
-        return children.compactMap({ $0.mount() })
+    func mount() -> [Any] {
+        return children.flatMap({ $0.mount() })
     }
 }
 
@@ -49,7 +49,7 @@ class NativeInstance: NodeInstance {
 
     init(_ node: NativeNode) {
         let children = node.children.map({ instantiate($0) })
-        let mounts = children.map({ $0.mount() })
+        let mounts = children.flatMap({ $0.mount() })
         let component = node.create(node.properties, mounts)
 
         self.node = node
@@ -57,8 +57,8 @@ class NativeInstance: NodeInstance {
         self.children = children
     }
 
-    func mount() -> Any {
-        return component.render()
+    func mount() -> [Any] {
+        return [component.render()]
     }
 }
 
@@ -91,7 +91,7 @@ public func render(_ node: CompositeNode) -> Any {
 
     switch instance.component {
     case is CompositeComponentSingle:
-        return (mount as! [Any])[0]
+        return mount[0]
     case is CompositeComponentMultiple:
         return mount
     default:
@@ -103,7 +103,7 @@ public func render(_ node: NativeNode) -> Any {
     let instance = instantiate(node)
     let mount = instance.mount()
 
-    return mount
+    return mount[0]
 }
 
 public func render(_ node: Node) -> Any {
