@@ -85,16 +85,7 @@ class CompositeInstance: NodeInstance {
 
     init(_ node: CompositeNode) {
         let component = node.create(node.properties, node.children)
-        let children: [NodeInstance] = {
-            switch component {
-            case let component as CompositeComponentSingle:
-                return [instantiate(component.render())]
-            case let component as CompositeComponentMultiple:
-                return instantiate(component.render())
-            default:
-                return []
-            }
-        }()
+        let children = instantiate(component.render())
 
         self.node = node
         self.component = component
@@ -110,16 +101,7 @@ class CompositeInstance: NodeInstance {
 
         var (instances, rest) = keysTo(instances: self.children)
 
-        let children = { () -> [Node] in
-            switch component {
-            case let component as CompositeComponentSingle:
-                return [component.render()]
-            case let component as CompositeComponentMultiple:
-                return component.render()
-            default:
-                return []
-            }
-        }().map({ (child: Node) -> NodeInstance in
+        let children = component.render().map({ (child: Node) -> NodeInstance in
             if let key = child.key {
                 if let instance = instances[key] {
                     if child.type == instance.node.type {
@@ -289,16 +271,8 @@ public func render(_ node: CompositeNode) -> Any {
     let host = HostInstance(node)
     let instance = instantiate(node)
     instance.parent = host
-    let mount = instance.mount()
 
-    switch instance.component {
-    case is CompositeComponentSingle:
-        return mount[0]
-    case is CompositeComponentMultiple:
-        return mount
-    default:
-        return mount
-    }
+    return instance.mount()
 }
 
 public func render(_ node: NativeNode) -> Any {

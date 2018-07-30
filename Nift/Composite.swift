@@ -1,8 +1,7 @@
 import struct Foundation.UUID
 
 open class Composite: CompositeNode {
-    public typealias Single = CompositeComponentSingle
-    public typealias Multiple = CompositeComponentMultiple
+    public typealias Component = CompositeComponent
 
     public struct NoProperties {
         public init() {}
@@ -19,7 +18,7 @@ open class Composite: CompositeNode {
         self.create = create
         self.properties = properties
         self.children = children
-        self.key = create is CompositeComponentSingle && key == nil ? "single" : key
+        self.key = key
     }
 }
 
@@ -34,12 +33,6 @@ public protocol CompositeComponent {
     init(properties: Any, children: [Node])
 
     func update(properties: Any)
-}
 
-public protocol CompositeComponentSingle: CompositeComponent {
-    func render() -> Node
-}
-
-public protocol CompositeComponentMultiple: CompositeComponent {
     func render() -> [Node]
 }
