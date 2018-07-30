@@ -53,7 +53,7 @@ public class NSApplication: Native {
         }
     }
 
-    public init(delegate: AppKit.NSApplicationDelegate, _ children: [Node] = []) {
-        super.init(type: NSApplication.type, create: Component.init, properties: Properties(delegate: delegate), children)
+    public init(delegate: AppKit.NSApplicationDelegate, key: String? = nil, _ children: [Node] = []) {
+        super.init(type: NSApplication.type, create: Component.init, properties: Properties(delegate: delegate), key: key, children)
     }
 }

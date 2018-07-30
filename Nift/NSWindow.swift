@@ -81,7 +81,7 @@ public class NSWindow: Native {
         }
     }
 
-    public init(contentRect: NSRect, styleMask: AppKit.NSWindow.StyleMask, backing: AppKit.NSWindow.BackingStoreType, defer defer_: Bool, titlebarAppearsTransparent: Bool = false, _ children: [Node] = []) {
-        super.init(type: NSWindow.type, create: Component.init, properties: Properties(contentRect: contentRect, styleMask: styleMask, backing: backing, defer_: defer_, titlebarAppearsTransparent: titlebarAppearsTransparent), children)
+    public init(contentRect: NSRect, styleMask: AppKit.NSWindow.StyleMask, backing: AppKit.NSWindow.BackingStoreType, defer defer_: Bool, titlebarAppearsTransparent: Bool = false, key: String? = nil, _ children: [Node] = []) {
+        super.init(type: NSWindow.type, create: Component.init, properties: Properties(contentRect: contentRect, styleMask: styleMask, backing: backing, defer_: defer_, titlebarAppearsTransparent: titlebarAppearsTransparent), key: key, children)
     }
 }

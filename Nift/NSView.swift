@@ -1,3 +1,4 @@
+import class AppKit.NSEvent
 import class AppKit.NSText
 import class AppKit.NSView
 import class CoreGraphics.CGColor
@@ -9,15 +10,28 @@ public class NSView: Native {
     struct Properties {
         let wantsLayer: Bool
         let backgroundColor: CGColor?
+        let mouseDown: (_ with: NSEvent) -> Void
     }
 
-    class Component: Native.Component {
-        var view: AppKit.NSView
+    class Inner: Native.Component {
+        class View: AppKit.NSView {
+            var parent: Inner?
+
+            override func mouseDown(with event: NSEvent) {
+                parent?.properties.mouseDown(event)
+            }
+        }
+
+        var view: View
+        var properties: Properties
 
         required init(properties: Any, children: [Any]) {
-            view = AppKit.NSView()
+            self.properties = properties as! Properties
 
-            apply(properties as! Properties)
+            view = View()
+            view.parent = self
+
+            apply(self.properties)
 
             for child in children {
                 if let subview = child as? AppKit.NSView {
@@ -32,7 +46,28 @@ public class NSView: Native {
             view.layer?.backgroundColor = properties.backgroundColor
         }
 
-        func update(properties _: Any, operations _: [Operation]) {
+        func update(properties: Any, operations: [Operation]) {
+            apply(properties as! Properties)
+
+            for operation in operations {
+                switch operation {
+                case let .add(mount):
+                    if let subview = mount as? AppKit.NSView {
+                        view.addSubview(subview)
+                    }
+                case .reorder:
+                    break
+                case let .replace(old, new):
+                    if let old = old as? AppKit.NSView {
+                        if let new = new as? AppKit.NSView {
+                            old.removeFromSuperview()
+                            view.addSubview(new)
+                        }
+                    }
+                case let .remove(mount):
+                    remove(mount)
+                }
+            }
         }
 
         func remove(_ mount: Any) {
@@ -46,7 +81,7 @@ public class NSView: Native {
         }
     }
 
-    public init(wantsLayer: Bool = false, backgroundColor: CGColor? = nil, _ children: [Node] = []) {
-        super.init(type: NSView.type, create: Component.init, properties: Properties(wantsLayer: wantsLayer, backgroundColor: backgroundColor), children)
+    public init(wantsLayer: Bool = false, backgroundColor: CGColor? = nil, mouseDown: @escaping (_ with: NSEvent) -> Void = { (_: NSEvent) in }, key: String? = nil, _ children: [Node] = []) {
+        super.init(type: NSView.type, create: Inner.init, properties: Properties(wantsLayer: wantsLayer, backgroundColor: backgroundColor, mouseDown: mouseDown), key: key, children)
     }
 }

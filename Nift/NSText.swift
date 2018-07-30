@@ -42,7 +42,7 @@ public class NSText: Native {
         }
     }
 
-    public init(string: String? = nil, frame: NSRect? = nil, backgroundColor: NSColor? = nil) {
-        super.init(type: NSText.type, create: Component.init, properties: Properties(string: string, frame: frame, backgroundColor: backgroundColor))
+    public init(string: String? = nil, frame: NSRect? = nil, backgroundColor: NSColor? = nil, key: String? = nil) {
+        super.init(type: NSText.type, create: Component.init, properties: Properties(string: string, frame: frame, backgroundColor: backgroundColor), key: key)
     }
 }

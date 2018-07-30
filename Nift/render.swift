@@ -1,37 +1,31 @@
-func keysTo(instances: EnumeratedSequence<[NodeInstance]>) -> Dictionary<String, (Int, NodeInstance)> {
+func keysTo(instances: EnumeratedSequence<[NodeInstance]>) -> (Dictionary<String, (Int, NodeInstance)>, [(Int, NodeInstance)]) {
     var keysToInstances = Dictionary<String, (Int, NodeInstance)>()
+    var rest: [(Int, NodeInstance)] = []
 
     for (index, instance) in instances {
         if let key = instance.node.key {
             keysToInstances[key] = (index, instance)
+        } else {
+            rest.append((index, instance))
         }
     }
 
-    return keysToInstances
+    return (keysToInstances, rest)
 }
 
-func keysTo(instances: [NodeInstance]) -> Dictionary<String, NodeInstance> {
+func keysTo(instances: [NodeInstance]) -> (Dictionary<String, NodeInstance>, [NodeInstance]) {
     var keysToInstances = Dictionary<String, NodeInstance>()
+    var rest: [NodeInstance] = []
 
     for instance in instances {
         if let key = instance.node.key {
             keysToInstances[key] = instance
+        } else {
+            rest.append(instance)
         }
     }
 
-    return keysToInstances
-}
-
-func keysTo(nodes: [Node]) -> Dictionary<String, Node> {
-    var keysToNodes = Dictionary<String, Node>()
-
-    for node in nodes {
-        if let key = node.key {
-            keysToNodes[key] = node
-        }
-    }
-
-    return keysToNodes
+    return (keysToInstances, rest)
 }
 
 protocol NodeInstance {
@@ -114,7 +108,7 @@ class CompositeInstance: NodeInstance {
     func update(_ node: Node) {
         component.update(properties: node.properties)
 
-        var instances = keysTo(instances: self.children)
+        var (instances, rest) = keysTo(instances: self.children)
 
         let children = { () -> [Node] in
             switch component {
@@ -144,8 +138,12 @@ class CompositeInstance: NodeInstance {
             return instance
         })
 
-        for (_, instance) in instances {
-            remove(instance.mount())
+        for instance in instances.values + rest {
+            let mounts = instance.mount()
+
+            for mount in mounts {
+                remove(mount)
+            }
         }
 
         self.node = node
@@ -182,32 +180,36 @@ class NativeInstance: NodeInstance {
     }
 
     func update(_ node: Node) {
-        var instances = keysTo(instances: self.children.enumerated())
+        var (instances, rest) = keysTo(instances: self.children.enumerated())
 
         var operations: [Operation] = []
 
         let children = node.children.enumerated().map({ (index: Int, child: Node) -> NodeInstance in
             if let key = child.key {
                 if let (indexOld, instance) = instances[key] {
-                    if node.type == instance.node.type {
+                    if child.type == instance.node.type {
                         instances[key] = nil
 
-                        instance.update(node)
+                        instance.update(child)
 
                         if index == indexOld {
                             return instance
                         }
 
-                        operations.append(
-                            Operation.reorder(mount: instance.mount(), index: index)
-                        )
+                        let mounts = instance.mount()
+
+                        for mount in mounts {
+                            operations.append(
+                                Operation.reorder(mount: mount, index: index)
+                            )
+                        }
 
                         return instance
                     }
 
                     let old = instance.mount()
 
-                    let instance = instantiate(node)
+                    let instance = instantiate(child)
 
                     operations.append(
                         Operation.replace(old: old, new: instance.mount())
@@ -217,19 +219,27 @@ class NativeInstance: NodeInstance {
                 }
             }
 
-            let instance = instantiate(node)
+            let instance = instantiate(child)
 
-            operations.append(
-                Operation.add(mount: instance.mount())
-            )
+            let mounts = instance.mount()
+
+            for mount in mounts {
+                operations.append(
+                    Operation.add(mount: mount)
+                )
+            }
 
             return instance
         })
 
-        for (_, (_, instance)) in instances {
-            operations.append(
-                Operation.remove(mount: instance.mount())
-            )
+        for (_, instance) in instances.values + rest {
+            let mounts = instance.mount()
+
+            for mount in mounts {
+                operations.append(
+                    Operation.remove(mount: mount)
+                )
+            }
         }
 
         component.update(properties: node.properties, operations: operations)
@@ -247,7 +257,13 @@ class NativeInstance: NodeInstance {
 }
 
 func instantiate(_ node: CompositeNode) -> CompositeInstance {
-    return CompositeInstance(node)
+    let instance = CompositeInstance(node)
+
+    instance.component.rerender = {
+        instance.update(node)
+    }
+
+    return instance
 }
 
 func instantiate(_ node: NativeNode) -> NativeInstance {

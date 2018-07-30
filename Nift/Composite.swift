@@ -29,7 +29,7 @@ public protocol CompositeNode: Node {
 }
 
 public protocol CompositeComponent {
-    var state: Any { get set }
+    var rerender: () -> Void { get set }
 
     init(properties: Any, children: [Node])
 
