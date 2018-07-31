@@ -28,7 +28,7 @@ func keysTo(instances: [NodeInstance]) -> (Dictionary<String, NodeInstance>, [No
     return (keysToInstances, rest)
 }
 
-protocol NodeInstance {
+protocol NodeInstance: class {
     var parent: NodeInstance? { get set }
     var node: Node { get }
 
@@ -40,7 +40,7 @@ protocol NodeInstance {
 }
 
 class HostInstance: NodeInstance {
-    var parent: NodeInstance?
+    weak var parent: NodeInstance?
     var node: Node
 
     init(_ node: Node) {
@@ -57,7 +57,7 @@ class HostInstance: NodeInstance {
 }
 
 class InvalidInstance: NodeInstance {
-    var parent: NodeInstance?
+    weak var parent: NodeInstance?
     var node: Node
 
     init(_ node: Node) {
@@ -78,9 +78,9 @@ class InvalidInstance: NodeInstance {
 }
 
 class CompositeInstance: NodeInstance {
-    var parent: NodeInstance?
+    weak var parent: NodeInstance?
     var node: Node
-    var component: CompositeComponent
+    var component: Composite.Interface
     var children: [NodeInstance]
 
     init(_ node: CompositeNode) {
@@ -91,7 +91,7 @@ class CompositeInstance: NodeInstance {
         self.component = component
         self.children = children
 
-        for var child in children {
+        for child in children {
             child.parent = self
         }
     }
@@ -114,7 +114,7 @@ class CompositeInstance: NodeInstance {
                 }
             }
 
-            var instance = instantiate(child)
+            let instance = instantiate(child)
             instance.parent = self
 
             return instance
@@ -142,7 +142,7 @@ class CompositeInstance: NodeInstance {
 }
 
 class NativeInstance: NodeInstance {
-    var parent: NodeInstance?
+    weak var parent: NodeInstance?
     var node: Node
     var component: NativeComponent
     var children: [NodeInstance]
@@ -156,7 +156,7 @@ class NativeInstance: NodeInstance {
         self.component = component
         self.children = children
 
-        for var child in children {
+        for child in children {
             child.parent = self
         }
     }
@@ -241,7 +241,7 @@ class NativeInstance: NodeInstance {
 func instantiate(_ node: CompositeNode) -> CompositeInstance {
     let instance = CompositeInstance(node)
 
-    instance.component.rerender = {
+    instance.component.rerender = { [unowned instance, unowned node] in
         instance.update(node)
     }
 

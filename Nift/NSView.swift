@@ -16,7 +16,7 @@ public class NSView: Native {
 
     class Inner: Native.Component {
         class View: AppKit.NSView {
-            var parent: Inner?
+            weak var parent: Inner?
 
             override func mouseDown(with event: NSEvent) {
                 parent?.properties.mouseDown(event)
