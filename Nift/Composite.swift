@@ -1,6 +1,7 @@
 import struct Foundation.UUID
 
 open class Composite: CompositeNode {
+    public typealias Interface = CompositeComponentInterface
     public typealias Component = CompositeComponent
 
     public struct NoProperties {
@@ -23,11 +24,11 @@ open class Composite: CompositeNode {
 }
 
 public protocol CompositeNode: Node {
-    typealias Create = (Any, [Node]) -> CompositeComponent
+    typealias Create = (Any, [Node]) -> Composite.Interface
     var create: Create { get }
 }
 
-public protocol CompositeComponent {
+public protocol CompositeComponentInterface {
     var rerender: () -> Void { get set }
 
     init(properties: Any, children: [Node])
@@ -35,4 +36,20 @@ public protocol CompositeComponent {
     func update(properties: Any)
 
     func render() -> [Node]
+}
+
+open class CompositeComponent<State, Properties> {
+    public var rerender = {}
+    public var state: State
+    public var properties: Properties
+
+    public init(state: State, properties: Properties) {
+        self.state = state
+        self.properties = properties
+    }
+
+    public func setState(_ state: State) {
+        self.state = state
+        self.rerender()
+    }
 }
