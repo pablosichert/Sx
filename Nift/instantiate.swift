@@ -266,33 +266,3 @@ func instantiate(_ node: Node) -> NodeInstance {
 func instantiate(_ nodes: [Node]) -> [NodeInstance] {
     return nodes.map({ instantiate($0) })
 }
-
-public func render(_ node: CompositeNode) -> Any {
-    let host = HostInstance(node)
-    let instance = instantiate(node)
-    instance.parent = host
-
-    return instance.mount()
-}
-
-public func render(_ node: NativeNode) -> Any {
-    let instance = instantiate(node)
-    let mount = instance.mount()
-
-    return mount[0]
-}
-
-public func render(_ node: Node) -> Any {
-    switch node {
-    case let node as NativeNode:
-        return render(node)
-    case let node as CompositeNode:
-        return render(node)
-    default:
-        return []
-    }
-}
-
-public func render(_ nodes: [Node]) -> [Any] {
-    return nodes.map({ render($0) })
-}
