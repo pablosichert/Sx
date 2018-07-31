@@ -11,6 +11,7 @@ public class NSView: Native {
         let wantsLayer: Bool
         let backgroundColor: CGColor?
         let mouseDown: (_ with: NSEvent) -> Void
+        let rightMouseDown: (_ with: NSEvent) -> Void
     }
 
     class Inner: Native.Component {
@@ -19,6 +20,10 @@ public class NSView: Native {
 
             override func mouseDown(with event: NSEvent) {
                 parent?.properties.mouseDown(event)
+            }
+
+            override func rightMouseDown(with event: NSEvent) {
+                parent?.properties.rightMouseDown(event)
             }
         }
 
@@ -81,7 +86,7 @@ public class NSView: Native {
         }
     }
 
-    public init(wantsLayer: Bool = false, backgroundColor: CGColor? = nil, mouseDown: @escaping (_ with: NSEvent) -> Void = { (_: NSEvent) in }, key: String? = nil, _ children: [Node] = []) {
-        super.init(type: NSView.type, create: Inner.init, properties: Properties(wantsLayer: wantsLayer, backgroundColor: backgroundColor, mouseDown: mouseDown), key: key, children)
+    public init(wantsLayer: Bool = false, backgroundColor: CGColor? = nil, mouseDown: @escaping (_ with: NSEvent) -> Void = { (_: NSEvent) in }, rightMouseDown: @escaping (_ with: NSEvent) -> Void = { (_: NSEvent) in }, key: String? = nil, _ children: [Node] = []) {
+        super.init(type: NSView.type, create: Inner.init, properties: Properties(wantsLayer: wantsLayer, backgroundColor: backgroundColor, mouseDown: mouseDown, rightMouseDown: rightMouseDown), key: key, children)
     }
 }
