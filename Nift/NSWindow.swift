@@ -9,7 +9,7 @@ public class NSWindow: Native {
     struct Properties {
         let backing: AppKit.NSWindow.BackingStoreType
         let contentRect: NSRect
-        let defer_: Bool
+        let defer_: Bool // swiftlint:disable:this identifier_name
         let styleMask: AppKit.NSWindow.StyleMask
         let titlebarAppearsTransparent: Bool
     }
@@ -89,7 +89,7 @@ public class NSWindow: Native {
     public init(
         backing: AppKit.NSWindow.BackingStoreType,
         contentRect: NSRect,
-        defer defer_: Bool,
+        defer defer_: Bool, // swiftlint:disable:this identifier_name
         styleMask: AppKit.NSWindow.StyleMask,
         titlebarAppearsTransparent: Bool = false,
         key: String? = nil,

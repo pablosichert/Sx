@@ -2,7 +2,7 @@ public class Component<Mount> {
     let instances: [NodeInstance]
 
     public var elements: [Mount] {
-        return instances.flatMap({ $0.mount() }) as! [Mount]
+        return instances.flatMap({ $0.mount() }) as! [Mount] // swiftlint:disable:this force_cast
     }
 
     public init(_ nodes: [Node]) {

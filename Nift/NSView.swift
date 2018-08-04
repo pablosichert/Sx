@@ -31,7 +31,7 @@ public class NSView: Native {
         var properties: Properties
 
         required init(properties: Any, children: [Any]) {
-            self.properties = properties as! Properties
+            self.properties = properties as! Properties // swiftlint:disable:this force_cast
 
             view = View()
             view.parent = self
