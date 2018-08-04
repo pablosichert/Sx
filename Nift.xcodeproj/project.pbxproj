@@ -71,19 +71,19 @@
 			isa = PBXGroup;
 			children = (
 				6E563E21211665FF0011B691 /* .swiftlint.yml */,
+				6E11FECA210FF59F00A47589 /* Component.swift */,
+				6E1827BD20F93A5900687325 /* Composite.swift */,
 				6EE5D94F20F53C50001851E0 /* Info.plist */,
-				6EEDD81120F97A0D00F1883D /* NSWindow.swift */,
-				6E47C78B20F67C0200612B3E /* Node.swift */,
 				6E47C79120F67CC700612B3E /* instantiate.swift */,
 				6E5386A520F8E2DF0039FADB /* Native.swift */,
+				6E47C78B20F67C0200612B3E /* Node.swift */,
 				6E5386A720F8E7DE0039FADB /* NSApplication.swift */,
-				6E1827BD20F93A5900687325 /* Composite.swift */,
-				6E5B2C3520FBB50D00F20E00 /* NSText.swift */,
-				6EE612EB20FBBBCA00BCDDEB /* NSView.swift */,
 				6E71388120FF56010000F7BA /* NSMenu.swift */,
 				6E71388320FF646C0000F7BA /* NSMenuItem.swift */,
+				6E5B2C3520FBB50D00F20E00 /* NSText.swift */,
+				6EE612EB20FBBBCA00BCDDEB /* NSView.swift */,
+				6EEDD81120F97A0D00F1883D /* NSWindow.swift */,
 				6E961ED121011793006BB3C3 /* Operation.swift */,
-				6E11FECA210FF59F00A47589 /* Component.swift */,
 			);
 			path = Nift;
 			sourceTree = "<group>";
