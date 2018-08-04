@@ -41,23 +41,6 @@ protocol NodeInstance: class {
     func update(_ node: Node)
 }
 
-class HostInstance: NodeInstance {
-    weak var parent: NodeInstance?
-    var node: Node
-
-    init(_ node: Node) {
-        self.node = node
-    }
-
-    func mount() -> [Any] {
-        return []
-    }
-
-    func remove(_: Any) {}
-
-    func update(_: Node) {}
-}
-
 class InvalidInstance: NodeInstance {
     weak var parent: NodeInstance?
     var node: Node
