@@ -1,4 +1,6 @@
-func keysTo(instances: EnumeratedSequence<[NodeInstance]>) -> (Dictionary<String, (Int, NodeInstance)>, [(Int, NodeInstance)]) {
+typealias TryMap<Key: Hashable, Value> = (Dictionary<Key, Value>, [Value])
+
+func keysTo(instances: EnumeratedSequence<[NodeInstance]>) -> TryMap<String, (Int, NodeInstance)> {
     var keysToInstances = Dictionary<String, (Int, NodeInstance)>()
     var rest: [(Int, NodeInstance)] = []
 
@@ -13,7 +15,7 @@ func keysTo(instances: EnumeratedSequence<[NodeInstance]>) -> (Dictionary<String
     return (keysToInstances, rest)
 }
 
-func keysTo(instances: [NodeInstance]) -> (Dictionary<String, NodeInstance>, [NodeInstance]) {
+func keysTo(instances: [NodeInstance]) -> TryMap<String, NodeInstance> {
     var keysToInstances = Dictionary<String, NodeInstance>()
     var rest: [NodeInstance] = []
 
