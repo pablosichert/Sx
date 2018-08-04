@@ -7,9 +7,9 @@ public class NSMenuItem: Native {
     static let type = UUID()
 
     struct Properties {
-        let title: String?
         let action: Selector?
         let keyEquivalent: String?
+        let title: String?
     }
 
     class Component: Native.Component {
@@ -77,7 +77,21 @@ public class NSMenuItem: Native {
         }
     }
 
-    public init(title: String? = nil, action: Selector? = nil, keyEquivalent: String? = nil, _ child: Node? = nil) {
-        super.init(type: NSMenuItem.type, create: Component.init, properties: Properties(title: title, action: action, keyEquivalent: keyEquivalent), child == nil ? [] : [child!])
+    public init(
+        title: String? = nil,
+        action: Selector? = nil,
+        keyEquivalent: String? = nil,
+        _ child: Node? = nil
+    ) {
+        super.init(
+            create: Component.init,
+            properties: Properties(
+                action: action,
+                keyEquivalent: keyEquivalent,
+                title: title
+            ),
+            type: NSMenuItem.type,
+            child == nil ? [] : [child!]
+        )
     }
 }

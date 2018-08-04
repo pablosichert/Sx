@@ -8,13 +8,19 @@ open class Composite: CompositeNode {
         public init() {}
     }
 
-    public var type: UUID
-    public var create: Composite.Create
-    public var properties: Any
     public var children: [Node]
+    public var create: Composite.Create
     public var key: String?
+    public var properties: Any
+    public var type: UUID
 
-    public init(type: UUID, create: @escaping Composite.Create, properties: Any = NoProperties(), key: String? = nil, _ children: [Node] = []) {
+    public init(
+        type: UUID,
+        create: @escaping Composite.Create,
+        properties: Any = NoProperties(),
+        key: String? = nil,
+        _ children: [Node] = []
+    ) {
         self.type = type
         self.create = create
         self.properties = properties
@@ -25,6 +31,7 @@ open class Composite: CompositeNode {
 
 public protocol CompositeNode: Node {
     typealias Create = (Any, [Node]) -> Composite.Interface
+
     var create: Create { get }
 }
 
@@ -38,14 +45,14 @@ public protocol CompositeComponentInterface {
     func render() -> [Node]
 }
 
-open class CompositeComponent<State, Properties> {
+open class CompositeComponent<Properties, State> {
+    public var properties: Properties
     public var rerender = {}
     public var state: State
-    public var properties: Properties
 
-    public init(state: State, properties: Properties) {
-        self.state = state
+    public init(properties: Properties, state: State) {
         self.properties = properties
+        self.state = state
     }
 
     public func setState(_ state: State) {

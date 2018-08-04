@@ -69,6 +69,11 @@ public class NSMenu: Native {
     }
 
     public init(title: String? = nil, _ children: [Node] = []) {
-        super.init(type: NSMenu.type, create: Component.init, properties: Properties(title: title), children)
+        super.init(
+            create: Component.init,
+            properties: Properties(title: title),
+            type: NSMenu.type,
+            children
+        )
     }
 }

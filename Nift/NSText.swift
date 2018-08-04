@@ -7,9 +7,9 @@ public class NSText: Native {
     static let type = UUID()
 
     struct Properties {
-        let string: String?
-        let frame: NSRect?
         let backgroundColor: NSColor?
+        let frame: NSRect?
+        let string: String?
     }
 
     class Component: Native.Component {
@@ -42,7 +42,21 @@ public class NSText: Native {
         }
     }
 
-    public init(string: String? = nil, frame: NSRect? = nil, backgroundColor: NSColor? = nil, key: String? = nil) {
-        super.init(type: NSText.type, create: Component.init, properties: Properties(string: string, frame: frame, backgroundColor: backgroundColor), key: key)
+    public init(
+        backgroundColor: NSColor? = nil,
+        frame: NSRect? = nil,
+        key: String? = nil,
+        string: String? = nil
+    ) {
+        super.init(
+            create: Component.init,
+            key: key,
+            properties: Properties(
+                backgroundColor: backgroundColor,
+                frame: frame,
+                string: string
+            ),
+            type: NSText.type
+        )
     }
 }

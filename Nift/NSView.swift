@@ -8,10 +8,10 @@ public class NSView: Native {
     static let type = UUID()
 
     struct Properties {
-        let wantsLayer: Bool
         let backgroundColor: CGColor?
         let mouseDown: (_ with: NSEvent) -> Void
         let rightMouseDown: (_ with: NSEvent) -> Void
+        let wantsLayer: Bool
     }
 
     class Inner: Native.Component {
@@ -86,7 +86,25 @@ public class NSView: Native {
         }
     }
 
-    public init(wantsLayer: Bool = false, backgroundColor: CGColor? = nil, mouseDown: @escaping (_ with: NSEvent) -> Void = { (_: NSEvent) in }, rightMouseDown: @escaping (_ with: NSEvent) -> Void = { (_: NSEvent) in }, key: String? = nil, _ children: [Node] = []) {
-        super.init(type: NSView.type, create: Inner.init, properties: Properties(wantsLayer: wantsLayer, backgroundColor: backgroundColor, mouseDown: mouseDown, rightMouseDown: rightMouseDown), key: key, children)
+    public init(
+        backgroundColor: CGColor? = nil,
+        key: String? = nil,
+        mouseDown: @escaping (_ with: NSEvent) -> Void = { (_: NSEvent) in },
+        rightMouseDown: @escaping (_ with: NSEvent) -> Void = { (_: NSEvent) in },
+        wantsLayer: Bool = false,
+        _ children: [Node] = []
+    ) {
+        super.init(
+            create: Inner.init,
+            key: key,
+            properties: Properties(
+                backgroundColor: backgroundColor,
+                mouseDown: mouseDown,
+                rightMouseDown: rightMouseDown,
+                wantsLayer: wantsLayer
+            ),
+            type: NSView.type,
+            children
+        )
     }
 }

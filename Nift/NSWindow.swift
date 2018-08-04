@@ -7,10 +7,10 @@ public class NSWindow: Native {
     static let type = UUID()
 
     struct Properties {
-        let contentRect: NSRect
-        let styleMask: AppKit.NSWindow.StyleMask
         let backing: AppKit.NSWindow.BackingStoreType
+        let contentRect: NSRect
         let defer_: Bool
+        let styleMask: AppKit.NSWindow.StyleMask
         let titlebarAppearsTransparent: Bool
     }
 
@@ -20,7 +20,12 @@ public class NSWindow: Native {
         required init(properties: Any, children: [Any]) {
             let properties = properties as! Properties
 
-            window = AppKit.NSWindow(contentRect: properties.contentRect, styleMask: properties.styleMask, backing: properties.backing, defer: properties.defer_)
+            window = AppKit.NSWindow(
+                contentRect: properties.contentRect,
+                styleMask: properties.styleMask,
+                backing: properties.backing,
+                defer: properties.defer_
+            )
 
             apply(properties)
 
@@ -81,7 +86,27 @@ public class NSWindow: Native {
         }
     }
 
-    public init(contentRect: NSRect, styleMask: AppKit.NSWindow.StyleMask, backing: AppKit.NSWindow.BackingStoreType, defer defer_: Bool, titlebarAppearsTransparent: Bool = false, key: String? = nil, _ children: [Node] = []) {
-        super.init(type: NSWindow.type, create: Component.init, properties: Properties(contentRect: contentRect, styleMask: styleMask, backing: backing, defer_: defer_, titlebarAppearsTransparent: titlebarAppearsTransparent), key: key, children)
+    public init(
+        backing: AppKit.NSWindow.BackingStoreType,
+        contentRect: NSRect,
+        defer defer_: Bool,
+        styleMask: AppKit.NSWindow.StyleMask,
+        titlebarAppearsTransparent: Bool = false,
+        key: String? = nil,
+        _ children: [Node] = []
+    ) {
+        super.init(
+            create: Component.init,
+            key: key,
+            properties: Properties(
+                backing: backing,
+                contentRect: contentRect,
+                defer_: defer_,
+                styleMask: styleMask,
+                titlebarAppearsTransparent: titlebarAppearsTransparent
+            ),
+            type: NSWindow.type,
+            children
+        )
     }
 }

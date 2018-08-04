@@ -13,7 +13,13 @@ open class Native: NativeNode {
     public var children: [Node]
     public var key: String?
 
-    public init(type: UUID, create: @escaping Native.Create, properties: Any = NoProperties(), key: String? = nil, _ children: [Node] = []) {
+    public init(
+        create: @escaping Native.Create,
+        key: String? = nil,
+        properties: Any = NoProperties(),
+        type: UUID,
+        _ children: [Node] = []
+    ) {
         self.type = type
         self.create = create
         self.properties = properties
@@ -24,15 +30,16 @@ open class Native: NativeNode {
 
 public protocol NativeNode: Node {
     typealias Create = (Any, [Any]) -> NativeComponent
+
     var create: Create { get }
 }
 
 public protocol NativeComponent {
     init(properties: Any, children: [Any])
 
-    func render() -> Any
-
     func update(properties: Any, operations: [Operation])
 
     func remove(_ mount: Any)
+
+    func render() -> Any
 }
