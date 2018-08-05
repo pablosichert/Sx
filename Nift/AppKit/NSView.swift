@@ -21,11 +21,11 @@ public class NSView: Native {
             weak var parent: Inner?
 
             override func mouseDown(with event: NSEvent) {
-                parent?.properties.mouseDown.function(event)
+                parent?.properties.mouseDown.call(event)
             }
 
             override func rightMouseDown(with event: NSEvent) {
-                parent?.properties.rightMouseDown.function(event)
+                parent?.properties.rightMouseDown.call(event)
             }
         }
 

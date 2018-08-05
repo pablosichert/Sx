@@ -6,9 +6,9 @@ public class Handler<T>: Equatable {
     }
 
     public let id = UUID() // swiftlint:disable:this identifier_name
-    public let function: T
+    public let call: T
 
     public init(_ function: T) {
-        self.function = function
+        self.call = function
     }
 }
