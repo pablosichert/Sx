@@ -6,7 +6,7 @@ import struct ObjectiveC.Selector
 public class NSMenuItem: Native {
     static let type = UUID()
 
-    struct Properties {
+    struct Properties: Equatable {
         let action: Selector?
         let keyEquivalent: String?
         let title: String?
@@ -37,6 +37,10 @@ public class NSMenuItem: Native {
             if let keyEquivalent = properties.keyEquivalent {
                 item.keyEquivalent = keyEquivalent
             }
+        }
+
+        func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
+            return a as! Properties == b as! Properties
         }
 
         func update(properties: Any, operations: [Operation]) {

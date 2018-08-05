@@ -6,7 +6,7 @@ import struct Foundation.UUID
 public class NSText: Native {
     static let type = UUID()
 
-    struct Properties {
+    struct Properties: Equatable {
         let backgroundColor: NSColor?
         let frame: NSRect?
         let string: String?
@@ -29,6 +29,10 @@ public class NSText: Native {
             }
 
             text.backgroundColor = properties.backgroundColor
+        }
+
+        func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
+            return a as! Properties == b as! Properties
         }
 
         func update(properties: Any, operations _: [Operation]) {

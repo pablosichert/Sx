@@ -1,8 +1,23 @@
 import struct Foundation.UUID
 
-public protocol Node: class {
-    var children: [Node] { get }
-    var key: String? { get }
-    var properties: Any { get }
-    var type: UUID { get }
+open class Node: Equatable {
+    public static func == (lhs: Node, rhs: Node) -> Bool {
+        return (
+            lhs.type == rhs.type &&
+                lhs.key == rhs.key &&
+                lhs.children == rhs.children
+        )
+    }
+
+    public let children: [Node]
+    public let key: String?
+    public let properties: Any
+    public let type: UUID
+
+    public init(children: [Node], key: String?, properties: Any, type: UUID) {
+        self.children = children
+        self.key = key
+        self.properties = properties
+        self.type = type
+    }
 }

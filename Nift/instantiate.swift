@@ -36,7 +36,7 @@ class CompositeInstance: NodeInstance {
     var component: Composite.Interface
     var children: [NodeInstance]
 
-    init(_ node: CompositeNode) {
+    init(_ node: Composite) {
         let component = node.create(node.properties, node.children)
         let children = instantiate(component.render())
 
@@ -50,8 +50,10 @@ class CompositeInstance: NodeInstance {
     }
 
     func update(_ node: Node) {
-        component.update(properties: node.properties)
+        force(node)
+    }
 
+    func force(_ node: Node) {
         var (instances, rest) = keysTo(instances: self.children)
 
         let children = component.render().map({ (child: Node) -> NodeInstance in
@@ -100,7 +102,7 @@ class NativeInstance: NodeInstance {
     var component: NativeComponent
     var children: [NodeInstance]
 
-    init(_ node: NativeNode) {
+    init(_ node: Native) {
         let children = node.children.map({ instantiate($0) })
         let mounts = children.flatMap({ $0.mount() })
         let component = node.create(node.properties, mounts)
@@ -191,25 +193,25 @@ class NativeInstance: NodeInstance {
     }
 }
 
-func instantiate(_ node: CompositeNode) -> CompositeInstance {
+func instantiate(_ node: Composite) -> CompositeInstance {
     let instance = CompositeInstance(node)
 
     instance.component.rerender = { [unowned instance, unowned node] in
-        instance.update(node)
+        instance.force(node)
     }
 
     return instance
 }
 
-func instantiate(_ node: NativeNode) -> NativeInstance {
+func instantiate(_ node: Native) -> NativeInstance {
     return NativeInstance(node)
 }
 
 func instantiate(_ node: Node) -> NodeInstance {
     switch node {
-    case let node as NativeNode:
+    case let node as Native:
         return instantiate(node)
-    case let node as CompositeNode:
+    case let node as Composite:
         return instantiate(node)
     default:
         return InvalidInstance(node)

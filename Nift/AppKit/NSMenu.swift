@@ -5,7 +5,7 @@ import struct Foundation.UUID
 public class NSMenu: Native {
     static let type = UUID()
 
-    struct Properties {
+    struct Properties: Equatable {
         let title: String?
     }
 
@@ -26,6 +26,10 @@ public class NSMenu: Native {
 
         func apply(_ properties: Properties) {
             menu.title = properties.title ?? ""
+        }
+
+        func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
+            return a as! Properties == b as! Properties
         }
 
         func update(properties: Any, operations: [Operation]) {

@@ -6,7 +6,11 @@ import struct Foundation.UUID
 public class NSApplication: Native {
     static let type = UUID()
 
-    struct Properties {
+    struct Properties: Equatable {
+        static func == (lhs: Properties, rhs: Properties) -> Bool {
+            return lhs.delegate === rhs.delegate
+        }
+
         let delegate: AppKit.NSApplicationDelegate
     }
 
@@ -23,6 +27,10 @@ public class NSApplication: Native {
                     window.orderFront(self)
                 }
             }
+        }
+
+        func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
+            return a as! Properties == b as! Properties
         }
 
         func apply(_ properties: Properties) {

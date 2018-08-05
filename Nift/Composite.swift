@@ -1,6 +1,7 @@
 import struct Foundation.UUID
 
-open class Composite: CompositeNode {
+open class Composite: Node {
+    public typealias Create = (Any, [Node]) -> Composite.Interface
     public typealias Interface = CompositeComponentInterface
     public typealias Component = CompositeComponent
 
@@ -8,11 +9,7 @@ open class Composite: CompositeNode {
         public init() {}
     }
 
-    public var children: [Node]
-    public var create: Composite.Create
-    public var key: String?
-    public var properties: Any
-    public var type: UUID
+    public let create: Create
 
     public init(
         type: UUID,
@@ -21,23 +18,19 @@ open class Composite: CompositeNode {
         key: String? = nil,
         _ children: [Node] = []
     ) {
-        self.type = type
         self.create = create
-        self.properties = properties
-        self.children = children
-        self.key = key
+
+        super.init(children: children, key: key, properties: properties, type: type)
     }
 }
 
-public protocol CompositeNode: Node {
-    typealias Create = (Any, [Node]) -> Composite.Interface
-
-    var create: Create { get }
-}
-
-public protocol CompositeComponentInterface {
+public protocol CompositeComponentInterfaceBase {
     var rerender: () -> Void { get set }
 
+    func equal(a: Any, b: Any) -> Bool // swiftlint:disable:this identifier_name
+}
+
+public protocol CompositeComponentInterface: CompositeComponentInterfaceBase {
     init(properties: Any, children: [Node])
 
     func update(properties: Any)
@@ -45,7 +38,7 @@ public protocol CompositeComponentInterface {
     func render() -> [Node]
 }
 
-open class CompositeComponent<Properties, State> {
+open class CompositeComponent<Properties: Equatable, State: Equatable>: CompositeComponentInterfaceBase {
     public var properties: Properties
     public var rerender = {}
     public var state: State
@@ -55,7 +48,19 @@ open class CompositeComponent<Properties, State> {
         self.state = state
     }
 
+    public func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
+        return equal(a: a as! Properties, b: b as! Properties)
+    }
+
+    public func equal(a: Properties, b: Properties) -> Bool { // swiftlint:disable:this identifier_name
+        return a == b
+    }
+
     public func setState(_ state: State) {
+        if self.state == state {
+            return
+        }
+
         self.state = state
         self.rerender()
     }

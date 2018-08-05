@@ -1,17 +1,14 @@
 import struct Foundation.UUID
 
-open class Native: NativeNode {
+open class Native: Node {
+    public typealias Create = (Any, [Any]) -> NativeComponent
     public typealias Component = NativeComponent
 
     public struct NoProperties {
         public init() {}
     }
 
-    public var type: UUID
-    public var create: Native.Create
-    public var properties: Any
-    public var children: [Node]
-    public var key: String?
+    public let create: Create
 
     public init(
         create: @escaping Native.Create,
@@ -20,22 +17,16 @@ open class Native: NativeNode {
         type: UUID,
         _ children: [Node] = []
     ) {
-        self.type = type
         self.create = create
-        self.properties = properties
-        self.children = children
-        self.key = key
+
+        super.init(children: children, key: key, properties: properties, type: type)
     }
-}
-
-public protocol NativeNode: Node {
-    typealias Create = (Any, [Any]) -> NativeComponent
-
-    var create: Create { get }
 }
 
 public protocol NativeComponent {
     init(properties: Any, children: [Any])
+
+    func equal(a: Any, b: Any) -> Bool // swiftlint:disable:this identifier_name
 
     func update(properties: Any, operations: [Operation])
 

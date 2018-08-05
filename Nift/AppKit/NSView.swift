@@ -7,7 +7,11 @@ import struct Foundation.UUID
 public class NSView: Native {
     static let type = UUID()
 
-    struct Properties {
+    struct Properties: Equatable {
+        static func == (_: NSView.Properties, _: NSView.Properties) -> Bool {
+            return false
+        }
+
         let backgroundColor: CGColor?
         let mouseDown: (_ with: NSEvent) -> Void
         let rightMouseDown: (_ with: NSEvent) -> Void
@@ -49,6 +53,10 @@ public class NSView: Native {
             view.wantsLayer = properties.wantsLayer
 
             view.layer?.backgroundColor = properties.backgroundColor
+        }
+
+        func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
+            return a as! Properties == b as! Properties
         }
 
         func update(properties: Any, operations: [Operation]) {

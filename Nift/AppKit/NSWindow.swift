@@ -6,7 +6,7 @@ import struct Foundation.UUID
 public class NSWindow: Native {
     static let type = UUID()
 
-    struct Properties {
+    struct Properties: Equatable {
         let backing: AppKit.NSWindow.BackingStoreType
         let contentRect: NSRect
         let defer_: Bool // swiftlint:disable:this identifier_name
@@ -42,6 +42,10 @@ public class NSWindow: Native {
 
         func apply(_ properties: Properties) {
             window.titlebarAppearsTransparent = properties.titlebarAppearsTransparent
+        }
+
+        func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
+            return a as! Properties == b as! Properties
         }
 
         func update(properties: Any, operations: [Operation]) {
