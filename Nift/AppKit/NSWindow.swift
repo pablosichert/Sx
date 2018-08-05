@@ -4,7 +4,7 @@ import struct Foundation.NSRect
 import struct Foundation.UUID
 
 public class NSWindow: Native {
-    static let type = UUID()
+    static let create = Handler<Native.Init>(Component.init)
 
     struct Properties: Equatable {
         let backing: AppKit.NSWindow.BackingStoreType
@@ -100,7 +100,7 @@ public class NSWindow: Native {
         _ children: [Node] = []
     ) {
         super.init(
-            create: Component.init,
+            create: NSWindow.create,
             key: key,
             properties: Properties(
                 backing: backing,
@@ -109,7 +109,6 @@ public class NSWindow: Native {
                 styleMask: styleMask,
                 titlebarAppearsTransparent: titlebarAppearsTransparent
             ),
-            type: NSWindow.type,
             children
         )
     }

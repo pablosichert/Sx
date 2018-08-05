@@ -1,7 +1,8 @@
 import struct Foundation.UUID
 
 open class Native: Node {
-    public typealias Create = (Any, [Any]) -> NativeComponent
+    public typealias Init = (Any, [Any]) -> Native.Component
+    public typealias Create = Handler<Init>
     public typealias Component = NativeComponent
 
     public struct NoProperties {
@@ -11,15 +12,14 @@ open class Native: Node {
     public let create: Create
 
     public init(
-        create: @escaping Native.Create,
+        create: Native.Create,
         key: String? = nil,
         properties: Any = NoProperties(),
-        type: UUID,
         _ children: [Node] = []
     ) {
         self.create = create
 
-        super.init(children: children, key: key, properties: properties, type: type)
+        super.init(children: children, key: key, properties: properties, type: create.id)
     }
 }
 

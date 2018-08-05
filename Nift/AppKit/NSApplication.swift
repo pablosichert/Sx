@@ -1,10 +1,9 @@
 import class AppKit.NSApplication
 import protocol AppKit.NSApplicationDelegate
 import class AppKit.NSWindow
-import struct Foundation.UUID
 
 public class NSApplication: Native {
-    static let type = UUID()
+    static let create = Handler<Native.Init>(Component.init)
 
     struct Properties: Equatable {
         static func == (lhs: Properties, rhs: Properties) -> Bool {
@@ -67,10 +66,9 @@ public class NSApplication: Native {
         _ children: [Node] = []
     ) {
         super.init(
-            create: Component.init,
+            create: NSApplication.create,
             key: key,
             properties: Properties(delegate: delegate),
-            type: NSApplication.type,
             children
         )
     }

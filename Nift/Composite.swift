@@ -1,7 +1,8 @@
 import struct Foundation.UUID
 
 open class Composite: Node {
-    public typealias Create = (Any, [Node]) -> Composite.Interface
+    public typealias Init = (Any, [Node]) -> Composite.Interface
+    public typealias Create = Handler<Init>
     public typealias Interface = CompositeComponentInterface
     public typealias Component = CompositeComponent
 
@@ -12,15 +13,14 @@ open class Composite: Node {
     public let create: Create
 
     public init(
-        type: UUID,
-        create: @escaping Composite.Create,
+        create: Composite.Create,
         properties: Any = NoProperties(),
         key: String? = nil,
         _ children: [Node] = []
     ) {
         self.create = create
 
-        super.init(children: children, key: key, properties: properties, type: type)
+        super.init(children: children, key: key, properties: properties, type: create.id)
     }
 }
 

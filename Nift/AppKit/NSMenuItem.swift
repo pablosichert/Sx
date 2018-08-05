@@ -4,7 +4,7 @@ import struct Foundation.UUID
 import struct ObjectiveC.Selector
 
 public class NSMenuItem: Native {
-    static let type = UUID()
+    static let create = Handler<Native.Init>(Component.init)
 
     struct Properties: Equatable {
         let action: Selector?
@@ -88,13 +88,12 @@ public class NSMenuItem: Native {
         _ child: Node? = nil
     ) {
         super.init(
-            create: Component.init,
+            create: NSMenuItem.create,
             properties: Properties(
                 action: action,
                 keyEquivalent: keyEquivalent,
                 title: title
             ),
-            type: NSMenuItem.type,
             child == nil ? [] : [child!]
         )
     }

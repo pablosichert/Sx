@@ -5,16 +5,14 @@ import class CoreGraphics.CGColor
 import struct Foundation.UUID
 
 public class NSView: Native {
-    static let type = UUID()
+    public typealias Event = (_ with: NSEvent) -> Void
+
+    static let create = Handler<Native.Init>(Inner.init)
 
     struct Properties: Equatable {
-        static func == (_: NSView.Properties, _: NSView.Properties) -> Bool {
-            return false
-        }
-
         let backgroundColor: CGColor?
-        let mouseDown: (_ with: NSEvent) -> Void
-        let rightMouseDown: (_ with: NSEvent) -> Void
+        let mouseDown: Handler<Event>
+        let rightMouseDown: Handler<Event>
         let wantsLayer: Bool
     }
 
@@ -23,11 +21,11 @@ public class NSView: Native {
             weak var parent: Inner?
 
             override func mouseDown(with event: NSEvent) {
-                parent?.properties.mouseDown(event)
+                parent?.properties.mouseDown.function(event)
             }
 
             override func rightMouseDown(with event: NSEvent) {
-                parent?.properties.rightMouseDown(event)
+                parent?.properties.rightMouseDown.function(event)
             }
         }
 
@@ -97,13 +95,13 @@ public class NSView: Native {
     public init(
         backgroundColor: CGColor? = nil,
         key: String? = nil,
-        mouseDown: @escaping (_ with: NSEvent) -> Void = { (_: NSEvent) in },
-        rightMouseDown: @escaping (_ with: NSEvent) -> Void = { (_: NSEvent) in },
+        mouseDown: Handler<Event> = Handler({ (_: NSEvent) in }),
+        rightMouseDown: Handler<Event> = Handler({ (_: NSEvent) in }),
         wantsLayer: Bool = false,
         _ children: [Node] = []
     ) {
         super.init(
-            create: Inner.init,
+            create: NSView.create,
             key: key,
             properties: Properties(
                 backgroundColor: backgroundColor,
@@ -111,7 +109,6 @@ public class NSView: Native {
                 rightMouseDown: rightMouseDown,
                 wantsLayer: wantsLayer
             ),
-            type: NSView.type,
             children
         )
     }

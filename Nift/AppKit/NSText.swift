@@ -4,7 +4,7 @@ import class AppKit.NSText
 import struct Foundation.UUID
 
 public class NSText: Native {
-    static let type = UUID()
+    static let create = Handler<Native.Init>(Component.init)
 
     struct Properties: Equatable {
         let backgroundColor: NSColor?
@@ -53,14 +53,13 @@ public class NSText: Native {
         string: String? = nil
     ) {
         super.init(
-            create: Component.init,
+            create: NSText.create,
             key: key,
             properties: Properties(
                 backgroundColor: backgroundColor,
                 frame: frame,
                 string: string
-            ),
-            type: NSText.type
+            )
         )
     }
 }
