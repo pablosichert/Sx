@@ -12,6 +12,10 @@ public class NSText: Native {
         let string: String?
     }
 
+    static func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
+        return a as! Properties == b as! Properties
+    }
+
     class Component: Native.Component {
         var text: AppKit.NSText
 
@@ -31,12 +35,15 @@ public class NSText: Native {
             text.backgroundColor = properties.backgroundColor
         }
 
-        func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
-            return a as! Properties == b as! Properties
+        func update(properties: Any) {
+            apply(properties as! Properties)
         }
 
-        func update(properties: Any, operations _: [Operation]) {
-            apply(properties as! Properties)
+        func update(operations _: [Operation]) {}
+
+        func update(properties: Any, operations: [Operation]) {
+            update(properties: properties)
+            update(operations: operations)
         }
 
         func remove(_: Any) {}
@@ -54,6 +61,7 @@ public class NSText: Native {
     ) {
         super.init(
             create: NSText.create,
+            equal: NSText.equal,
             key: key,
             properties: Properties(
                 backgroundColor: backgroundColor,

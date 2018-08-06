@@ -14,46 +14,62 @@ open class Composite: Node {
 
     public init(
         create: Composite.Create,
+        equal: @escaping (Any, Any) -> Bool,
         properties: Any = NoProperties(),
         key: String? = nil,
         _ children: [Node] = []
     ) {
         self.create = create
 
-        super.init(children: children, key: key, properties: properties, type: create.id)
+        super.init(
+            children: children,
+            equal: equal,
+            key: key,
+            properties: properties,
+            type: create.id
+        )
     }
 }
 
 public protocol CompositeComponentInterfaceBase {
     var rerender: () -> Void { get set }
 
-    func equal(a: Any, b: Any) -> Bool // swiftlint:disable:this identifier_name
+    func update(properties: Any)
+
+    func update(children: [Node])
+
+    func update(properties: Any, children: [Node])
 }
 
 public protocol CompositeComponentInterface: CompositeComponentInterfaceBase {
     init(properties: Any, children: [Node])
-
-    func update(properties: Any)
 
     func render() -> [Node]
 }
 
 open class CompositeComponent<Properties: Equatable, State: Equatable>: CompositeComponentInterfaceBase {
     public var properties: Properties
+    public var children: [Node]
     public var rerender = {}
     public var state: State
 
-    public init(properties: Properties, state: State) {
+    public init(properties: Properties, state: State, _ children: [Node]) {
         self.properties = properties
+        self.children = children
         self.state = state
     }
 
-    public func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
-        return equal(a: a as! Properties, b: b as! Properties)
+    public func update(properties: Any) {
+        self.properties = properties as! Properties
     }
 
-    public func equal(a: Properties, b: Properties) -> Bool { // swiftlint:disable:this identifier_name
-        return a == b
+    public func update(children: [Node]) {
+        self.children = children
+    }
+
+    public func update(properties: Any, children: [Node]) {
+        update(properties: properties)
+        update(children: children)
     }
 
     public func setState(_ state: State) {

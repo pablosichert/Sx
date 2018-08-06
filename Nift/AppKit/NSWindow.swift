@@ -14,6 +14,10 @@ public class NSWindow: Native {
         let titlebarAppearsTransparent: Bool
     }
 
+    static func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
+        return a as! Properties == b as! Properties
+    }
+
     class Component: Native.Component {
         var window: AppKit.NSWindow
 
@@ -44,13 +48,11 @@ public class NSWindow: Native {
             window.titlebarAppearsTransparent = properties.titlebarAppearsTransparent
         }
 
-        func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
-            return a as! Properties == b as! Properties
+        func update(properties: Any) {
+            apply(properties as! Properties)
         }
 
-        func update(properties: Any, operations: [Operation]) {
-            apply(properties as! Properties)
-
+        func update(operations: [Operation]) {
             for operation in operations {
                 switch operation {
                 case let .add(mount):
@@ -77,6 +79,11 @@ public class NSWindow: Native {
             }
         }
 
+        func update(properties: Any, operations: [Operation]) {
+            update(properties: properties)
+            update(operations: operations)
+        }
+
         func remove(_ mount: Any) {
             if let view = mount as? AppKit.NSView {
                 if window.contentView == view {
@@ -101,6 +108,7 @@ public class NSWindow: Native {
     ) {
         super.init(
             create: NSWindow.create,
+            equal: NSWindow.equal,
             key: key,
             properties: Properties(
                 backing: backing,

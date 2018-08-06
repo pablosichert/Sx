@@ -13,20 +13,29 @@ open class Native: Node {
 
     public init(
         create: Native.Create,
+        equal: @escaping (Any, Any) -> Bool,
         key: String? = nil,
         properties: Any = NoProperties(),
         _ children: [Node] = []
     ) {
         self.create = create
 
-        super.init(children: children, key: key, properties: properties, type: create.id)
+        super.init(
+            children: children,
+            equal: equal,
+            key: key,
+            properties: properties,
+            type: create.id
+        )
     }
 }
 
 public protocol NativeComponent {
     init(properties: Any, children: [Any])
 
-    func equal(a: Any, b: Any) -> Bool // swiftlint:disable:this identifier_name
+    func update(properties: Any)
+
+    func update(operations: [Operation])
 
     func update(properties: Any, operations: [Operation])
 

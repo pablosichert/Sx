@@ -12,6 +12,10 @@ public class NSMenuItem: Native {
         let title: String?
     }
 
+    static func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
+        return a as! Properties == b as! Properties
+    }
+
     class Component: Native.Component {
         let item: AppKit.NSMenuItem
 
@@ -39,13 +43,11 @@ public class NSMenuItem: Native {
             }
         }
 
-        func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
-            return a as! Properties == b as! Properties
+        func update(properties: Any) {
+            apply(properties as! Properties)
         }
 
-        func update(properties: Any, operations: [Operation]) {
-            apply(properties as! Properties)
-
+        func update(operations: [Operation]) {
             for operation in operations {
                 switch operation {
                 case let .add(mount):
@@ -66,6 +68,11 @@ public class NSMenuItem: Native {
                     remove(mount)
                 }
             }
+        }
+
+        func update(properties: Any, operations: [Operation]) {
+            update(properties: properties)
+            update(operations: operations)
         }
 
         func remove(_ mount: Any) {
@@ -89,6 +96,7 @@ public class NSMenuItem: Native {
     ) {
         super.init(
             create: NSMenuItem.create,
+            equal: NSMenuItem.equal,
             properties: Properties(
                 action: action,
                 keyEquivalent: keyEquivalent,

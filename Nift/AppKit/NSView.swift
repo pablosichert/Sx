@@ -16,6 +16,10 @@ public class NSView: Native {
         let wantsLayer: Bool
     }
 
+    static func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
+        return a as! Properties == b as! Properties
+    }
+
     class Inner: Native.Component {
         class View: AppKit.NSView {
             weak var parent: Inner?
@@ -53,13 +57,11 @@ public class NSView: Native {
             view.layer?.backgroundColor = properties.backgroundColor
         }
 
-        func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
-            return a as! Properties == b as! Properties
+        func update(properties: Any) {
+            apply(properties as! Properties)
         }
 
-        func update(properties: Any, operations: [Operation]) {
-            apply(properties as! Properties)
-
+        func update(operations: [Operation]) {
             for operation in operations {
                 switch operation {
                 case let .add(mount):
@@ -79,6 +81,11 @@ public class NSView: Native {
                     remove(mount)
                 }
             }
+        }
+
+        func update(properties: Any, operations: [Operation]) {
+            update(properties: properties)
+            update(operations: operations)
         }
 
         func remove(_ mount: Any) {
@@ -102,6 +109,7 @@ public class NSView: Native {
     ) {
         super.init(
             create: NSView.create,
+            equal: NSView.equal,
             key: key,
             properties: Properties(
                 backgroundColor: backgroundColor,

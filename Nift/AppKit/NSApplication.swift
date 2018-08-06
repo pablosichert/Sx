@@ -13,6 +13,10 @@ public class NSApplication: Native {
         let delegate: AppKit.NSApplicationDelegate
     }
 
+    static func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
+        return a as! Properties == b as! Properties
+    }
+
     class Component: Native.Component {
         var application: AppKit.NSApplication
 
@@ -28,15 +32,15 @@ public class NSApplication: Native {
             }
         }
 
-        func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
-            return a as! Properties == b as! Properties
-        }
-
         func apply(_ properties: Properties) {
             application.delegate = properties.delegate
         }
 
-        func update(properties _: Any, operations: [Operation]) {
+        func update(properties: Any) {
+            apply(properties as! Properties)
+        }
+
+        func update(operations: [Operation]) {
             for operation in operations {
                 switch operation {
                 case let .add(mount):
@@ -53,6 +57,11 @@ public class NSApplication: Native {
             }
         }
 
+        func update(properties: Any, operations: [Operation]) {
+            update(properties: properties)
+            update(operations: operations)
+        }
+
         func remove(_: Any) {}
 
         func render() -> Any {
@@ -67,6 +76,7 @@ public class NSApplication: Native {
     ) {
         super.init(
             create: NSApplication.create,
+            equal: NSApplication.equal,
             key: key,
             properties: Properties(delegate: delegate),
             children
