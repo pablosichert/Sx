@@ -14,10 +14,6 @@ public class NSWindow: Native {
         let titlebarAppearsTransparent: Bool
     }
 
-    static func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
-        return a as! Properties == b as! Properties
-    }
-
     class Component: Native.Component {
         var window: AppKit.NSWindow
 
@@ -108,7 +104,7 @@ public class NSWindow: Native {
     ) {
         super.init(
             create: NSWindow.create,
-            equal: NSWindow.equal,
+            equal: Equal<Properties>.call,
             key: key,
             properties: Properties(
                 backing: backing,

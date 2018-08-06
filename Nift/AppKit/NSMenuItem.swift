@@ -12,10 +12,6 @@ public class NSMenuItem: Native {
         let title: String?
     }
 
-    static func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
-        return a as! Properties == b as! Properties
-    }
-
     class Component: Native.Component {
         let item: AppKit.NSMenuItem
 
@@ -96,7 +92,7 @@ public class NSMenuItem: Native {
     ) {
         super.init(
             create: NSMenuItem.create,
-            equal: NSMenuItem.equal,
+            equal: Equal<Properties>.call,
             properties: Properties(
                 action: action,
                 keyEquivalent: keyEquivalent,

@@ -13,10 +13,6 @@ public class NSApplication: Native {
         let delegate: AppKit.NSApplicationDelegate
     }
 
-    static func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
-        return a as! Properties == b as! Properties
-    }
-
     class Component: Native.Component {
         var application: AppKit.NSApplication
 
@@ -76,7 +72,7 @@ public class NSApplication: Native {
     ) {
         super.init(
             create: NSApplication.create,
-            equal: NSApplication.equal,
+            equal: Equal<Properties>.call,
             key: key,
             properties: Properties(delegate: delegate),
             children

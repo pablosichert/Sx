@@ -16,10 +16,6 @@ public class NSView: Native {
         let wantsLayer: Bool
     }
 
-    static func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
-        return a as! Properties == b as! Properties
-    }
-
     class Inner: Native.Component {
         class View: AppKit.NSView {
             weak var parent: Inner?
@@ -109,7 +105,7 @@ public class NSView: Native {
     ) {
         super.init(
             create: NSView.create,
-            equal: NSView.equal,
+            equal: Equal<Properties>.call,
             key: key,
             properties: Properties(
                 backgroundColor: backgroundColor,

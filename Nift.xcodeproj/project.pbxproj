@@ -10,6 +10,7 @@
 		6E11FECB210FF59F00A47589 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E11FECA210FF59F00A47589 /* Component.swift */; };
 		6E1827BE20F93A5900687325 /* Composite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1827BD20F93A5900687325 /* Composite.swift */; };
 		6E2A0A322117869200D395A3 /* Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2A0A312117869200D395A3 /* Handler.swift */; };
+		6E2A0A342117E6C200D395A3 /* Equal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2A0A332117E6C200D395A3 /* Equal.swift */; };
 		6E47C78C20F67C0200612B3E /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E47C78B20F67C0200612B3E /* Node.swift */; };
 		6E47C79220F67CC700612B3E /* instantiate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E47C79120F67CC700612B3E /* instantiate.swift */; };
 		6E5386A620F8E2DF0039FADB /* Native.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5386A520F8E2DF0039FADB /* Native.swift */; };
@@ -27,6 +28,7 @@
 		6E11FECA210FF59F00A47589 /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		6E1827BD20F93A5900687325 /* Composite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Composite.swift; sourceTree = "<group>"; };
 		6E2A0A312117869200D395A3 /* Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handler.swift; sourceTree = "<group>"; };
+		6E2A0A332117E6C200D395A3 /* Equal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equal.swift; sourceTree = "<group>"; };
 		6E47C78B20F67C0200612B3E /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		6E47C79120F67CC700612B3E /* instantiate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = instantiate.swift; sourceTree = "<group>"; };
 		6E5386A520F8E2DF0039FADB /* Native.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Native.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				6E563E2321166DEE0011B691 /* AppKit */,
 				6E11FECA210FF59F00A47589 /* Component.swift */,
 				6E1827BD20F93A5900687325 /* Composite.swift */,
+				6E2A0A332117E6C200D395A3 /* Equal.swift */,
 				6E2A0A312117869200D395A3 /* Handler.swift */,
 				6EE5D94F20F53C50001851E0 /* Info.plist */,
 				6E47C79120F67CC700612B3E /* instantiate.swift */,
@@ -201,6 +204,7 @@
 				6E5386A620F8E2DF0039FADB /* Native.swift in Sources */,
 				6E71388220FF56010000F7BA /* NSMenu.swift in Sources */,
 				6E47C78C20F67C0200612B3E /* Node.swift in Sources */,
+				6E2A0A342117E6C200D395A3 /* Equal.swift in Sources */,
 				6EEDD81220F97A0D00F1883D /* NSWindow.swift in Sources */,
 				6E5386A820F8E7DE0039FADB /* NSApplication.swift in Sources */,
 				6E5B2C3620FBB50D00F20E00 /* NSText.swift in Sources */,

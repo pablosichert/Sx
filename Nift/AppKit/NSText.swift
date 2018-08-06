@@ -12,10 +12,6 @@ public class NSText: Native {
         let string: String?
     }
 
-    static func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
-        return a as! Properties == b as! Properties
-    }
-
     class Component: Native.Component {
         var text: AppKit.NSText
 
@@ -61,7 +57,7 @@ public class NSText: Native {
     ) {
         super.init(
             create: NSText.create,
-            equal: NSText.equal,
+            equal: Equal<Properties>.call,
             key: key,
             properties: Properties(
                 backgroundColor: backgroundColor,

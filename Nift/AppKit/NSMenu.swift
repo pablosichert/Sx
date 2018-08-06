@@ -9,10 +9,6 @@ public class NSMenu: Native {
         let title: String?
     }
 
-    static func equal(a: Any, b: Any) -> Bool { // swiftlint:disable:this identifier_name
-        return a as! Properties == b as! Properties
-    }
-
     class Component: Native.Component {
         let menu: AppKit.NSMenu
 
@@ -82,7 +78,7 @@ public class NSMenu: Native {
     public init(title: String? = nil, _ children: [Node] = []) {
         super.init(
             create: NSMenu.create,
-            equal: NSMenu.equal,
+            equal: Equal<Properties>.call,
             properties: Properties(title: title),
             children
         )
