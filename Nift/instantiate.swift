@@ -202,7 +202,19 @@ class NativeInstance: NodeInstance {
             }
         }
 
-        component.update(properties: node.properties, operations: operations)
+        let newProperties = !self.node.equal(self.node.properties, node.properties)
+        let newOperations = operations.count > 0
+
+        switch (newProperties, newOperations) {
+        case (false, false):
+            break
+        case (true, false):
+            component.update(properties: node.properties)
+        case (false, true):
+            component.update(operations: operations)
+        case (true, true):
+            component.update(properties: node.properties, operations: operations)
+        }
 
         self.node = node
         self.children = children
