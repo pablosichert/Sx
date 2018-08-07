@@ -101,7 +101,7 @@ public class NSWindow: Native {
         _ children: [Node] = []
     ) {
         super.init(
-            create: Component.init,
+            Component: Component.self,
             key: key,
             properties: Properties(
                 backing: backing,
@@ -110,7 +110,6 @@ public class NSWindow: Native {
                 styleMask: styleMask,
                 titlebarAppearsTransparent: titlebarAppearsTransparent
             ),
-            type: Component.self,
             children
         )
     }

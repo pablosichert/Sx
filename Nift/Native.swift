@@ -7,20 +7,19 @@ open class Native: Node {
     public let create: Create
 
     public init<Properties>(
-        create: @escaping Create,
+        Component: Renderable.Type, // swiftlint:disable:this identifier_name
         key: String?,
         properties: Properties,
-        type: Any.Type,
         _ children: [Node] = []
     ) where Properties: Equatable {
-        self.create = create
+        self.create = Component.init
 
         super.init(
             children: children,
             equal: Equal<Properties>.call,
             key: key,
             properties: properties,
-            type: type
+            type: Component
         )
     }
 }

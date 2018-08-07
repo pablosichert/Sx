@@ -54,14 +54,13 @@ public class NSText: Native {
         string: String? = nil
     ) {
         super.init(
-            create: Component.init,
+            Component: Component.self,
             key: key,
             properties: Properties(
                 backgroundColor: backgroundColor,
                 frame: frame,
                 string: string
-            ),
-            type: Component.self
+            )
         )
     }
 }

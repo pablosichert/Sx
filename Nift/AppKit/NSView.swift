@@ -102,7 +102,7 @@ public class NSView: Native {
         _ children: [Node] = []
     ) {
         super.init(
-            create: Component.init,
+            Component: Component.self,
             key: key,
             properties: Properties(
                 backgroundColor: backgroundColor,
@@ -110,7 +110,6 @@ public class NSView: Native {
                 rightMouseDown: rightMouseDown,
                 wantsLayer: wantsLayer
             ),
-            type: Component.self,
             children
         )
     }

@@ -79,10 +79,9 @@ public class NSMenu: Native {
         _ children: [Node] = []
     ) {
         super.init(
-            create: Component.init,
+            Component: Component.self,
             key: key,
             properties: Properties(title: title),
-            type: Component.self,
             children
         )
     }

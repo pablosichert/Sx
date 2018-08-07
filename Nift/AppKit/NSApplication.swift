@@ -69,10 +69,9 @@ public class NSApplication: Native {
         _ children: [Node] = []
     ) {
         super.init(
-            create: Component.init,
+            Component: Component.self,
             key: key,
             properties: Properties(delegate: delegate),
-            type: Component.self,
             children
         )
     }

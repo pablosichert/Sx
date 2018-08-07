@@ -90,14 +90,13 @@ public class NSMenuItem: Native {
         _ child: Node? = nil
     ) {
         super.init(
-            create: Component.init,
+            Component: Component.self,
             key: key,
             properties: Properties(
                 action: action,
                 keyEquivalent: keyEquivalent,
                 title: title
             ),
-            type: Component.self,
             child == nil ? [] : [child!]
         )
     }
