@@ -1,4 +1,4 @@
-public class Component<Mount> {
+public struct Component<Mount> {
     let instances: [NodeInstance]
 
     public var elements: [Mount] {
@@ -9,7 +9,7 @@ public class Component<Mount> {
         instances = instantiate(nodes)
     }
 
-    public convenience init(_ node: Node) {
+    public init(_ node: Node) {
         self.init([node])
     }
 

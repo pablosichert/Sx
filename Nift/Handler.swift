@@ -1,6 +1,6 @@
 import struct Foundation.UUID
 
-public class Handler<T>: Equatable {
+public struct Handler<T>: Equatable {
     public static func == (lhs: Handler<T>, rhs: Handler<T>) -> Bool {
         return lhs.id == rhs.id
     }
