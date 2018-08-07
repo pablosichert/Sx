@@ -11,7 +11,7 @@ public class NSApplication: Native {
         let delegate: AppKit.NSApplicationDelegate
     }
 
-    class Component: Native.Component {
+    class Component: Renderable {
         var application: AppKit.NSApplication
 
         required init(properties: Any, children: [Any]) {

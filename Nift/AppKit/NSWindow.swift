@@ -12,7 +12,7 @@ public class NSWindow: Native {
         let titlebarAppearsTransparent: Bool
     }
 
-    class Component: Native.Component {
+    class Component: Renderable {
         var window: AppKit.NSWindow
 
         required init(properties: Any, children: [Any]) {

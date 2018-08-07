@@ -1,8 +1,8 @@
 import struct Foundation.UUID
 
 open class Native: Node {
-    public typealias Create = (Any, [Any]) -> Native.Component
-    public typealias Component = NativeComponent
+    public typealias Create = (Any, [Any]) -> Renderable
+    public typealias Renderable = NativeComponent
 
     public let create: Create
 

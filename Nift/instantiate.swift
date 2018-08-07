@@ -39,7 +39,7 @@ class InvalidInstance: NodeInstance {
 class CompositeInstance: NodeInstance {
     weak var parent: NodeInstance?
     var node: Node
-    var component: Composite.Interface
+    var component: Composite.Renderable
     var children: [NodeInstance]
 
     init(_ node: Composite) {
@@ -122,7 +122,7 @@ class CompositeInstance: NodeInstance {
 class NativeInstance: NodeInstance {
     weak var parent: NodeInstance?
     var node: Node
-    var component: Native.Component
+    var component: Native.Renderable
     var children: [NodeInstance]
 
     init(_ node: Native) {

@@ -10,7 +10,7 @@ public class NSText: Native {
         let string: String?
     }
 
-    class Component: Native.Component {
+    class Component: Renderable {
         var text: AppKit.NSText
 
         required init(properties: Any, children _: [Any]) {

@@ -7,7 +7,7 @@ public class NSMenu: Native {
         let title: String?
     }
 
-    class Component: Native.Component {
+    class Component: Renderable {
         let menu: AppKit.NSMenu
 
         required init(properties: Any, children: [Any]) {

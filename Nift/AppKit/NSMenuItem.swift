@@ -10,7 +10,7 @@ public class NSMenuItem: Native {
         let title: String?
     }
 
-    class Component: Native.Component {
+    class Component: Renderable {
         let item: AppKit.NSMenuItem
 
         required init(properties: Any, children: [Any]) {

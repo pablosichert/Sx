@@ -14,9 +14,9 @@ public class NSView: Native {
         let wantsLayer: Bool
     }
 
-    class Inner: Native.Component {
+    class Component: Renderable {
         class View: AppKit.NSView {
-            weak var parent: Inner?
+            weak var parent: Component?
 
             override func mouseDown(with event: NSEvent) {
                 parent?.properties.mouseDown.call(event)
@@ -102,7 +102,7 @@ public class NSView: Native {
         _ children: [Node] = []
     ) {
         super.init(
-            create: Inner.init,
+            create: Component.init,
             key: key,
             properties: Properties(
                 backgroundColor: backgroundColor,
@@ -110,7 +110,7 @@ public class NSView: Native {
                 rightMouseDown: rightMouseDown,
                 wantsLayer: wantsLayer
             ),
-            type: Inner.self,
+            type: Component.self,
             children
         )
     }
