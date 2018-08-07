@@ -1,5 +1,3 @@
-import struct Foundation.UUID
-
 open class Node: Equatable {
     public static func == (lhs: Node, rhs: Node) -> Bool {
         return (
@@ -14,14 +12,14 @@ open class Node: Equatable {
     public let key: String?
     public let properties: Any
     public let equal: (Any, Any) -> Bool
-    public let type: UUID
+    public let type: Any.Type
 
     public init(
         children: [Node],
         equal: @escaping (Any, Any) -> Bool,
         key: String?,
         properties: Any,
-        type: UUID
+        type: Any.Type
     ) {
         self.children = children
         self.equal = equal

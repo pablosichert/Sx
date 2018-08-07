@@ -43,7 +43,7 @@ class CompositeInstance: NodeInstance {
     var children: [NodeInstance]
 
     init(_ node: Composite) {
-        let component = node.create.call(node.properties, node.children)
+        let component = node.create(node.properties, node.children)
         let children = instantiate(component.render())
 
         self.node = node
@@ -128,7 +128,7 @@ class NativeInstance: NodeInstance {
     init(_ node: Native) {
         let children = node.children.map({ instantiate($0) })
         let mounts = children.flatMap({ $0.mount() })
-        let component = node.create.call(node.properties, mounts)
+        let component = node.create(node.properties, mounts)
 
         self.node = node
         self.component = component

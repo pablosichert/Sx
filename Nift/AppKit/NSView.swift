@@ -7,8 +7,6 @@ import struct Foundation.UUID
 public class NSView: Native {
     public typealias Event = (_ with: NSEvent) -> Void
 
-    static let create = Handler<Native.Init>(Inner.init)
-
     struct Properties: Equatable {
         let backgroundColor: CGColor?
         let mouseDown: Handler<Event>
@@ -104,8 +102,7 @@ public class NSView: Native {
         _ children: [Node] = []
     ) {
         super.init(
-            create: NSView.create,
-            equal: Equal<Properties>.call,
+            create: Inner.init,
             key: key,
             properties: Properties(
                 backgroundColor: backgroundColor,
@@ -113,6 +110,7 @@ public class NSView: Native {
                 rightMouseDown: rightMouseDown,
                 wantsLayer: wantsLayer
             ),
+            type: Inner.self,
             children
         )
     }

@@ -4,8 +4,6 @@ import class AppKit.NSText
 import struct Foundation.UUID
 
 public class NSText: Native {
-    static let create = Handler<Native.Init>(Component.init)
-
     struct Properties: Equatable {
         let backgroundColor: NSColor?
         let frame: NSRect?
@@ -56,14 +54,14 @@ public class NSText: Native {
         string: String? = nil
     ) {
         super.init(
-            create: NSText.create,
-            equal: Equal<Properties>.call,
+            create: Component.init,
             key: key,
             properties: Properties(
                 backgroundColor: backgroundColor,
                 frame: frame,
                 string: string
-            )
+            ),
+            type: Component.self
         )
     }
 }

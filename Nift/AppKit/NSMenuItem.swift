@@ -4,8 +4,6 @@ import struct Foundation.UUID
 import struct ObjectiveC.Selector
 
 public class NSMenuItem: Native {
-    static let create = Handler<Native.Init>(Component.init)
-
     struct Properties: Equatable {
         let action: Selector?
         let keyEquivalent: String?
@@ -85,19 +83,21 @@ public class NSMenuItem: Native {
     }
 
     public init(
-        title: String? = nil,
         action: Selector? = nil,
+        key: String? = nil,
         keyEquivalent: String? = nil,
+        title: String? = nil,
         _ child: Node? = nil
     ) {
         super.init(
-            create: NSMenuItem.create,
-            equal: Equal<Properties>.call,
+            create: Component.init,
+            key: key,
             properties: Properties(
                 action: action,
                 keyEquivalent: keyEquivalent,
                 title: title
             ),
+            type: Component.self,
             child == nil ? [] : [child!]
         )
     }

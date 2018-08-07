@@ -3,8 +3,6 @@ import class AppKit.NSMenuItem
 import struct Foundation.UUID
 
 public class NSMenu: Native {
-    static let create = Handler<Native.Init>(Component.init)
-
     struct Properties: Equatable {
         let title: String?
     }
@@ -75,11 +73,16 @@ public class NSMenu: Native {
         }
     }
 
-    public init(title: String? = nil, _ children: [Node] = []) {
+    public init(
+        key: String? = nil,
+        title: String? = nil,
+        _ children: [Node] = []
+    ) {
         super.init(
-            create: NSMenu.create,
-            equal: Equal<Properties>.call,
+            create: Component.init,
+            key: key,
             properties: Properties(title: title),
+            type: Component.self,
             children
         )
     }

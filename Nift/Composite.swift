@@ -1,32 +1,27 @@
 import struct Foundation.UUID
 
 open class Composite: Node {
-    public typealias Init = (Any, [Node]) -> Composite.Interface
-    public typealias Create = Handler<Init>
+    public typealias Create = (Any, [Node]) -> Composite.Interface
     public typealias Interface = CompositeComponentInterface
     public typealias Component = CompositeComponent
 
-    public struct NoProperties {
-        public init() {}
-    }
-
     public let create: Create
 
-    public init(
-        create: Composite.Create,
-        equal: @escaping (Any, Any) -> Bool,
-        properties: Any = NoProperties(),
-        key: String? = nil,
+    public init<Properties>(
+        create: @escaping Create,
+        key: String?,
+        properties: Properties,
+        type: Any.Type,
         _ children: [Node] = []
-    ) {
+    ) where Properties: Equatable {
         self.create = create
 
         super.init(
             children: children,
-            equal: equal,
+            equal: Equal<Properties>.call,
             key: key,
             properties: properties,
-            type: create.id
+            type: type
         )
     }
 }

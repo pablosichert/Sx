@@ -3,8 +3,6 @@ import protocol AppKit.NSApplicationDelegate
 import class AppKit.NSWindow
 
 public class NSApplication: Native {
-    static let create = Handler<Native.Init>(Component.init)
-
     struct Properties: Equatable {
         static func == (lhs: Properties, rhs: Properties) -> Bool {
             return lhs.delegate === rhs.delegate
@@ -71,10 +69,10 @@ public class NSApplication: Native {
         _ children: [Node] = []
     ) {
         super.init(
-            create: NSApplication.create,
-            equal: Equal<Properties>.call,
+            create: Component.init,
             key: key,
             properties: Properties(delegate: delegate),
+            type: Component.self,
             children
         )
     }
