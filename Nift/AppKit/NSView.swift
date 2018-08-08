@@ -19,24 +19,24 @@ public class NSView: Native {
             weak var parent: Component?
 
             override func mouseDown(with event: NSEvent) {
-                parent?.properties.mouseDown.call(event)
+                parent?.properties?.mouseDown.call(event)
             }
 
             override func rightMouseDown(with event: NSEvent) {
-                parent?.properties.rightMouseDown.call(event)
+                parent?.properties?.rightMouseDown.call(event)
             }
         }
 
         var view: View
-        var properties: Properties
+        var properties: Properties?
 
         required init(properties: Any, children: [Any]) {
-            self.properties = properties as! Properties // swiftlint:disable:this force_cast
+            self.properties = properties as? Properties
 
             view = View()
             view.parent = self
 
-            apply(self.properties)
+            apply(properties)
 
             for child in children {
                 if let subview = child as? AppKit.NSView {
@@ -45,14 +45,20 @@ public class NSView: Native {
             }
         }
 
+        func apply(_ properties: Any) {
+            if let properties = properties as? Properties {
+                apply(properties)
+            }
+        }
+
         func apply(_ properties: Properties) {
             view.wantsLayer = properties.wantsLayer
-
             view.layer?.backgroundColor = properties.backgroundColor
+            self.properties = properties
         }
 
         func update(properties: Any) {
-            apply(properties as! Properties)
+            apply(properties)
         }
 
         func update(operations: [Operation]) {

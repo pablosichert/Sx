@@ -4,7 +4,7 @@ import protocol AppKit.NSApplicationDelegate
 import class AppKit.NSScreen
 import struct CoreGraphics.CGFloat
 import struct Foundation.Notification
-import func Foundation.NSMakeRect
+import struct Foundation.NSRect
 import class Nift.Composite
 import class Nift.Node
 import class Nift.NSApplication
@@ -29,8 +29,8 @@ public class App: Composite {
     class Component: Composite<Properties, State>, Renderable {
         let width: CGFloat
         let height: CGFloat
-        let x: CGFloat // swiftlint:disable:this identifier_name
-        let y: CGFloat // swiftlint:disable:this identifier_name
+        let x: CGFloat
+        let y: CGFloat
 
         required init(properties _: Any, children: [Node]) {
             let frame = NSScreen.main!.visibleFrame
@@ -40,8 +40,8 @@ public class App: Composite {
             let width = CGFloat(factor * frame.width)
             let height = (width / 3) * 2
 
-            let x = CGFloat((frame.width - width) / 2) // swiftlint:disable:this identifier_name
-            let y = CGFloat((frame.height - height) / 2) // swiftlint:disable:this identifier_name
+            let x = CGFloat((frame.width - width) / 2)
+            let y = CGFloat((frame.height - height) / 2)
 
             self.width = width
             self.height = height
@@ -57,9 +57,13 @@ public class App: Composite {
                     delegate: AppDelegate(),
                     key: "application", [
                         NSWindow(
-                            backing: .buffered,
-                            contentRect: NSMakeRect(self.x, self.y, self.width, self.height),
-                            defer: true,
+                            backingType: .buffered,
+                            contentRect: NSRect(
+                                x: self.x,
+                                y: self.y,
+                                width: self.width,
+                                height: self.height
+                            ),
                             styleMask: [.titled, .closable, .resizable],
                             titlebarAppearsTransparent: true,
                             key: "window", [

@@ -5,7 +5,7 @@ public struct Handler<T>: Equatable {
         return lhs.id == rhs.id
     }
 
-    public let id = UUID() // swiftlint:disable:this identifier_name
+    public let id = UUID()
     public let call: T
 
     public init(_ function: T) {

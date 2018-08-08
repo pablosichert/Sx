@@ -5,9 +5,9 @@ import struct Foundation.UUID
 
 public class NSWindow: Native {
     struct Properties: Equatable {
-        let backing: AppKit.NSWindow.BackingStoreType
+        let backingType: AppKit.NSWindow.BackingStoreType
         let contentRect: NSRect
-        let defer_: Bool // swiftlint:disable:this identifier_name
+        let defer_: Bool
         let styleMask: AppKit.NSWindow.StyleMask
         let titlebarAppearsTransparent: Bool
     }
@@ -16,16 +16,21 @@ public class NSWindow: Native {
         var window: AppKit.NSWindow
 
         required init(properties: Any, children: [Any]) {
-            let properties = properties as! Properties
-
-            window = AppKit.NSWindow(
-                contentRect: properties.contentRect,
-                styleMask: properties.styleMask,
-                backing: properties.backing,
-                defer: properties.defer_
-            )
-
-            apply(properties)
+            if let properties = properties as? Properties {
+                window = AppKit.NSWindow(
+                    contentRect: properties.contentRect,
+                    styleMask: properties.styleMask,
+                    backing: properties.backingType,
+                    defer: properties.defer_
+                )
+            } else {
+                window = AppKit.NSWindow(
+                    contentRect: .zero,
+                    styleMask: [],
+                    backing: .buffered,
+                    defer: true
+                )
+            }
 
             assert(children.count == 1, "You must pass in exactly one view – AppKit.NSWindow.contentView expects a single AppKit.NSView")
 
@@ -38,12 +43,21 @@ public class NSWindow: Native {
             }
         }
 
+        func apply(_ properties: Any) {
+            if let properties = properties as? Properties {
+                apply(properties)
+            }
+        }
+
         func apply(_ properties: Properties) {
+            window.backingType = properties.backingType
+            window.contentRect(forFrameRect: properties.contentRect)
+            window.styleMask = properties.styleMask
             window.titlebarAppearsTransparent = properties.titlebarAppearsTransparent
         }
 
         func update(properties: Any) {
-            apply(properties as! Properties)
+            apply(properties)
         }
 
         func update(operations: [Operation]) {
@@ -92,9 +106,9 @@ public class NSWindow: Native {
     }
 
     public init(
-        backing: AppKit.NSWindow.BackingStoreType,
+        backingType: AppKit.NSWindow.BackingStoreType,
         contentRect: NSRect,
-        defer defer_: Bool, // swiftlint:disable:this identifier_name
+        defer defer_: Bool = true,
         styleMask: AppKit.NSWindow.StyleMask,
         titlebarAppearsTransparent: Bool = false,
         key: String? = nil,
@@ -104,7 +118,7 @@ public class NSWindow: Native {
             Component: Component.self,
             key: key,
             properties: Properties(
-                backing: backing,
+                backingType: backingType,
                 contentRect: contentRect,
                 defer_: defer_,
                 styleMask: styleMask,

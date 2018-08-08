@@ -8,7 +8,7 @@ open class Composite: Node {
     public let create: Create
 
     public init<Properties>(
-        Component: Renderable.Type, // swiftlint:disable:this identifier_name
+        Component: Renderable.Type,
         key: String?,
         properties: Properties,
         _ children: [Node] = []
@@ -54,7 +54,13 @@ open class CompositeComponent<Properties: Equatable, State: Equatable>: Composit
     }
 
     public func update(properties: Any) {
-        self.properties = properties as! Properties
+        if let properties = properties as? Properties {
+            update(properties: properties)
+        }
+    }
+
+    public func update(properties: Properties) {
+        self.properties = properties
     }
 
     public func update(children: [Node]) {

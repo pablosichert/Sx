@@ -7,7 +7,7 @@ open class Native: Node {
     public let create: Create
 
     public init<Properties>(
-        Component: Renderable.Type, // swiftlint:disable:this identifier_name
+        Component: Renderable.Type,
         key: String?,
         properties: Properties,
         _ children: [Node] = []

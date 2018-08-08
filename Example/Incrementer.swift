@@ -68,7 +68,12 @@ class Incrementer: Composite {
                     rightMouseDown: decreaseHandler,
                     wantsLayer: true, [
                         NSText(
-                            frame: CGRect(x: properties.x - width / 2, y: properties.y + height / 20, width: width, height: height),
+                            frame: CGRect(
+                                x: properties.x - width / 2,
+                                y: properties.y + height / 20,
+                                width: width,
+                                height: height
+                            ),
                             key: "count",
                             string: "Count is " + String(state.count)
                         ),

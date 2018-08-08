@@ -16,7 +16,13 @@ public class NSText: Native {
         required init(properties: Any, children _: [Any]) {
             text = AppKit.NSText()
 
-            apply(properties as! Properties)
+            apply(properties)
+        }
+
+        func apply(_ properties: Any) {
+            if let properties = properties as? Properties {
+                apply(properties)
+            }
         }
 
         func apply(_ properties: Properties) {
@@ -30,7 +36,7 @@ public class NSText: Native {
         }
 
         func update(properties: Any) {
-            apply(properties as! Properties)
+            apply(properties)
         }
 
         func update(operations _: [Operation]) {}

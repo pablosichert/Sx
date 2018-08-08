@@ -8,10 +8,11 @@ private func applier<Root, Value>(path: ReferenceWritableKeyPath<Root, Value>, v
 
 public struct Property<Root>: Equatable {
     public static func == (lhs: Property<Root>, rhs: Property<Root>) -> Bool {
-        return (
-            lhs.pathsEqual(lhs.path, rhs.path) &&
-                (lhs.valuesEqual(lhs.value, rhs.value) || lhs.id == rhs.id)
-        )
+        let pathsEqual = lhs.pathsEqual(lhs.path, rhs.path)
+        let valuesEqual = lhs.valuesEqual(lhs.value, rhs.value)
+        let idsEqual = lhs.id == rhs.id
+
+        return pathsEqual && (valuesEqual || idsEqual)
     }
 
     public let apply: (Root) -> Void

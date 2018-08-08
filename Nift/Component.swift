@@ -2,7 +2,11 @@ public struct Component<Mount> {
     let instances: [NodeInstance]
 
     public var elements: [Mount] {
-        return instances.flatMap({ $0.mount() }) as! [Mount] // swiftlint:disable:this force_cast
+        if let elements = instances.flatMap({ $0.mount() }) as? [Mount] {
+            return elements
+        }
+
+        return []
     }
 
     public init(_ nodes: [Node]) {
