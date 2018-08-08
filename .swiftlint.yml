@@ -1,1 +1,8 @@
+disabled_rules:
+- cyclomatic_complexity
+- function_body_length
+- identifier_name
+- nesting
+- trailing_comma
+
 force_cast: warning
