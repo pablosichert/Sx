@@ -13,7 +13,7 @@ public class NSMenu: Native {
         required init(properties: Any, children: [Any]) {
             menu = AppKit.NSMenu()
 
-            apply(properties)
+            apply(properties as! Properties)
 
             for child in children {
                 if let item = child as? AppKit.NSMenuItem {
@@ -22,18 +22,12 @@ public class NSMenu: Native {
             }
         }
 
-        func apply(_ properties: Any) {
-            if let properties = properties as? Properties {
-                apply(properties)
-            }
-        }
-
         func apply(_ properties: Properties) {
             menu.title = properties.title ?? ""
         }
 
         func update(properties: Any) {
-            apply(properties)
+            apply(properties as! Properties)
         }
 
         func update(operations: [Operation]) {

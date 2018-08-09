@@ -54,9 +54,7 @@ open class CompositeComponent<Properties: Equatable, State: Equatable>: Composit
     }
 
     public func update(properties: Any) {
-        if let properties = properties as? Properties {
-            update(properties: properties)
-        }
+        update(properties: properties as! Properties)
     }
 
     public func update(properties: Properties) {

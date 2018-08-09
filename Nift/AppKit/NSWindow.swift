@@ -17,23 +17,16 @@ public class NSWindow: Native {
         var window: AppKit.NSWindow
 
         required init(properties: Any, children: [Any]) {
-            if let properties = properties as? Properties {
-                window = AppKit.NSWindow(
-                    contentRect: properties.contentRect,
-                    styleMask: properties.styleMask,
-                    backing: properties.backingType,
-                    defer: properties.defer_
-                )
-            } else {
-                window = AppKit.NSWindow(
-                    contentRect: .zero,
-                    styleMask: [],
-                    backing: .buffered,
-                    defer: true
-                )
-            }
+            let properties = properties as! Properties
 
-            apply(properties as! Properties)
+            window = AppKit.NSWindow(
+                contentRect: properties.contentRect,
+                styleMask: properties.styleMask,
+                backing: properties.backingType,
+                defer: properties.defer_
+            )
+
+            apply(properties)
 
             assert(children.count == 1, "You must pass in exactly one view – AppKit.NSWindow.contentView expects a single AppKit.NSView")
 
@@ -43,12 +36,6 @@ public class NSWindow: Native {
                 } else {
                     assertionFailure("Child must be an AppKit.NSView")
                 }
-            }
-        }
-
-        func apply(_ properties: Any) {
-            if let properties = properties as? Properties {
-                apply(properties)
             }
         }
 
@@ -64,7 +51,7 @@ public class NSWindow: Native {
         }
 
         func update(properties: Any) {
-            apply(properties)
+            apply(properties as! Properties)
         }
 
         func update(operations: [Operation]) {

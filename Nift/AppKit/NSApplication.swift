@@ -17,7 +17,7 @@ public class NSApplication: Native {
         required init(properties: Any, children: [Any]) {
             application = AppKit.NSApplication.shared
 
-            apply(properties)
+            apply(properties as! Properties)
 
             for child in children {
                 if let window = child as? AppKit.NSWindow {
@@ -26,18 +26,12 @@ public class NSApplication: Native {
             }
         }
 
-        func apply(_ properties: Any) {
-            if let properties = properties as? Properties {
-                apply(properties)
-            }
-        }
-
         func apply(_ properties: Properties) {
             application.delegate = properties.delegate
         }
 
         func update(properties: Any) {
-            apply(properties)
+            apply(properties as! Properties)
         }
 
         func update(operations: [Operation]) {

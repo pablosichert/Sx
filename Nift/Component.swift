@@ -2,11 +2,7 @@ public struct Component<Mount> {
     let instances: [NodeInstance]
 
     public var elements: [Mount] {
-        if let elements = instances.flatMap({ $0.mount() }) as? [Mount] {
-            return elements
-        }
-
-        return []
+        return instances.flatMap({ $0.mount() }) as! [Mount]
     }
 
     public init(_ nodes: [Node]) {

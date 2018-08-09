@@ -36,18 +36,12 @@ public class NSView: Native {
             view = View()
             view.parent = self
 
-            apply(properties)
+            apply(properties as! Properties)
 
             for child in children {
                 if let subview = child as? AppKit.NSView {
                     view.addSubview(subview)
                 }
-            }
-        }
-
-        func apply(_ properties: Any) {
-            if let properties = properties as? Properties {
-                apply(properties)
             }
         }
 
@@ -58,7 +52,7 @@ public class NSView: Native {
         }
 
         func update(properties: Any) {
-            apply(properties)
+            apply(properties as! Properties)
         }
 
         func update(operations: [Operation]) {

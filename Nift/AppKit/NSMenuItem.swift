@@ -16,18 +16,12 @@ public class NSMenuItem: Native {
         required init(properties: Any, children: [Any]) {
             item = AppKit.NSMenuItem()
 
-            apply(properties)
+            apply(properties as! Properties)
 
             if children.count >= 1 {
                 if let menu = children[0] as? AppKit.NSMenu {
                     item.submenu = menu
                 }
-            }
-        }
-
-        func apply(_ properties: Any) {
-            if let properties = properties as? Properties {
-                apply(properties)
             }
         }
 
@@ -44,7 +38,7 @@ public class NSMenuItem: Native {
         }
 
         func update(properties: Any) {
-            apply(properties)
+            apply(properties as! Properties)
         }
 
         func update(operations: [Operation]) {
