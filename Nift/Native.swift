@@ -1,30 +1,27 @@
 import struct Foundation.UUID
 
-open class Native: Node {
+public struct Native {
     public typealias Create = (Any, [Any]) -> Renderable
-    public typealias Renderable = NativeComponent
+    public typealias Renderable = NativeComponentRenderable
 
-    public let create: Create
-
-    public init<Properties>(
+    public static func create<Properties>(
         Component: Renderable.Type,
         key: String?,
         properties: Properties,
         _ children: [Node] = []
-    ) where Properties: Equatable {
-        self.create = Component.init
-
-        super.init(
+    ) -> Node where Properties: Equatable {
+        return Node(
             children: children,
+            Component: Component,
             equal: Equal<Properties>.call,
             key: key,
             properties: properties,
-            type: Component
+            type: .Native
         )
     }
 }
 
-public protocol NativeComponent {
+public protocol NativeComponentRenderable {
     init(properties: Any, children: [Any])
 
     func update(properties: Any)

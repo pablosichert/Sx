@@ -11,39 +11,15 @@ protocol NodeInstance: class {
     func update(_ node: Node)
 }
 
-class InvalidInstance: NodeInstance {
-    weak var parent: NodeInstance?
-    var node: Node
-
-    init(_ node: Node) {
-        self.node = node
-    }
-
-    func mount() -> [Any] {
-        return [node]
-    }
-
-    func remove(_ mount: Any) {
-        parent?.remove(mount)
-    }
-
-    func update(_ node: Node) {
-        self.node = node
-    }
-
-    func force() {
-        parent?.force()
-    }
-}
-
 class CompositeInstance: NodeInstance {
     weak var parent: NodeInstance?
     var node: Node
     var component: Composite.Renderable
     var children: [NodeInstance]
 
-    init(_ node: Composite) {
-        let component = node.create(node.properties, node.children)
+    init(_ node: Node) {
+        let Component = node.Component as! Composite.Renderable.Type
+        let component = Component.init(properties: node.properties, children: node.children)
         let children = instantiate(component.render())
 
         self.node = node
@@ -125,10 +101,11 @@ class NativeInstance: NodeInstance {
     var component: Native.Renderable
     var children: [NodeInstance]
 
-    init(_ node: Native) {
+    init(_ node: Node) {
         let children = node.children.map({ instantiate($0) })
         let mounts = children.flatMap({ $0.mount() })
-        let component = node.create(node.properties, mounts)
+        let Component = node.Component as! Native.Renderable.Type
+        let component = Component.init(properties: node.properties, children: mounts)
 
         self.node = node
         self.component = component
@@ -248,7 +225,7 @@ func instantiate(_ node: Node, parent: NodeInstance) -> NodeInstance {
     return instance
 }
 
-func instantiate(_ node: Composite) -> CompositeInstance {
+func instantiate(composite node: Node) -> CompositeInstance {
     let instance = CompositeInstance(node)
 
     instance.component.rerender = { [unowned instance] in
@@ -258,18 +235,16 @@ func instantiate(_ node: Composite) -> CompositeInstance {
     return instance
 }
 
-func instantiate(_ node: Native) -> NativeInstance {
+func instantiate(native node: Node) -> NativeInstance {
     return NativeInstance(node)
 }
 
 func instantiate(_ node: Node) -> NodeInstance {
-    switch node {
-    case let node as Native:
-        return instantiate(node)
-    case let node as Composite:
-        return instantiate(node)
-    default:
-        return InvalidInstance(node)
+    switch node.type {
+    case .Native:
+        return instantiate(native: node)
+    case .Composite:
+        return instantiate(composite: node)
     }
 }
 

@@ -1,7 +1,7 @@
 import class AppKit.NSApplication
-import struct Nift.Component
+import struct Nift.Mount
 
-let instance = Component<NSApplication>(
+let instance = Mount<NSApplication>(
     App()
 )
 

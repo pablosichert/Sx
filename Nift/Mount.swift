@@ -1,4 +1,4 @@
-public struct Component<Mount> {
+public struct Mount<Mount> {
     let instances: [NodeInstance]
 
     public var elements: [Mount] {
