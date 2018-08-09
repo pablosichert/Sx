@@ -8,6 +8,7 @@ public class NSWindow: Native {
         let backingType: AppKit.NSWindow.BackingStoreType
         let contentRect: NSRect
         let defer_: Bool
+        let properties: [Property<AppKit.NSWindow>]
         let styleMask: AppKit.NSWindow.StyleMask
         let titlebarAppearsTransparent: Bool
     }
@@ -32,6 +33,8 @@ public class NSWindow: Native {
                 )
             }
 
+            apply(properties as! Properties)
+
             assert(children.count == 1, "You must pass in exactly one view – AppKit.NSWindow.contentView expects a single AppKit.NSView")
 
             if children.count >= 1 {
@@ -54,6 +57,10 @@ public class NSWindow: Native {
             window.contentRect(forFrameRect: properties.contentRect)
             window.styleMask = properties.styleMask
             window.titlebarAppearsTransparent = properties.titlebarAppearsTransparent
+
+            for property in properties.properties {
+                property.apply(window)
+            }
         }
 
         func update(properties: Any) {
@@ -106,12 +113,13 @@ public class NSWindow: Native {
     }
 
     public init(
-        backingType: AppKit.NSWindow.BackingStoreType,
-        contentRect: NSRect,
+        backingType: AppKit.NSWindow.BackingStoreType = .buffered,
+        contentRect: NSRect = .zero,
         defer defer_: Bool = true,
-        styleMask: AppKit.NSWindow.StyleMask,
-        titlebarAppearsTransparent: Bool = false,
         key: String? = nil,
+        properties: [Property<AppKit.NSWindow>] = [],
+        styleMask: AppKit.NSWindow.StyleMask = [],
+        titlebarAppearsTransparent: Bool = false,
         _ children: [Node] = []
     ) {
         super.init(
@@ -121,6 +129,7 @@ public class NSWindow: Native {
                 backingType: backingType,
                 contentRect: contentRect,
                 defer_: defer_,
+                properties: properties,
                 styleMask: styleMask,
                 titlebarAppearsTransparent: titlebarAppearsTransparent
             ),
