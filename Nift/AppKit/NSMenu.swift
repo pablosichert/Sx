@@ -15,14 +15,14 @@ public func NSMenu(
     )
 }
 
-private class Component: Native.Renderable {
+private struct Component: Native.Renderable {
     struct Properties: Equatable {
         let title: String?
     }
 
     let menu: AppKit.NSMenu
 
-    required init(properties: Any, children: [Any]) {
+    init(properties: Any, children: [Any]) {
         menu = AppKit.NSMenu()
 
         apply(properties as! Properties)

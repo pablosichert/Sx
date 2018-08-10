@@ -22,7 +22,7 @@ public func NSMenuItem(
     )
 }
 
-private class Component: Native.Renderable {
+private struct Component: Native.Renderable {
     struct Properties: Equatable {
         let action: Selector?
         let keyEquivalent: String?
@@ -31,7 +31,7 @@ private class Component: Native.Renderable {
 
     let item: AppKit.NSMenuItem
 
-    required init(properties: Any, children: [Any]) {
+    init(properties: Any, children: [Any]) {
         item = AppKit.NSMenuItem()
 
         apply(properties as! Properties)

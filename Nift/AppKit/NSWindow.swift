@@ -28,7 +28,7 @@ public func NSWindow(
     )
 }
 
-private class Component: Native.Renderable {
+private struct Component: Native.Renderable {
     struct Properties: Equatable {
         let backingType: AppKit.NSWindow.BackingStoreType
         let contentRect: NSRect
@@ -38,9 +38,9 @@ private class Component: Native.Renderable {
         let titlebarAppearsTransparent: Bool
     }
 
-    var window: AppKit.NSWindow
+    let window: AppKit.NSWindow
 
-    required init(properties: Any, children: [Any]) {
+    init(properties: Any, children: [Any]) {
         let properties = properties as! Properties
 
         window = AppKit.NSWindow(

@@ -15,7 +15,7 @@ public func NSApplication(
     )
 }
 
-private class Component: Native.Renderable {
+private struct Component: Native.Renderable {
     struct Properties: Equatable {
         static func == (lhs: Properties, rhs: Properties) -> Bool {
             return lhs.delegate === rhs.delegate
@@ -26,7 +26,7 @@ private class Component: Native.Renderable {
 
     var application: AppKit.NSApplication
 
-    required init(properties: Any, children: [Any]) {
+    init(properties: Any, children: [Any]) {
         application = AppKit.NSApplication.shared
 
         apply(properties as! Properties)

@@ -25,7 +25,7 @@ public func NSView(
     )
 }
 
-private class Component: Native.Renderable {
+private struct Component: Native.Renderable {
     struct Properties: Equatable {
         let backgroundColor: CGColor?
         let mouseDown: Handler<NSEventClosure>
@@ -34,25 +34,22 @@ private class Component: Native.Renderable {
     }
 
     class View: AppKit.NSView {
-        weak var parent: Component?
+        var mouseDown: Handler<NSEventClosure> = .init({ _ in })
+        var rightMouseDown: Handler<NSEventClosure> = .init({ _ in })
 
         override func mouseDown(with event: NSEvent) {
-            parent?.properties?.mouseDown.call(event)
+            mouseDown.call(event)
         }
 
         override func rightMouseDown(with event: NSEvent) {
-            parent?.properties?.rightMouseDown.call(event)
+            rightMouseDown.call(event)
         }
     }
 
-    var view: View
-    var properties: Properties?
+    let view: View
 
-    required init(properties: Any, children: [Any]) {
-        self.properties = properties as? Properties
-
+    init(properties: Any, children: [Any]) {
         view = View()
-        view.parent = self
 
         apply(properties as! Properties)
 
@@ -66,7 +63,8 @@ private class Component: Native.Renderable {
     func apply(_ properties: Properties) {
         view.wantsLayer = properties.wantsLayer
         view.layer?.backgroundColor = properties.backgroundColor
-        self.properties = properties
+        view.mouseDown = properties.mouseDown
+        view.rightMouseDown = properties.rightMouseDown
     }
 
     func update(properties: Any) {

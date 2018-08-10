@@ -20,7 +20,7 @@ public func NSText(
     )
 }
 
-private class Component: Native.Renderable {
+private struct Component: Native.Renderable {
     struct Properties: Equatable {
         let backgroundColor: NSColor?
         let frame: NSRect?
@@ -29,7 +29,7 @@ private class Component: Native.Renderable {
 
     var text: AppKit.NSText
 
-    required init(properties: Any, children _: [Any]) {
+    init(properties: Any, children _: [Any]) {
         text = AppKit.NSText()
 
         apply(properties as! Properties)
