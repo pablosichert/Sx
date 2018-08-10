@@ -46,11 +46,9 @@ private struct Component: Native.Renderable {
         }
     }
 
-    let view: View
+    let view = View()
 
     init(properties: Any, children: [Any]) {
-        view = View()
-
         apply(properties as! Properties)
 
         for child in children {

@@ -27,11 +27,9 @@ private struct Component: Native.Renderable {
         let string: String?
     }
 
-    var text: AppKit.NSText
+    var text = AppKit.NSText()
 
     init(properties: Any, children _: [Any]) {
-        text = AppKit.NSText()
-
         apply(properties as! Properties)
     }
 

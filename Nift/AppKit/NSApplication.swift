@@ -24,11 +24,9 @@ private struct Component: Native.Renderable {
         let delegate: AppKit.NSApplicationDelegate
     }
 
-    var application: AppKit.NSApplication
+    var application = AppKit.NSApplication.shared
 
     init(properties: Any, children: [Any]) {
-        application = AppKit.NSApplication.shared
-
         apply(properties as! Properties)
 
         for child in children {

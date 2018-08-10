@@ -29,11 +29,9 @@ private struct Component: Native.Renderable {
         let title: String?
     }
 
-    let item: AppKit.NSMenuItem
+    let item = AppKit.NSMenuItem()
 
     init(properties: Any, children: [Any]) {
-        item = AppKit.NSMenuItem()
-
         apply(properties as! Properties)
 
         if children.count >= 1 {

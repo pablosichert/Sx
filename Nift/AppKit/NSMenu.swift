@@ -20,11 +20,9 @@ private struct Component: Native.Renderable {
         let title: String?
     }
 
-    let menu: AppKit.NSMenu
+    let menu = AppKit.NSMenu()
 
     init(properties: Any, children: [Any]) {
-        menu = AppKit.NSMenu()
-
         apply(properties as! Properties)
 
         for child in children {
