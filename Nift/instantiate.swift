@@ -218,36 +218,30 @@ class NativeInstance: NodeInstance {
     }
 }
 
-func instantiate(_ node: Node, parent: NodeInstance) -> NodeInstance {
-    let instance = instantiate(node)
-    instance.parent = parent
-
-    return instance
-}
-
-func instantiate(composite node: Node) -> CompositeInstance {
+func instantiate(composite node: Node, parent: NodeInstance? = nil) -> CompositeInstance {
     let instance = CompositeInstance(node)
+    var component = instance.component
 
-    instance.component.rerender = { [unowned instance] in
+    component.rerender = { [unowned instance] in
         instance.force()
     }
 
     return instance
 }
 
-func instantiate(native node: Node) -> NativeInstance {
+func instantiate(native node: Node, parent: NodeInstance? = nil) -> NativeInstance {
     return NativeInstance(node)
 }
 
-func instantiate(_ node: Node) -> NodeInstance {
+func instantiate(_ node: Node, parent: NodeInstance? = nil) -> NodeInstance {
     switch node.type {
     case .Native:
-        return instantiate(native: node)
+        return instantiate(native: node, parent: parent)
     case .Composite:
-        return instantiate(composite: node)
+        return instantiate(composite: node, parent: parent)
     }
 }
 
-func instantiate(_ nodes: [Node]) -> [NodeInstance] {
-    return nodes.map({ instantiate($0) })
+func instantiate(_ nodes: [Node], parent: NodeInstance? = nil) -> [NodeInstance] {
+    return nodes.map({ instantiate($0, parent: parent) })
 }
