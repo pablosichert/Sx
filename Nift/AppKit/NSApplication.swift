@@ -44,29 +44,43 @@ private struct Component: Native.Renderable {
         apply(properties as! Properties)
     }
 
-    func update(operations: [Operation]) {
-        for operation in operations {
-            switch operation {
-            case let .add(mount):
-                if let window = mount as? AppKit.NSWindow {
-                    window.orderFront(self)
-                }
-            case .reorder:
-                break
-            case .replace:
-                break
-            case .remove:
-                break
-            }
+    func update(operations: Operations) {
+        for replace in operations.replaces {
+            self.replace(old: replace.old, new: replace.new, index: replace.index)
+        }
+
+        for remove in operations.removes {
+            self.remove(mount: remove.mount, index: remove.index)
+        }
+
+        for reorder in operations.reorders {
+            self.reorder(mount: reorder.mount, from: reorder.from, to: reorder.to)
+        }
+
+        for insert in operations.inserts {
+            self.insert(mount: insert.mount, index: insert.index)
         }
     }
 
-    func update(properties: Any, operations: [Operation]) {
+    func update(properties: Any, operations: Operations) {
         update(properties: properties)
         update(operations: operations)
     }
 
-    func remove(_: Any) {}
+    func insert(mount: Any, index _: Int) {
+        if let window = mount as? AppKit.NSWindow {
+            window.orderFront(self)
+        }
+    }
+
+    func remove(mount _: Any, index _: Int) {}
+
+    func reorder(mount _: Any, from _: Int, to _: Int) {}
+
+    func replace(old: Any, new: Any, index: Int) {
+        remove(mount: old, index: index)
+        insert(mount: new, index: index)
+    }
 
     func render() -> Any {
         return application

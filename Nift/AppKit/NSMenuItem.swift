@@ -57,38 +57,49 @@ private struct Component: Native.Renderable {
         apply(properties as! Properties)
     }
 
-    func update(operations: [Operation]) {
-        for operation in operations {
-            switch operation {
-            case let .add(mount):
-                if let menu = mount as? AppKit.NSMenu {
-                    item.submenu = menu
-                }
-            case .reorder:
-                break
-            case let .replace(old, new):
-                if let old = old as? AppKit.NSMenu {
-                    if item.submenu == old {
-                        if let new = new as? AppKit.NSMenu {
-                            item.submenu = new
-                        }
-                    }
-                }
-            case let .remove(mount):
-                remove(mount)
-            }
+    func update(operations: Operations) {
+        for replace in operations.replaces {
+            self.replace(old: replace.old, new: replace.new, index: replace.index)
+        }
+
+        for remove in operations.removes {
+            self.remove(mount: remove.mount, index: remove.index)
+        }
+
+        for reorder in operations.reorders {
+            self.reorder(mount: reorder.mount, from: reorder.from, to: reorder.to)
+        }
+
+        for insert in operations.inserts {
+            self.insert(mount: insert.mount, index: insert.index)
         }
     }
 
-    func update(properties: Any, operations: [Operation]) {
+    func update(properties: Any, operations: Operations) {
         update(properties: properties)
         update(operations: operations)
     }
 
-    func remove(_ mount: Any) {
+    func insert(mount: Any, index _: Int) {
+        if let menu = mount as? AppKit.NSMenu {
+            item.submenu = menu
+        }
+    }
+
+    func remove(mount: Any, index _: Int) {
         if let menu = mount as? AppKit.NSMenu {
             if item.submenu == menu {
                 item.submenu = nil
+            }
+        }
+    }
+
+    func reorder(mount _: Any, from _: Int, to _: Int) {}
+
+    func replace(old: Any, new: Any, index _: Int) {
+        if let old = old as? AppKit.NSMenu, let new = new as? AppKit.NSMenu {
+            if item.submenu == old {
+                item.submenu = new
             }
         }
     }

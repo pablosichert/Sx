@@ -40,41 +40,52 @@ private struct Component: Native.Renderable {
         apply(properties as! Properties)
     }
 
-    func update(operations: [Operation]) {
-        for operation in operations {
-            switch operation {
-            case let .add(mount):
-                if let item = mount as? AppKit.NSMenuItem {
-                    menu.addItem(item)
-                }
-            case let .reorder(mount, index):
-                if let item = mount as? AppKit.NSMenuItem {
-                    menu.removeItem(item)
-                    menu.insertItem(item, at: index)
-                }
-            case let .replace(old, new):
-                if let old = old as? AppKit.NSMenuItem {
-                    if let new = new as? AppKit.NSMenuItem {
-                        let index = menu.index(of: old)
+    func update(operations: Operations) {
+        for replace in operations.replaces {
+            self.replace(old: replace.old, new: replace.new, index: replace.index)
+        }
 
-                        menu.removeItem(old)
-                        menu.insertItem(new, at: index)
-                    }
-                }
-            case let .remove(mount):
-                remove(mount)
-            }
+        for remove in operations.removes {
+            self.remove(mount: remove.mount, index: remove.index)
+        }
+
+        for reorder in operations.reorders {
+            self.reorder(mount: reorder.mount, from: reorder.from, to: reorder.to)
+        }
+
+        for insert in operations.inserts {
+            self.insert(mount: insert.mount, index: insert.index)
         }
     }
 
-    func update(properties: Any, operations: [Operation]) {
+    func update(properties: Any, operations: Operations) {
         update(properties: properties)
         update(operations: operations)
     }
 
-    func remove(_ mount: Any) {
+    func insert(mount: Any, index _: Int) {
+        if let item = mount as? AppKit.NSMenuItem {
+            menu.addItem(item)
+        }
+    }
+
+    func remove(mount: Any, index _: Int) {
         if let item = mount as? AppKit.NSMenuItem {
             menu.removeItem(item)
+        }
+    }
+
+    func reorder(mount: Any, from _: Int, to: Int) {
+        if let item = mount as? AppKit.NSMenuItem {
+            menu.removeItem(item)
+            menu.insertItem(item, at: to)
+        }
+    }
+
+    func replace(old: Any, new: Any, index: Int) {
+        if let old = old as? AppKit.NSMenuItem, let new = new as? AppKit.NSMenuItem {
+            menu.removeItem(old)
+            menu.insertItem(new, at: index)
         }
     }
 
