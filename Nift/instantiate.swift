@@ -4,17 +4,11 @@ protocol NodeInstance: class {
     var instances: [NodeInstance] { get }
     var parent: NodeInstance? { get set }
 
-    func insert(mount: Any, index: Int)
-
     func mount() -> [Any]
 
-    func remove(mount: Any, index: Int)
-
-    func reorder(mount: Any, from: Int, to: Int)
-
-    func replace(old: Any, new: Any, index: Int)
-
     func update(node: Node)
+
+    func update(operations: Operations)
 }
 
 class CompositeInstance: NodeInstance {
@@ -41,36 +35,20 @@ class CompositeInstance: NodeInstance {
         }
     }
 
-    func insert(mount: Any, index: Int) {
-        parent?.insert(mount: mount, index: index)
-    }
-
     func mount() -> [Any] {
         return instances.flatMap({ $0.mount() })
     }
 
-    func remove(mount: Any, index: Int) {
-        parent?.remove(mount: mount, index: index)
-    }
-
-    func reorder(mount: Any, from: Int, to: Int) {
-        parent?.reorder(mount: mount, from: from, to: to)
-    }
-
-    func replace(old: Any, new: Any, index: Int) {
-        parent?.replace(old: old, new: new, index: index)
-    }
-
     func rerender() {
-        instances = reconcile(
-            insert: insert,
-            instances: instances,
+        let (instances, operations) = reconcile(
+            instances: self.instances,
             nodes: component.render(),
-            parent: self,
-            remove: remove,
-            reorder: reorder,
-            replace: replace
+            parent: self
         )
+
+        update(operations: operations)
+
+        self.instances = instances
     }
 
     func update(node: Node) {
@@ -91,6 +69,10 @@ class CompositeInstance: NodeInstance {
         rerender()
 
         self.node = node
+    }
+
+    func update(operations: Operations) {
+        parent?.update(operations: operations)
     }
 }
 
@@ -118,53 +100,15 @@ class NativeInstance: NodeInstance {
         }
     }
 
-    func insert(mount: Any, index: Int) {
-        component.insert(mount: mount, index: index)
-    }
-
     func mount() -> [Any] {
         return [component.render()]
     }
 
-    func remove(mount: Any, index: Int) {
-        component.remove(mount: mount, index: index)
-    }
-
-    func reorder(mount: Any, from: Int, to: Int) {
-        component.reorder(mount: mount, from: from, to: to)
-    }
-
-    func replace(old: Any, new: Any, index: Int) {
-        component.replace(old: old, new: new, index: index)
-    }
-
     func update(node: Node) {
-        var operations = Operations()
-
-        instances = reconcile(
-            insert: { mount, index in
-                operations.inserts.append(
-                    Operation.Insert(mount: mount, index: index)
-                )
-            },
-            instances: instances,
+        let (instances, operations) = reconcile(
+            instances: self.instances,
             nodes: node.children,
-            parent: self,
-            remove: { mount, index in
-                operations.removes.append(
-                    Operation.Remove(mount: mount, index: index)
-                )
-            },
-            reorder: { mount, from, to in
-                operations.reorders.append(
-                    Operation.Reorder(mount: mount, from: from, to: to)
-                )
-            },
-            replace: { old, new, index in
-                operations.replaces.append(
-                    Operation.Replace(old: old, new: new, index: index)
-                )
-            }
+            parent: self
         )
 
         let newProperties = !self.node.equal(self.node.properties, node.properties)
@@ -181,7 +125,12 @@ class NativeInstance: NodeInstance {
             component.update(properties: node.properties, operations: operations)
         }
 
+        self.instances = instances
         self.node = node
+    }
+
+    func update(operations: Operations) {
+        component.update(operations: operations)
     }
 }
 

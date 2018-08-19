@@ -10,15 +10,8 @@ private func updateIndices(instance: NodeInstance, index: Int) {
     }
 }
 
-func reconcile(
-    insert: (Any, Int) -> Void,
-    instances: [NodeInstance],
-    nodes: [Node],
-    parent: NodeInstance,
-    remove: (Any, Int) -> Void,
-    reorder: (Any, Int, Int) -> Void,
-    replace: (Any, Any, Int) -> Void
-) -> [NodeInstance] {
+func reconcile(instances: [NodeInstance], nodes: [Node], parent: NodeInstance) -> ([NodeInstance], Operations) {
+    var operations = Operations()
     var (keysToInstances, rest) = keysTo(instances: instances)
     var count = 0
 
@@ -42,7 +35,9 @@ func reconcile(
                     for i in 0 ..< mounts.count {
                         let mount = mounts[i]
 
-                        reorder(mount, instance.index + i, index + i)
+                        operations.reorders.append(
+                            Operation.Reorder(mount: mount, from: instance.index + i, to: index + i)
+                        )
                     }
 
                     updateIndices(instance: instance, index: index)
@@ -64,18 +59,24 @@ func reconcile(
                     let numReplace = max(mountsOld.count, mounts.count)
 
                     for i in 0 ..< numReplace {
-                        replace(mountsOld[i], mounts[i], index + i)
+                        operations.replaces.append(
+                            Operation.Replace(old: mountsOld[i], new: mounts[i], index: index + i)
+                        )
                     }
 
                     let numInsert = mounts.count - numReplace
 
                     if numInsert > 0 {
                         for i in numReplace ..< numReplace + numInsert {
-                            insert(mounts[i], index + i)
+                            operations.inserts.append(
+                                Operation.Insert(mount: mounts[i], index: index + i)
+                            )
                         }
                     } else {
                         for i in numReplace ..< mountsOld.count {
-                            remove(mountsOld[i], index + i)
+                            operations.removes.append(
+                                Operation.Remove(mount: mountsOld[i], index: index + i)
+                            )
                         }
                     }
 
@@ -92,7 +93,9 @@ func reconcile(
         for i in 0 ..< mounts.count {
             let mount = mounts[i]
 
-            insert(mount, index + i)
+            operations.inserts.append(
+                Operation.Insert(mount: mount, index: index + 1)
+            )
         }
 
         return instance
@@ -104,9 +107,11 @@ func reconcile(
         for i in 0 ..< mounts.count {
             let mount = mounts[i]
 
-            remove(mount, instance.index + i)
+            operations.removes.append(
+                Operation.Remove(mount: mount, index: instance.index + i)
+            )
         }
     }
 
-    return instances
+    return (instances, operations)
 }
