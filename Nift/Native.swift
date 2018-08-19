@@ -24,13 +24,19 @@ public struct Native {
 public protocol NativeComponentRenderable {
     init(properties: Any, children: [Any])
 
+    func insert(mount: Any, index: Int)
+
     func update(properties: Any)
 
-    func update(operations: [Operation])
+    func update(operations: Operations)
 
-    func update(properties: Any, operations: [Operation])
+    func update(properties: Any, operations: Operations)
 
-    func remove(_ mount: Any)
+    func remove(mount: Any, index: Int)
 
     func render() -> Any
+
+    func reorder(mount: Any, from: Int, to: Int)
+
+    func replace(old: Any, new: Any, index: Int)
 }

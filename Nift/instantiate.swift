@@ -1,72 +1,79 @@
 protocol NodeInstance: class {
-    var parent: NodeInstance? { get set }
     var node: Node { get }
+    var index: Int { get set }
+    var instances: [NodeInstance] { get }
+    var parent: NodeInstance? { get set }
+
+    func insert(mount: Any, index: Int)
 
     func mount() -> [Any]
 
-    func remove(_ mount: Any)
+    func remove(mount: Any, index: Int)
 
-    func update(_ node: Node)
+    func reorder(mount: Any, from: Int, to: Int)
+
+    func replace(old: Any, new: Any, index: Int)
+
+    func update(node: Node)
 }
 
 class CompositeInstance: NodeInstance {
-    weak var parent: NodeInstance?
-    var node: Node
     var component: Composite.Renderable
+    var index: Int
     var instances: [NodeInstance]
+    var node: Node
+    weak var parent: NodeInstance?
 
-    init(_ node: Node) {
+    init(_ node: Node, parent: NodeInstance? = nil, index: Int) {
         let Component = node.Component as! Composite.Renderable.Type
         let component = Component.init(properties: node.properties, children: node.children)
         let nodes = component.render()
-        let instances = instantiate(nodes)
+        let instances = instantiate(nodes: nodes, index: index)
 
-        self.node = node
         self.component = component
+        self.index = index
         self.instances = instances
+        self.node = node
+        self.parent = parent
 
         for instance in instances {
             instance.parent = self
         }
     }
 
+    func insert(mount: Any, index: Int) {
+        parent?.insert(mount: mount, index: index)
+    }
+
+    func mount() -> [Any] {
+        return instances.flatMap({ $0.mount() })
+    }
+
+    func remove(mount: Any, index: Int) {
+        parent?.remove(mount: mount, index: index)
+    }
+
+    func reorder(mount: Any, from: Int, to: Int) {
+        parent?.reorder(mount: mount, from: from, to: to)
+    }
+
+    func replace(old: Any, new: Any, index: Int) {
+        parent?.replace(old: old, new: new, index: index)
+    }
+
     func rerender() {
-        var (keysToInstances, rest) = keysTo(instances: self.instances)
-
-        let nodes = component.render()
-
-        let instances = nodes.map({ (node: Node) -> NodeInstance in
-            if let key = node.key {
-                if let instance = keysToInstances[key] {
-                    if node.type == instance.node.type {
-                        keysToInstances[key] = nil
-
-                        instance.update(node)
-
-                        return instance
-                    }
-                }
-            }
-
-            return instantiate(node, parent: self)
-        })
-
-        for instance in keysToInstances.values + rest {
-            let mounts = instance.mount()
-
-            for mount in mounts {
-                remove(mount)
-            }
-        }
-
-        self.instances = instances
+        instances = reconcile(
+            insert: insert,
+            instances: instances,
+            nodes: component.render(),
+            parent: self,
+            remove: remove,
+            reorder: reorder,
+            replace: replace
+        )
     }
 
-    func force() {
-        rerender()
-    }
-
-    func update(_ node: Node) {
+    func update(node: Node) {
         let newProperties = !self.node.equal(self.node.properties, node.properties)
         let newChildren = self.node.children != node.children
 
@@ -85,102 +92,83 @@ class CompositeInstance: NodeInstance {
 
         self.node = node
     }
-
-    func mount() -> [Any] {
-        return instances.flatMap({ $0.mount() })
-    }
-
-    func remove(_ mount: Any) {
-        parent?.remove(mount)
-    }
 }
 
 class NativeInstance: NodeInstance {
-    weak var parent: NodeInstance?
-    var node: Node
     var component: Native.Renderable
+    var index: Int
     var instances: [NodeInstance]
+    var node: Node
+    weak var parent: NodeInstance?
 
-    init(_ node: Node) {
-        let instances = node.children.map({ instantiate($0) })
+    init(node: Node, parent: NodeInstance? = nil, index: Int) {
+        let instances = instantiate(nodes: node.children, index: index)
         let mounts = instances.flatMap({ $0.mount() })
         let Component = node.Component as! Native.Renderable.Type
         let component = Component.init(properties: node.properties, children: mounts)
 
-        self.node = node
         self.component = component
+        self.index = index
         self.instances = instances
+        self.node = node
+        self.parent = parent
 
         for instance in instances {
             instance.parent = self
         }
     }
 
-    func update(_ node: Node) {
-        var (keysToInstances, rest) = keysTo(instances: self.instances.enumerated())
+    func insert(mount: Any, index: Int) {
+        component.insert(mount: mount, index: index)
+    }
 
-        var operations: [Operation] = []
+    func mount() -> [Any] {
+        return [component.render()]
+    }
 
-        let instances = node.children.enumerated().map({ (index: Int, node: Node) -> NodeInstance in
-            if let key = node.key {
-                if let (indexOld, instance) = keysToInstances[key] {
-                    if node.type == instance.node.type {
-                        keysToInstances[key] = nil
+    func remove(mount: Any, index: Int) {
+        component.remove(mount: mount, index: index)
+    }
 
-                        instance.update(node)
+    func reorder(mount: Any, from: Int, to: Int) {
+        component.reorder(mount: mount, from: from, to: to)
+    }
 
-                        if index == indexOld {
-                            return instance
-                        }
+    func replace(old: Any, new: Any, index: Int) {
+        component.replace(old: old, new: new, index: index)
+    }
 
-                        let mounts = instance.mount()
+    func update(node: Node) {
+        var operations = Operations()
 
-                        for mount in mounts {
-                            operations.append(
-                                Operation.reorder(mount: mount, index: index)
-                            )
-                        }
-
-                        return instance
-                    }
-
-                    let old = instance.mount()
-
-                    let instance = instantiate(node, parent: self)
-
-                    operations.append(
-                        Operation.replace(old: old, new: instance.mount())
-                    )
-
-                    return instance
-                }
-            }
-
-            let instance = instantiate(node, parent: self)
-
-            let mounts = instance.mount()
-
-            for mount in mounts {
-                operations.append(
-                    Operation.add(mount: mount)
+        instances = reconcile(
+            insert: { mount, index in
+                operations.inserts.append(
+                    Operation.Insert(mount: mount, index: index)
+                )
+            },
+            instances: instances,
+            nodes: node.children,
+            parent: self,
+            remove: { mount, index in
+                operations.removes.append(
+                    Operation.Remove(mount: mount, index: index)
+                )
+            },
+            reorder: { mount, from, to in
+                operations.reorders.append(
+                    Operation.Reorder(mount: mount, from: from, to: to)
+                )
+            },
+            replace: { old, new, index in
+                operations.replaces.append(
+                    Operation.Replace(old: old, new: new, index: index)
                 )
             }
-
-            return instance
-        })
-
-        for (_, instance) in keysToInstances.values + rest {
-            let mounts = instance.mount()
-
-            for mount in mounts {
-                operations.append(
-                    Operation.remove(mount: mount)
-                )
-            }
-        }
+        )
 
         let newProperties = !self.node.equal(self.node.properties, node.properties)
-        let newOperations = operations.count > 0
+        let newOperations = !operations.isEmpty
 
         switch (newProperties, newOperations) {
         case (false, false):
@@ -193,42 +181,42 @@ class NativeInstance: NodeInstance {
             component.update(properties: node.properties, operations: operations)
         }
 
-        self.instances = instances
-    }
-
-    func mount() -> [Any] {
-        return [component.render()]
-    }
-
-    func remove(_ mount: Any) {
-        component.remove(mount)
+        self.node = node
     }
 }
 
-func instantiate(composite node: Node, parent: NodeInstance? = nil) -> CompositeInstance {
-    let instance = CompositeInstance(node)
+func instantiate(composite node: Node, parent: NodeInstance? = nil, index: Int) -> CompositeInstance {
+    let instance = CompositeInstance(node, parent: parent, index: index)
     var component = instance.component
 
     component.rerender = { [unowned instance] in
-        instance.force()
+        instance.rerender()
     }
 
     return instance
 }
 
-func instantiate(native node: Node, parent: NodeInstance? = nil) -> NativeInstance {
-    return NativeInstance(node)
+func instantiate(native node: Node, parent: NodeInstance? = nil, index: Int) -> NativeInstance {
+    return NativeInstance(node: node, parent: parent, index: index)
 }
 
-func instantiate(_ node: Node, parent: NodeInstance? = nil) -> NodeInstance {
+func instantiate(node: Node, parent: NodeInstance? = nil, index: Int) -> NodeInstance {
     switch node.type {
     case .Native:
-        return instantiate(native: node, parent: parent)
+        return instantiate(native: node, parent: parent, index: index)
     case .Composite:
-        return instantiate(composite: node, parent: parent)
+        return instantiate(composite: node, parent: parent, index: index)
     }
 }
 
-func instantiate(_ nodes: [Node], parent: NodeInstance? = nil) -> [NodeInstance] {
-    return nodes.map({ instantiate($0, parent: parent) })
+func instantiate(nodes: [Node], parent: NodeInstance? = nil, index: Int) -> [NodeInstance] {
+    var count = index
+
+    return nodes.map({
+        let instance = instantiate(node: $0, parent: parent, index: count)
+
+        count += instance.mount().count
+
+        return instance
+    })
 }

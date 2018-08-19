@@ -6,7 +6,7 @@ public struct Mount<Mount> {
     }
 
     public init(_ nodes: [Node]) {
-        instances = instantiate(nodes)
+        instances = instantiate(nodes: nodes, index: 0)
     }
 
     public init(_ node: Node) {
