@@ -1,3 +1,26 @@
+private typealias Insert = ((mount: Any, index: Int)) -> Void
+private typealias Remove = ((mount: Any, index: Int)) -> Void
+private typealias Reorder = ((mount: Any, from: Int, to: Int)) -> Void
+private typealias Replace = ((old: Any, new: Any, index: Int)) -> Void
+
+private extension Operations {
+    func insert(_ operation: (mount: Any, index: Int)) {
+        insert(mount: operation.mount, index: operation.index)
+    }
+
+    func remove(_ operation: (mount: Any, index: Int)) {
+        remove(mount: operation.mount, index: operation.index)
+    }
+
+    func reorder(_ operation: (mount: Any, from: Int, to: Int)) {
+        reorder(operation)
+    }
+
+    func replace(_ operation: (old: Any, new: Any, index: Int)) {
+        replace(operation)
+    }
+}
+
 private func updateIndices(index: Int, instance: NodeInstance) {
     instance.index = index
 
@@ -26,7 +49,7 @@ private func intersect<T>(_ a: CountableRange<T>, _ b: CountableRange<T>) -> Cou
 
 private func insert(
     instance: NodeInstance,
-    insert: ((mount: Any, index: Int)) -> Void
+    insert: Insert
 ) -> Int {
     let mounts = instance.mount()
 
@@ -41,7 +64,7 @@ private func insert(
 
 private func remove(
     instance: NodeInstance,
-    remove: ((mount: Any, index: Int)) -> Void
+    remove: Remove
 ) {
     let mounts = instance.mount()
 
@@ -55,9 +78,9 @@ private func remove(
 private func replace(
     new: NodeInstance,
     old: NodeInstance,
-    insert: ((mount: Any, index: Int)) -> Void,
-    remove: ((mount: Any, index: Int)) -> Void,
-    replace: ((old: Any, new: Any, index: Int)) -> Void
+    insert: Insert,
+    remove: Remove,
+    replace: Replace
 ) -> Int {
     let mountsOld = old.mount()
     let old = old.index ..< old.index + mountsOld.count
@@ -126,7 +149,7 @@ private func update(
     index: Int,
     instance: NodeInstance,
     node: Node,
-    reorder: ((mount: Any, from: Int, to: Int)) -> Void
+    reorder: Reorder
 ) -> Int {
     instance.update(node: node)
 
@@ -153,7 +176,8 @@ func reconcile(
     instances: [NodeInstance],
     operations: Operations
 ) {
-    var operations = Operations()
+    let operations = Operations()
+
     let tryMap = keysTo(instances: instances)
     var keysToInstances = tryMap.map
     var rest = StaticQueue(tryMap.rest)
@@ -175,11 +199,7 @@ func reconcile(
                     index: index,
                     instance: instance,
                     node: node,
-                    reorder: {
-                        operations.reorders.append(
-                            Operation.Reorder(mount: $0.mount, from: $0.from, to: $0.to)
-                        )
-                    }
+                    reorder: operations.reorder as Reorder
                 )
 
                 return instance
@@ -189,21 +209,9 @@ func reconcile(
                 index += replace(
                     new: new,
                     old: instance,
-                    insert: {
-                        operations.inserts.append(
-                            Operation.Insert(mount: $0.mount, index: $0.index)
-                        )
-                    },
-                    remove: {
-                        operations.removes.append(
-                            Operation.Remove(mount: $0.mount, index: $0.index)
-                        )
-                    },
-                    replace: {
-                        operations.replaces.append(
-                            Operation.Replace(old: $0.old, new: $0.new, index: $0.index)
-                        )
-                    }
+                    insert: operations.insert as Insert,
+                    remove: operations.remove as Remove,
+                    replace: operations.replace as Replace
                 )
 
                 return new
@@ -214,11 +222,7 @@ func reconcile(
 
         index += insert(
             instance: new,
-            insert: {
-                operations.inserts.append(
-                    Operation.Insert(mount: $0.mount, index: $0.index)
-                )
-            }
+            insert: operations.insert as Insert
         )
 
         return new
@@ -227,22 +231,14 @@ func reconcile(
     for instance in keysToInstances.values {
         remove(
             instance: instance,
-            remove: {
-                operations.removes.append(
-                    Operation.Remove(mount: $0.mount, index: $0.index)
-                )
-            }
+            remove: operations.remove as Remove
         )
     }
 
     for instance in rest {
         remove(
             instance: instance,
-            remove: {
-                operations.removes.append(
-                    Operation.Remove(mount: $0.mount, index: $0.index)
-                )
-            }
+            remove: operations.remove as Remove
         )
     }
 
