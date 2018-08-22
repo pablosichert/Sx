@@ -24,52 +24,41 @@ private func intersect<T>(_ a: CountableRange<T>, _ b: CountableRange<T>) -> Cou
     }
 }
 
-private func insert(instance: NodeInstance) -> (
-    count: Int,
-    inserts: [Operation.Insert]
-) {
-    var inserts: [Operation.Insert] = []
+private func insert(
+    instance: NodeInstance,
+    insert: ((mount: Any, index: Int)) -> Void
+) -> Int {
     let mounts = instance.mount()
 
     for i in 0 ..< mounts.count {
         let mount = mounts[i]
 
-        inserts.append(
-            Operation.Insert(mount: mount, index: instance.index + 1)
-        )
+        insert((mount: mount, index: instance.index + 1))
     }
 
-    return (
-        count: mounts.count,
-        inserts: inserts
-    )
+    return mounts.count
 }
 
-private func remove(instance: NodeInstance) -> [Operation.Remove] {
-    var removes: [Operation.Remove] = []
+private func remove(
+    instance: NodeInstance,
+    remove: ((mount: Any, index: Int)) -> Void
+) {
     let mounts = instance.mount()
 
     for i in 0 ..< mounts.count {
         let mount = mounts[i]
 
-        removes.append(
-            Operation.Remove(mount: mount, index: instance.index + i)
-        )
+        remove((mount: mount, index: instance.index + i))
     }
-
-    return removes
 }
 
-private func replace(new: NodeInstance, old: NodeInstance) -> (
-    count: Int,
-    inserts: [Operation.Insert],
-    removes: [Operation.Remove],
-    replaces: [Operation.Replace]
-) {
-    var inserts: [Operation.Insert] = []
-    var removes: [Operation.Remove] = []
-    var replaces: [Operation.Replace] = []
-
+private func replace(
+    new: NodeInstance,
+    old: NodeInstance,
+    insert: ((mount: Any, index: Int)) -> Void,
+    remove: ((mount: Any, index: Int)) -> Void,
+    replace: ((old: Any, new: Any, index: Int)) -> Void
+) -> Int {
     let mountsOld = old.mount()
     let old = old.index ..< old.index + mountsOld.count
 
@@ -99,80 +88,71 @@ private func replace(new: NodeInstance, old: NodeInstance) -> (
     }
 
     for i in leadingOld {
-        removes.append(
-            Operation.Remove(mount: mountsOld[i - leadingOld.lowerBound], index: i)
-        )
+        remove((mount: mountsOld[i - leadingOld.lowerBound], index: i))
     }
 
     for i in leadingNew {
-        inserts.append(
-            Operation.Insert(mount: mountsNew[i - leadingNew.lowerBound], index: i)
-        )
+        insert((mount: mountsNew[i - leadingNew.lowerBound], index: i))
     }
 
     if let shared = shared, let trailingOld = trailingOld, let trailingNew = trailingNew {
         for i in shared {
-            replaces.append(
-                Operation.Replace(
-                    old: mountsOld[leadingOld.count + i - shared.lowerBound],
-                    new: mountsNew[leadingNew.count + i - shared.lowerBound],
-                    index: i
-                )
-            )
+            replace((
+                old: mountsOld[leadingOld.count + i - shared.lowerBound],
+                new: mountsNew[leadingNew.count + i - shared.lowerBound],
+                index: i
+            ))
         }
 
         for i in old {
-            removes.append(
-                Operation.Remove(
-                    mount: mountsOld[leadingOld.count + shared.count + i - trailingOld.lowerBound],
-                    index: i
-                )
-            )
+            remove((
+                mount: mountsOld[leadingOld.count + shared.count + i - trailingOld.lowerBound],
+                index: i
+            ))
         }
 
         for i in new {
-            inserts.append(
-                Operation.Insert(
-                    mount: mountsNew[leadingNew.count + shared.count + i - trailingNew.lowerBound],
-                    index: i
-                )
-            )
+            insert((
+                mount: mountsNew[leadingNew.count + shared.count + i - trailingNew.lowerBound],
+                index: i
+            ))
         }
     }
 
-    return (
-        count: mountsNew.count,
-        inserts: inserts,
-        removes: removes,
-        replaces: replaces
-    )
+    return mountsNew.count
 }
 
-private func update(index: Int, instance: NodeInstance, node: Node) -> (
-    count: Int,
-    reorders: [Operation.Reorder]
-) {
+private func update(
+    index: Int,
+    instance: NodeInstance,
+    node: Node,
+    reorder: ((mount: Any, from: Int, to: Int)) -> Void
+) -> Int {
     instance.update(node: node)
 
     let mounts = instance.mount()
-    var reorders: [Operation.Reorder] = []
 
     if instance.index != index {
         for i in 0 ..< mounts.count {
             let mount = mounts[i]
 
-            reorders.append(
-                Operation.Reorder(mount: mount, from: instance.index + i, to: index + i)
-            )
+            reorder((mount: mount, from: instance.index + i, to: index + i))
         }
 
         updateIndices(index: index, instance: instance)
     }
 
-    return (mounts.count, reorders: reorders)
+    return mounts.count
 }
 
-func reconcile(instances: [NodeInstance], nodes: [Node], parent: NodeInstance) -> ([NodeInstance], Operations) {
+func reconcile(
+    instances: [NodeInstance],
+    nodes: [Node],
+    parent: NodeInstance
+) -> (
+    instances: [NodeInstance],
+    operations: Operations
+) {
     var operations = Operations()
     let tryMap = keysTo(instances: instances)
     var keysToInstances = tryMap.map
@@ -191,45 +171,83 @@ func reconcile(instances: [NodeInstance], nodes: [Node], parent: NodeInstance) -
 
         if let instance = instance {
             if instance.node.type == node.type {
-                let (count, reorders) = update(index: index, instance: instance, node: node)
-
-                index += count
-                operations.reorders += reorders
+                index += update(
+                    index: index,
+                    instance: instance,
+                    node: node,
+                    reorder: {
+                        operations.reorders.append(
+                            Operation.Reorder(mount: $0.mount, from: $0.from, to: $0.to)
+                        )
+                    }
+                )
 
                 return instance
             } else {
                 let new = instantiate(node: node, parent: parent, index: index)
 
-                let (count, inserts, removes, replaces) = replace(
+                index += replace(
                     new: new,
-                    old: instance
+                    old: instance,
+                    insert: {
+                        operations.inserts.append(
+                            Operation.Insert(mount: $0.mount, index: $0.index)
+                        )
+                    },
+                    remove: {
+                        operations.removes.append(
+                            Operation.Remove(mount: $0.mount, index: $0.index)
+                        )
+                    },
+                    replace: {
+                        operations.replaces.append(
+                            Operation.Replace(old: $0.old, new: $0.new, index: $0.index)
+                        )
+                    }
                 )
-
-                index += count
-                operations.inserts += inserts
-                operations.removes += removes
-                operations.replaces += replaces
 
                 return new
             }
         }
 
         let new = instantiate(node: node, parent: parent, index: index)
-        let (count, inserts) = insert(instance: new)
 
-        index += count
-        operations.inserts += inserts
+        index += insert(
+            instance: new,
+            insert: {
+                operations.inserts.append(
+                    Operation.Insert(mount: $0.mount, index: $0.index)
+                )
+            }
+        )
 
         return new
     })
 
     for instance in keysToInstances.values {
-        operations.removes += remove(instance: instance)
+        remove(
+            instance: instance,
+            remove: {
+                operations.removes.append(
+                    Operation.Remove(mount: $0.mount, index: $0.index)
+                )
+            }
+        )
     }
 
     for instance in rest {
-        operations.removes += remove(instance: instance)
+        remove(
+            instance: instance,
+            remove: {
+                operations.removes.append(
+                    Operation.Remove(mount: $0.mount, index: $0.index)
+                )
+            }
+        )
     }
 
-    return (instances, operations)
+    return (
+        instances: instances,
+        operations: operations
+    )
 }
