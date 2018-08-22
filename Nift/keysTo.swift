@@ -1,4 +1,4 @@
-typealias TryMap<Key: Hashable, Value> = ([Key: Value], [Value])
+typealias TryMap<Key: Hashable, Value> = (map: [Key: Value], rest: [Value])
 
 func keysTo(instances: [NodeInstance]) -> TryMap<String, NodeInstance> {
     var keysToInstances = [String: NodeInstance]()
@@ -12,5 +12,5 @@ func keysTo(instances: [NodeInstance]) -> TryMap<String, NodeInstance> {
         }
     }
 
-    return (keysToInstances, rest)
+    return (map: keysToInstances, rest: rest)
 }
