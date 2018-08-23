@@ -13,8 +13,7 @@ public func NSWindow(
     titlebarAppearsTransparent: Bool = false,
     _ children: [Node] = []
 ) -> Node {
-    return Native.create(
-        Component: Component.self,
+    return Native.Node(
         key: key,
         properties: Component.Properties(
             backingType: backingType,
@@ -24,6 +23,7 @@ public func NSWindow(
             styleMask: styleMask,
             titlebarAppearsTransparent: titlebarAppearsTransparent
         ),
+        Type: Component.self,
         children
     )
 }

@@ -7,10 +7,10 @@ public func NSApplication(
     key: String? = nil,
     _ children: [Node] = []
 ) -> Node {
-    return Native.create(
-        Component: Component.self,
+    return Native.Node(
         key: key,
         properties: Component.Properties(delegate: delegate),
+        Type: Component.self,
         children
     )
 }

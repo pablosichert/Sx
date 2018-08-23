@@ -19,7 +19,7 @@ class CompositeInstance: NodeInstance {
     weak var parent: NodeInstance?
 
     init(_ node: Node, parent: NodeInstance? = nil, index: Int) {
-        let Component = node.Component as! Composite.Renderable.Type
+        let Component = node.ComponentType as! Composite.Renderable.Type
         let component = Component.init(properties: node.properties, children: node.children)
         let nodes = component.render()
         let instances = instantiate(nodes: nodes, index: index)
@@ -86,7 +86,7 @@ class NativeInstance: NodeInstance {
     init(node: Node, parent: NodeInstance? = nil, index: Int) {
         let instances = instantiate(nodes: node.children, index: index)
         let mounts = instances.flatMap({ $0.mount() })
-        let Component = node.Component as! Native.Renderable.Type
+        let Component = node.ComponentType as! Native.Renderable.Type
         let component = Component.init(properties: node.properties, children: mounts)
 
         self.component = component

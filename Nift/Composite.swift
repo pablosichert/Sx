@@ -1,24 +1,29 @@
 import struct Foundation.UUID
 
-public struct Composite {
+open class Composite: Node {
+    public typealias Composite = CompositeComponent
     public typealias Create = (Any, [Node]) -> Renderable
     public typealias Renderable = CompositeComponentRenderable
-    public typealias Component = CompositeComponent
 
-    public static func create<Properties>(
-        Component: Renderable.Type,
+    public let children: [Node]
+    public let ComponentType: Any.Type
+    public let equal: (Any, Any) -> Bool
+    public let key: String?
+    public let properties: Any
+    public let type: Behavior
+
+    public init<Properties>(
         key: String?,
         properties: Properties,
+        Type: Renderable.Type,
         _ children: [Node] = []
-    ) -> Node where Properties: Equatable {
-        return Node(
-            children: children,
-            Component: Component,
-            equal: Equal<Properties>.call,
-            key: key,
-            properties: properties,
-            type: .Composite
-        )
+    ) where Properties: Equatable {
+        self.children = children
+        self.ComponentType = Type
+        self.equal = Equal<Properties>.call
+        self.key = key
+        self.properties = properties
+        self.type = .Composite
     }
 }
 

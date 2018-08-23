@@ -10,14 +10,14 @@ public func NSMenuItem(
     title: String? = nil,
     _ child: Node? = nil
 ) -> Node {
-    return Native.create(
-        Component: Component.self,
+    return Native.Node(
         key: key,
         properties: Component.Properties(
             action: action,
             keyEquivalent: keyEquivalent,
             title: title
         ),
+        Type: Component.self,
         child == nil ? [] : [child!]
     )
 }

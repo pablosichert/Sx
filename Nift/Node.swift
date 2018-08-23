@@ -1,18 +1,30 @@
-public struct Node: Equatable {
-    public static func == (lhs: Node, rhs: Node) -> Bool {
-        return (
-            lhs.type == rhs.type &&
-                lhs.Component == rhs.Component &&
-                lhs.key == rhs.key &&
-                lhs.equal(lhs.properties, rhs.properties) &&
-                lhs.children == rhs.children
-        )
-    }
+public protocol Node {
+    var children: [Node] { get }
+    var ComponentType: Any.Type { get }
+    var equal: (Any, Any) -> Bool { get }
+    var key: String? { get }
+    var properties: Any { get }
+    var type: Behavior { get }
+}
 
-    public let children: [Node]
-    public let Component: Any.Type
-    public let equal: (Any, Any) -> Bool
-    public let key: String?
-    public let properties: Any
-    public let type: Behavior
+func != (lhs: [Node], rhs: [Node]) -> Bool {
+    return !(lhs == rhs)
+}
+
+func == (lhs: [Node], rhs: [Node]) -> Bool {
+    return lhs == rhs
+}
+
+func != (lhs: Node, rhs: Node) -> Bool {
+    return !(lhs == rhs)
+}
+
+func == (lhs: Node, rhs: Node) -> Bool {
+    return (
+        lhs.type == rhs.type &&
+            lhs.ComponentType == rhs.ComponentType &&
+            lhs.key == rhs.key &&
+            lhs.equal(lhs.properties, rhs.properties) &&
+            lhs.children == rhs.children
+    )
 }

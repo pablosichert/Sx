@@ -12,8 +12,7 @@ public func NSView(
     wantsLayer: Bool = false,
     _ children: [Node] = []
 ) -> Node {
-    return Native.create(
-        Component: Component.self,
+    return Native.Node(
         key: key,
         properties: Component.Properties(
             backgroundColor: backgroundColor,
@@ -21,6 +20,7 @@ public func NSView(
             rightMouseDown: rightMouseDown,
             wantsLayer: wantsLayer
         ),
+        Type: Component.self,
         children
     )
 }

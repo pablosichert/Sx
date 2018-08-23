@@ -7,10 +7,10 @@ public func NSMenu(
     title: String? = nil,
     _ children: [Node] = []
 ) -> Node {
-    return Native.create(
-        Component: Component.self,
+    return Native.Node(
         key: key,
         properties: Component.Properties(title: title),
+        Type: Component.self,
         children
     )
 }

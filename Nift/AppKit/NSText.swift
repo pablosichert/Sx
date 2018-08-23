@@ -9,14 +9,14 @@ public func NSText(
     key: String? = nil,
     string: String? = nil
 ) -> Node {
-    return Native.create(
-        Component: Component.self,
+    return Native.Node(
         key: key,
         properties: Component.Properties(
             backgroundColor: backgroundColor,
             frame: frame,
             string: string
-        )
+        ),
+        Type: Component.self
     )
 }
 
