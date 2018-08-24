@@ -7,8 +7,8 @@ import struct Foundation.UUID
 public func NSView(
     backgroundColor: CGColor? = nil,
     key: String? = nil,
-    mouseDown: Handler<NSEventClosure> = Handler({ (_: NSEvent) in }),
-    rightMouseDown: Handler<NSEventClosure> = Handler({ (_: NSEvent) in }),
+    mouseDown: @escaping (NSEvent) -> Void,
+    rightMouseDown: @escaping (NSEvent) -> Void,
     wantsLayer: Bool = false,
     _ children: [Node] = []
 ) -> Node {
@@ -27,22 +27,31 @@ public func NSView(
 
 private struct Component: Native.Renderable {
     struct Properties: Equatable {
+        static func == (lhs: Component.Properties, rhs: Component.Properties) -> Bool {
+            return (
+                lhs.backgroundColor == rhs.backgroundColor &&
+                    lhs.mouseDown === rhs.mouseDown &&
+                    lhs.rightMouseDown === rhs.rightMouseDown &&
+                    lhs.wantsLayer == rhs.wantsLayer
+            )
+        }
+
         let backgroundColor: CGColor?
-        let mouseDown: Handler<NSEventClosure>
-        let rightMouseDown: Handler<NSEventClosure>
+        let mouseDown: (NSEvent) -> Void
+        let rightMouseDown: (NSEvent) -> Void
         let wantsLayer: Bool
     }
 
     class View: AppKit.NSView {
-        var mouseDown: Handler<NSEventClosure> = .init({ _ in })
-        var rightMouseDown: Handler<NSEventClosure> = .init({ _ in })
+        var mouseDown: (NSEvent) -> Void = { _ in }
+        var rightMouseDown: (NSEvent) -> Void = { _ in }
 
         override func mouseDown(with event: NSEvent) {
-            mouseDown.call(event)
+            mouseDown(event)
         }
 
         override func rightMouseDown(with event: NSEvent) {
-            rightMouseDown.call(event)
+            rightMouseDown(event)
         }
     }
 

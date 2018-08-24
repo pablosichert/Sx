@@ -9,8 +9,6 @@ import func Nift.NSText
 import func Nift.NSView
 
 public class Incrementer: Composite {
-    typealias Event = (_ with: NSEvent) -> Void
-
     struct Properties: Equatable {
         let x: CGFloat
         let y: CGFloat
@@ -33,21 +31,13 @@ public class Incrementer: Composite {
             super.init(properties: properties as! Properties, state: State(), children)
         }
 
-        lazy var increaseHandler = Handler<Event>({ [unowned self] _ in
-            self.increase()
-        })
-
-        lazy var decreaseHandler = Handler<Event>({ [unowned self] _ in
-            self.decrease()
-        })
-
-        func increase() {
+        func increase(_: NSEvent) {
             setState(State(
                 count: state.count + 1
             ))
         }
 
-        func decrease() {
+        func decrease(_: NSEvent) {
             setState(State(
                 count: state.count - 1
             ))
@@ -75,8 +65,8 @@ public class Incrementer: Composite {
                 NSView(
                     backgroundColor: NSColor.lightGray.cgColor,
                     key: "view",
-                    mouseDown: increaseHandler,
-                    rightMouseDown: decreaseHandler,
+                    mouseDown: increase,
+                    rightMouseDown: decrease,
                     wantsLayer: true, [
                         NSText(
                             frame: CGRect(
