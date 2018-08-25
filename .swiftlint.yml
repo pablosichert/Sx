@@ -1,10 +1,11 @@
 disabled_rules:
-- cyclomatic_complexity
-- force_cast
-- function_body_length
-- identifier_name
-- large_tuple
-- nesting
-- trailing_comma
+  - cyclomatic_complexity
+  - force_cast
+  - function_body_length
+  - identifier_name
+  - large_tuple
+  - nesting
+  - private_unit_test
+  - trailing_comma
 
 force_cast: warning
