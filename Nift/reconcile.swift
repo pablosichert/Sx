@@ -21,13 +21,14 @@ private extension Operations {
     }
 }
 
-private func updateIndices(index: Int, instance: NodeInstance) {
+private func updateIndices(index: Int, instance: inout NodeInstance) {
+    var instance = instance
     instance.index = index
 
     var index = index
 
-    for instance in instance.instances {
-        updateIndices(index: index, instance: instance)
+    for var instance in instance.instances {
+        updateIndices(index: index, instance: &instance)
 
         index += instance.mount().count
     }
@@ -147,7 +148,7 @@ private func replace(
 
 private func update(
     index: Int,
-    instance: NodeInstance,
+    instance: inout NodeInstance,
     node: Node,
     reorder: Reorder
 ) -> Int {
@@ -162,7 +163,7 @@ private func update(
             reorder((mount: mount, from: instance.index + i, to: index + i))
         }
 
-        updateIndices(index: index, instance: instance)
+        updateIndices(index: index, instance: &instance)
     }
 
     return mounts.count
@@ -193,11 +194,11 @@ func reconcile(
             instance = rest.dequeue()
         }
 
-        if let instance = instance {
+        if var instance = instance {
             if instance.node.type == node.type {
                 index += update(
                     index: index,
-                    instance: instance,
+                    instance: &instance,
                     node: node,
                     reorder: operations.reorder as Reorder
                 )

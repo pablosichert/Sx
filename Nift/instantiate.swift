@@ -1,4 +1,4 @@
-protocol NodeInstance: class {
+protocol NodeInstance {
     var node: Node { get }
     var index: Int { get set }
     var instances: [NodeInstance] { get }
@@ -6,17 +6,17 @@ protocol NodeInstance: class {
 
     func mount() -> [Any]
 
-    func update(node: Node)
+    mutating func update(node: Node)
 
-    func update(operations: Operations)
+    mutating func update(operations: Operations)
 }
 
-class CompositeInstance: NodeInstance {
-    var component: Composite.Renderable
+struct CompositeInstance: NodeInstance {
+    let component: Composite.Renderable
     var index: Int
     var instances: [NodeInstance]
     var node: Node
-    weak var parent: NodeInstance?
+    var parent: NodeInstance?
 
     init(_ node: Node, parent: NodeInstance? = nil, index: Int) {
         let Component = node.ComponentType as! Composite.Renderable.Type
@@ -30,7 +30,7 @@ class CompositeInstance: NodeInstance {
         self.node = node
         self.parent = parent
 
-        for instance in instances {
+        for var instance in instances {
             instance.parent = self
         }
     }
@@ -39,7 +39,7 @@ class CompositeInstance: NodeInstance {
         return instances.flatMap({ $0.mount() })
     }
 
-    func rerender() {
+    mutating func rerender() {
         let (instances, operations) = reconcile(
             instances: self.instances,
             nodes: component.render(),
@@ -51,7 +51,7 @@ class CompositeInstance: NodeInstance {
         self.instances = instances
     }
 
-    func update(node: Node) {
+    mutating func update(node: Node) {
         let newProperties = !self.node.equal(self.node.properties, node.properties)
         let newChildren = self.node.children != node.children
 
@@ -71,17 +71,17 @@ class CompositeInstance: NodeInstance {
         self.node = node
     }
 
-    func update(operations: Operations) {
+    mutating func update(operations: Operations) {
         parent?.update(operations: operations)
     }
 }
 
-class NativeInstance: NodeInstance {
-    var component: Native.Renderable
+struct NativeInstance: NodeInstance {
+    let component: Native.Renderable
     var index: Int
     var instances: [NodeInstance]
     var node: Node
-    weak var parent: NodeInstance?
+    var parent: NodeInstance?
 
     init(node: Node, parent: NodeInstance? = nil, index: Int) {
         let instances = instantiate(nodes: node.children, index: index)
@@ -95,7 +95,7 @@ class NativeInstance: NodeInstance {
         self.node = node
         self.parent = parent
 
-        for instance in instances {
+        for var instance in instances {
             instance.parent = self
         }
     }
@@ -104,7 +104,7 @@ class NativeInstance: NodeInstance {
         return [component.render()]
     }
 
-    func update(node: Node) {
+    mutating func update(node: Node) {
         let (instances, operations) = reconcile(
             instances: self.instances,
             nodes: node.children,
@@ -135,10 +135,10 @@ class NativeInstance: NodeInstance {
 }
 
 func instantiate(composite node: Node, parent: NodeInstance? = nil, index: Int) -> CompositeInstance {
-    let instance = CompositeInstance(node, parent: parent, index: index)
+    var instance = CompositeInstance(node, parent: parent, index: index)
     var component = instance.component
 
-    component.rerender = { [unowned instance] in
+    component.rerender = {
         instance.rerender()
     }
 
