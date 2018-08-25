@@ -21,7 +21,7 @@ private struct Component: Native.Renderable {
             return lhs.delegate === rhs.delegate
         }
 
-        let delegate: AppKit.NSApplicationDelegate
+        weak var delegate: AppKit.NSApplicationDelegate?
     }
 
     var application = AppKit.NSApplication.shared
