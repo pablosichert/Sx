@@ -27,9 +27,22 @@
 		6EDDE5E9212B48CE00BE9A11 /* StaticQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDDE5E8212B48CE00BE9A11 /* StaticQueue.swift */; };
 		6EE26FD021318452000D5A33 /* ===.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE26FCF21318452000D5A33 /* ===.swift */; };
 		6EE26FD221318481000D5A33 /* equal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE26FD121318481000D5A33 /* equal.swift */; };
+		6EE26FDE21318941000D5A33 /* Nift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE5D94B20F53C50001851E0 /* Nift.framework */; };
+		6EE26FE721318A9A000D5A33 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE26FE621318A9A000D5A33 /* XCTest.framework */; };
+		6EE26FE921318AB8000D5A33 /* equal.test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE26FD321318878000D5A33 /* equal.test.swift */; };
 		6EE612EC20FBBBCA00BCDDEB /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE612EB20FBBBCA00BCDDEB /* NSView.swift */; };
 		6EEDD81220F97A0D00F1883D /* NSWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEDD81120F97A0D00F1883D /* NSWindow.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6EE26FDF21318941000D5A33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6EE5D94220F53C50001851E0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6EE5D94A20F53C50001851E0;
+			remoteInfo = Nift;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6E11FECA210FF59F00A47589 /* Mount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mount.swift; sourceTree = "<group>"; };
@@ -52,6 +65,9 @@
 		6EDDE5E8212B48CE00BE9A11 /* StaticQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticQueue.swift; sourceTree = "<group>"; };
 		6EE26FCF21318452000D5A33 /* ===.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "===.swift"; sourceTree = "<group>"; };
 		6EE26FD121318481000D5A33 /* equal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = equal.swift; sourceTree = "<group>"; };
+		6EE26FD321318878000D5A33 /* equal.test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = equal.test.swift; sourceTree = "<group>"; };
+		6EE26FD921318941000D5A33 /* NiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EE26FE621318A9A000D5A33 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6EE5D94B20F53C50001851E0 /* Nift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EE5D94F20F53C50001851E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6EE612EB20FBBBCA00BCDDEB /* NSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
@@ -59,6 +75,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6EE26FD621318941000D5A33 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EE26FE721318A9A000D5A33 /* XCTest.framework in Frameworks */,
+				6EE26FDE21318941000D5A33 /* Nift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6EE5D94720F53C50001851E0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -82,11 +107,20 @@
 			path = AppKit;
 			sourceTree = "<group>";
 		};
+		6EE26FE521318A99000D5A33 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6EE26FE621318A9A000D5A33 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6EE5D94120F53C50001851E0 = {
 			isa = PBXGroup;
 			children = (
 				6EE5D94D20F53C50001851E0 /* Nift */,
 				6EE5D94C20F53C50001851E0 /* Products */,
+				6EE26FE521318A99000D5A33 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				6EE5D94B20F53C50001851E0 /* Nift.framework */,
+				6EE26FD921318941000D5A33 /* NiftTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,6 +142,7 @@
 				6E1827BD20F93A5900687325 /* Composite.swift */,
 				6EE26FD121318481000D5A33 /* equal.swift */,
 				6E2A0A332117E6C200D395A3 /* Equal.swift */,
+				6EE26FD321318878000D5A33 /* equal.test.swift */,
 				6E2A0A312117869200D395A3 /* Handler.swift */,
 				6EE5D94F20F53C50001851E0 /* Info.plist */,
 				6E47C79120F67CC700612B3E /* instantiate.swift */,
@@ -136,6 +172,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		6EE26FD821318941000D5A33 /* NiftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6EE26FE121318941000D5A33 /* Build configuration list for PBXNativeTarget "NiftTests" */;
+			buildPhases = (
+				6EE26FD521318941000D5A33 /* Sources */,
+				6EE26FD621318941000D5A33 /* Frameworks */,
+				6EE26FD721318941000D5A33 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6EE26FE021318941000D5A33 /* PBXTargetDependency */,
+			);
+			name = NiftTests;
+			productName = NiftTests;
+			productReference = 6EE26FD921318941000D5A33 /* NiftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		6EE5D94A20F53C50001851E0 /* Nift */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6EE5D95320F53C50001851E0 /* Build configuration list for PBXNativeTarget "Nift" */;
@@ -161,9 +215,13 @@
 		6EE5D94220F53C50001851E0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0940;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Pablo Sichert";
 				TargetAttributes = {
+					6EE26FD821318941000D5A33 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
 					6EE5D94A20F53C50001851E0 = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 0940;
@@ -183,11 +241,19 @@
 			projectRoot = "";
 			targets = (
 				6EE5D94A20F53C50001851E0 /* Nift */,
+				6EE26FD821318941000D5A33 /* NiftTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6EE26FD721318941000D5A33 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6EE5D94920F53C50001851E0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -214,6 +280,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6EE26FD521318941000D5A33 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EE26FE921318AB8000D5A33 /* equal.test.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6EE5D94620F53C50001851E0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -245,7 +319,49 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		6EE26FE021318941000D5A33 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6EE5D94A20F53C50001851E0 /* Nift */;
+			targetProxy = 6EE26FDF21318941000D5A33 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		6EE26FE221318941000D5A33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Nift/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.NiftTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		6EE26FE321318941000D5A33 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Nift/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.NiftTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
 		6EE5D95120F53C50001851E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -421,6 +537,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6EE26FE121318941000D5A33 /* Build configuration list for PBXNativeTarget "NiftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6EE26FE221318941000D5A33 /* Debug */,
+				6EE26FE321318941000D5A33 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6EE5D94520F53C50001851E0 /* Build configuration list for PBXProject "Nift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
