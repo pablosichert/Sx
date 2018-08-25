@@ -21,8 +21,8 @@ private struct Function: Equatable {
 }
 
 public func equal<Arguments, Return>(
-    lhs: (Arguments) -> Return,
-    rhs: (Arguments) -> Return
+    _ lhs: (Arguments) -> Return,
+    _ rhs: (Arguments) -> Return
 ) -> Bool {
     let lhs = Function.from(lhs)
     let rhs = Function.from(rhs)
