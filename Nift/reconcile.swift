@@ -13,11 +13,11 @@ private extension Operations {
     }
 
     func reorder(_ operation: (mount: Any, from: Int, to: Int)) {
-        reorder(operation)
+        reorder(mount: operation.mount, from: operation.from, to: operation.to)
     }
 
     func replace(_ operation: (old: Any, new: Any, index: Int)) {
-        replace(operation)
+        replace(old: operation.old, new: operation.new, index: operation.index)
     }
 }
 
