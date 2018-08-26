@@ -12,7 +12,15 @@ func != (lhs: [Node], rhs: [Node]) -> Bool {
 }
 
 func == (lhs: [Node], rhs: [Node]) -> Bool {
-    return lhs == rhs
+    if lhs.count != rhs.count {
+        return false
+    }
+
+    for i in 0..<lhs.count where lhs[i] != rhs[i] {
+        return false
+    }
+
+    return true
 }
 
 func != (lhs: Node, rhs: Node) -> Bool {
