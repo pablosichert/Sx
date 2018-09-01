@@ -1,4 +1,3 @@
-public enum Behavior {
-    case Composite
-    case Native
-}
+import enum Reconcilation.Behavior
+
+public typealias Behavior = Reconcilation.Behavior

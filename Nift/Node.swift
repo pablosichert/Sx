@@ -1,11 +1,6 @@
-public protocol Node {
-    var children: [Node] { get }
-    var ComponentType: Any.Type { get }
-    var equal: (Any, Any) -> Bool { get }
-    var key: String? { get }
-    var properties: Any { get }
-    var type: Behavior { get }
-}
+import protocol Reconcilation.Node
+
+public typealias Node = Reconcilation.Node
 
 func != (lhs: [Node], rhs: [Node]) -> Bool {
     return !(lhs == rhs)
@@ -16,7 +11,7 @@ func == (lhs: [Node], rhs: [Node]) -> Bool {
         return false
     }
 
-    for i in 0..<lhs.count where lhs[i] != rhs[i] {
+    for i in 0 ..< lhs.count where lhs[i] != rhs[i] {
         return false
     }
 

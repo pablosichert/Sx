@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E36D50F213B08C600917064 /* Nift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E36D50E213B08C600917064 /* Nift.framework */; };
+		6E36D510213B08C600917064 /* Nift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E36D50E213B08C600917064 /* Nift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6E36D511213B08CC00917064 /* Reconcilation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E36D4FF2139E37E00917064 /* Reconcilation.framework */; };
+		6E36D512213B08CC00917064 /* Reconcilation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E36D4FF2139E37E00917064 /* Reconcilation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6E7255F821194D26002BD972 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7255F721194D26002BD972 /* main.swift */; };
 		6E7255FA21194D30002BD972 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7255F921194D2F002BD972 /* App.swift */; };
-		6E7255FD21194F28002BD972 /* Nift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7255FC21194F28002BD972 /* Nift.framework */; };
-		6E7255FE21194F28002BD972 /* Nift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7255FC21194F28002BD972 /* Nift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6E72560121194FB2002BD972 /* Incrementer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E72560021194FB2002BD972 /* Incrementer.swift */; };
 /* End PBXBuildFile section */
 
@@ -21,7 +23,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6E7255FE21194F28002BD972 /* Nift.framework in Embed Frameworks */,
+				6E36D510213B08C600917064 /* Nift.framework in Embed Frameworks */,
+				6E36D512213B08CC00917064 /* Reconcilation.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -29,12 +32,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6E36D4FF2139E37E00917064 /* Reconcilation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Reconcilation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E36D50E213B08C600917064 /* Nift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7255E621194C79002BD972 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7255F021194C7B002BD972 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E7255F721194D26002BD972 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		6E7255F921194D2F002BD972 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		6E7255FB21194EE6002BD972 /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example.entitlements; sourceTree = "<group>"; };
-		6E7255FC21194F28002BD972 /* Nift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E72560021194FB2002BD972 /* Incrementer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Incrementer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -43,19 +47,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E7255FD21194F28002BD972 /* Nift.framework in Frameworks */,
+				6E36D50F213B08C600917064 /* Nift.framework in Frameworks */,
+				6E36D511213B08CC00917064 /* Reconcilation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E36D4FE2139E37E00917064 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6E36D4FF2139E37E00917064 /* Reconcilation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6E7255DD21194C79002BD972 = {
 			isa = PBXGroup;
 			children = (
-				6E7255FC21194F28002BD972 /* Nift.framework */,
+				6E36D50E213B08C600917064 /* Nift.framework */,
 				6E7255E821194C79002BD972 /* Example */,
 				6E7255E721194C79002BD972 /* Products */,
+				6E36D4FE2139E37E00917064 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

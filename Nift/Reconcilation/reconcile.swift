@@ -169,8 +169,9 @@ private func update(
     return mounts.count
 }
 
-func reconcile(
+public func reconcile(
     instances: [NodeInstance],
+    instantiate: ((node: Node, parent: NodeInstance, index: Int)) -> NodeInstance,
     nodes: [Node],
     parent: NodeInstance
 ) -> (
@@ -205,7 +206,7 @@ func reconcile(
 
                 return instance
             } else {
-                let new = instantiate(node: node, parent: parent, index: index)
+                let new = instantiate((node: node, parent: parent, index: index))
 
                 index += replace(
                     new: new,
@@ -219,7 +220,7 @@ func reconcile(
             }
         }
 
-        let new = instantiate(node: node, parent: parent, index: index)
+        let new = instantiate((node: node, parent: parent, index: index))
 
         index += insert(
             instance: new,

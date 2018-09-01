@@ -1,15 +1,4 @@
-protocol NodeInstance {
-    var node: Node { get }
-    var index: Int { get set }
-    var instances: [NodeInstance] { get }
-    var parent: NodeInstance? { get set }
-
-    func mount() -> [Any]
-
-    mutating func update(node: Node)
-
-    mutating func update(operations: Operations)
-}
+import func Reconcilation.reconcile
 
 struct CompositeInstance: NodeInstance {
     let component: Composite.Renderable
@@ -42,6 +31,7 @@ struct CompositeInstance: NodeInstance {
     mutating func rerender() {
         let (instances, operations) = reconcile(
             instances: self.instances,
+            instantiate: instantiate(node:parent:index:),
             nodes: component.render(),
             parent: self
         )
@@ -107,6 +97,7 @@ struct NativeInstance: NodeInstance {
     mutating func update(node: Node) {
         let (instances, operations) = reconcile(
             instances: self.instances,
+            instantiate: instantiate(node:parent:index:),
             nodes: node.children,
             parent: self
         )
