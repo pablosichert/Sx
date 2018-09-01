@@ -23,6 +23,7 @@
 		6E36D4F62139DF4600917064 /* Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36D4F52139DF4600917064 /* Operations.swift */; };
 		6E36D4F82139DFC000917064 /* Behavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36D4F72139DFC000917064 /* Behavior.swift */; };
 		6E36D4FC2139E1EA00917064 /* NodeInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36D4FB2139E1EA00917064 /* NodeInstance.swift */; };
+		6E36D53C213B0D4E00917064 /* Reconcilation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E36D4E22139DBBE00917064 /* Reconcilation.framework */; };
 		6E47C79220F67CC700612B3E /* instantiate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E47C79120F67CC700612B3E /* instantiate.swift */; };
 		6E5386A620F8E2DF0039FADB /* Native.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5386A520F8E2DF0039FADB /* Native.swift */; };
 		6E5386A820F8E7DE0039FADB /* NSApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5386A720F8E7DE0039FADB /* NSApplication.swift */; };
@@ -40,6 +41,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		6E36D53D213B0D4E00917064 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6EE5D94220F53C50001851E0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6E36D4E12139DBBE00917064;
+			remoteInfo = Reconcilation;
+		};
 		6EE26FDF21318941000D5A33 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6EE5D94220F53C50001851E0 /* Project object */;
@@ -60,6 +68,7 @@
 		6E36D4F52139DF4600917064 /* Operations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operations.swift; sourceTree = "<group>"; };
 		6E36D4F72139DFC000917064 /* Behavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Behavior.swift; sourceTree = "<group>"; };
 		6E36D4FB2139E1EA00917064 /* NodeInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInstance.swift; sourceTree = "<group>"; };
+		6E36D537213B0D4E00917064 /* ReconcilationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReconcilationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E47C78B20F67C0200612B3E /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		6E47C79120F67CC700612B3E /* instantiate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = instantiate.swift; sourceTree = "<group>"; };
 		6E5386A520F8E2DF0039FADB /* Native.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Native.swift; sourceTree = "<group>"; };
@@ -90,6 +99,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E36D534213B0D4E00917064 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E36D53C213B0D4E00917064 /* Reconcilation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +180,7 @@
 				6EE5D94B20F53C50001851E0 /* Nift.framework */,
 				6EE26FD921318941000D5A33 /* NiftTests.xctest */,
 				6E36D4E22139DBBE00917064 /* Reconcilation.framework */,
+				6E36D537213B0D4E00917064 /* ReconcilationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -229,6 +247,24 @@
 			productReference = 6E36D4E22139DBBE00917064 /* Reconcilation.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		6E36D536213B0D4E00917064 /* ReconcilationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6E36D53F213B0D4E00917064 /* Build configuration list for PBXNativeTarget "ReconcilationTests" */;
+			buildPhases = (
+				6E36D533213B0D4E00917064 /* Sources */,
+				6E36D534213B0D4E00917064 /* Frameworks */,
+				6E36D535213B0D4E00917064 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6E36D53E213B0D4E00917064 /* PBXTargetDependency */,
+			);
+			name = ReconcilationTests;
+			productName = ReconcilationTests;
+			productReference = 6E36D537213B0D4E00917064 /* ReconcilationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		6EE26FD821318941000D5A33 /* NiftTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6EE26FE121318941000D5A33 /* Build configuration list for PBXNativeTarget "NiftTests" */;
@@ -279,6 +315,10 @@
 					6E36D4E12139DBBE00917064 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
+					6E36D536213B0D4E00917064 = {
+						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
+					};
 					6EE26FD821318941000D5A33 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -303,12 +343,20 @@
 				6EE5D94A20F53C50001851E0 /* Nift */,
 				6EE26FD821318941000D5A33 /* NiftTests */,
 				6E36D4E12139DBBE00917064 /* Reconcilation */,
+				6E36D536213B0D4E00917064 /* ReconcilationTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6E36D4E02139DBBE00917064 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E36D535213B0D4E00917064 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -363,6 +411,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6E36D533213B0D4E00917064 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6EE26FD521318941000D5A33 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -400,6 +455,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		6E36D53E213B0D4E00917064 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6E36D4E12139DBBE00917064 /* Reconcilation */;
+			targetProxy = 6E36D53D213B0D4E00917064 /* PBXContainerItemProxy */;
+		};
 		6EE26FE021318941000D5A33 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6EE5D94A20F53C50001851E0 /* Nift */;
@@ -454,6 +514,43 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Nift.Reconcilation;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		6E36D540213B0D4E00917064 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Nift/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Nift.ReconcilationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		6E36D541213B0D4E00917064 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Nift/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Nift.ReconcilationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -672,6 +769,15 @@
 			buildConfigurations = (
 				6E36D4E72139DBBE00917064 /* Debug */,
 				6E36D4E82139DBBE00917064 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6E36D53F213B0D4E00917064 /* Build configuration list for PBXNativeTarget "ReconcilationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E36D540213B0D4E00917064 /* Debug */,
+				6E36D541213B0D4E00917064 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
