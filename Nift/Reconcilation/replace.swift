@@ -50,14 +50,14 @@ func replace(
             ))
         }
 
-        for i in old {
+        for i in trailingOld {
             remove((
                 mount: mountsOld[leadingOld.count + shared.count + i - trailingOld.lowerBound],
                 index: i
             ))
         }
 
-        for i in new {
+        for i in trailingNew {
             insert((
                 mount: mountsNew[leadingNew.count + shared.count + i - trailingNew.lowerBound],
                 index: i
