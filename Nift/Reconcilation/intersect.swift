@@ -10,7 +10,7 @@ public func intersect<T>(
 
     if lowerBeforeUpper && upperBeforeLower {
         return lowerBoundMax ..< upperBoundMin
-    } else {
-        return nil
     }
+
+    return nil
 }
