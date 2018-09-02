@@ -33,6 +33,7 @@
 		6E36D559213B2DD300917064 /* Reorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36D552213B2D7F00917064 /* Reorder.swift */; };
 		6E36D55A213B2DD800917064 /* Replace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36D554213B2DA900917064 /* Replace.swift */; };
 		6E36D55B213B2DDE00917064 /* update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36D546213B2C8600917064 /* update.swift */; };
+		6E36D571213B348C00917064 /* intersect.test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36D570213B348C00917064 /* intersect.test.swift */; };
 		6E47C79220F67CC700612B3E /* instantiate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E47C79120F67CC700612B3E /* instantiate.swift */; };
 		6E5386A620F8E2DF0039FADB /* Native.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5386A520F8E2DF0039FADB /* Native.swift */; };
 		6E5386A820F8E7DE0039FADB /* NSApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5386A720F8E7DE0039FADB /* NSApplication.swift */; };
@@ -87,6 +88,7 @@
 		6E36D550213B2D6E00917064 /* Remove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Remove.swift; sourceTree = "<group>"; };
 		6E36D552213B2D7F00917064 /* Reorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reorder.swift; sourceTree = "<group>"; };
 		6E36D554213B2DA900917064 /* Replace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Replace.swift; sourceTree = "<group>"; };
+		6E36D570213B348C00917064 /* intersect.test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = intersect.test.swift; sourceTree = "<group>"; };
 		6E47C78B20F67C0200612B3E /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		6E47C79120F67CC700612B3E /* instantiate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = instantiate.swift; sourceTree = "<group>"; };
 		6E5386A520F8E2DF0039FADB /* Native.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Native.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				6E36D544213B2C6900917064 /* insert.swift */,
 				6E36D54E213B2D5400917064 /* Insert.swift */,
 				6E36D54C213B2D0B00917064 /* intersect.swift */,
+				6E36D570213B348C00917064 /* intersect.test.swift */,
 				6E563E27211671500011B691 /* keysTo.swift */,
 				6E47C78B20F67C0200612B3E /* Node.swift */,
 				6E36D4EF2139DC8A00917064 /* NodeInstance.swift */,
@@ -451,6 +454,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E36D571213B348C00917064 /* intersect.test.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
