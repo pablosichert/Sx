@@ -1,5 +1,3 @@
-import struct Foundation.UUID
-
 public protocol Native: Node {
     typealias Create = (Any, [Any]) -> Renderable
     typealias Node = NativeNode

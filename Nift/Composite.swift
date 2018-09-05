@@ -1,5 +1,3 @@
-import struct Foundation.UUID
-
 open class Composite: Node {
     public typealias Composite = CompositeComponent
     public typealias Create = (Any, [Node]) -> Renderable

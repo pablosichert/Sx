@@ -1,7 +1,6 @@
-import class XCTest.XCTestCase
-import func XCTest.XCTAssert
-import func XCTest.XCTFail
 import func Reconcilation.intersect
+import func XCTest.XCTAssert
+import class XCTest.XCTestCase
 
 private class Test: XCTestCase {
     func testOverlappingRanges() {

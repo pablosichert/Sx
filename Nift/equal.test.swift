@@ -1,6 +1,6 @@
-import class XCTest.XCTestCase
-import func XCTest.XCTAssert
 import func Nift.equal
+import func XCTest.XCTAssert
+import class XCTest.XCTestCase
 
 private class Test: XCTestCase {
     func testFunctionIdempodent() {

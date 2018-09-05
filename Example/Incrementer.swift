@@ -3,7 +3,6 @@ import class AppKit.NSEvent
 import struct CoreGraphics.CGFloat
 import struct CoreGraphics.CGRect
 import class Nift.Composite
-import struct Nift.Handler
 import protocol Nift.Node
 import func Nift.NSText
 import func Nift.NSView
