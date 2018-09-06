@@ -46,6 +46,7 @@
 		6EE26FDE21318941000D5A33 /* Nift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE5D94B20F53C50001851E0 /* Nift.framework */; };
 		6EE26FE721318A9A000D5A33 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE26FE621318A9A000D5A33 /* XCTest.framework */; };
 		6EE26FE921318AB8000D5A33 /* equal.test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE26FD321318878000D5A33 /* equal.test.swift */; };
+		6EE475DD2141BFD1000B6403 /* Operations.test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE475DC2141BFD1000B6403 /* Operations.test.swift */; };
 		6EE612EC20FBBBCA00BCDDEB /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE612EB20FBBBCA00BCDDEB /* NSView.swift */; };
 		6EEDD81220F97A0D00F1883D /* NSWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEDD81120F97A0D00F1883D /* NSWindow.swift */; };
 /* End PBXBuildFile section */
@@ -108,6 +109,7 @@
 		6EE26FD321318878000D5A33 /* equal.test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = equal.test.swift; sourceTree = "<group>"; };
 		6EE26FD921318941000D5A33 /* NiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EE26FE621318A9A000D5A33 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		6EE475DC2141BFD1000B6403 /* Operations.test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operations.test.swift; sourceTree = "<group>"; };
 		6EE5D94B20F53C50001851E0 /* Nift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EE5D94F20F53C50001851E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6EE612EB20FBBBCA00BCDDEB /* NSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				6E36D4EF2139DC8A00917064 /* NodeInstance.swift */,
 				6E961ED121011793006BB3C3 /* Operation.swift */,
 				6EB9D7D92128B3BA00985D08 /* Operations.swift */,
+				6EE475DC2141BFD1000B6403 /* Operations.test.swift */,
 				6EB9D7D52128603800985D08 /* reconcile.swift */,
 				6E36D548213B2CA900917064 /* remove.swift */,
 				6E36D550213B2D6E00917064 /* Remove.swift */,
@@ -455,6 +458,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E793A82213C4F4900D0A3C9 /* StaticQueue.test.swift in Sources */,
+				6EE475DD2141BFD1000B6403 /* Operations.test.swift in Sources */,
 				6E36D571213B348C00917064 /* intersect.test.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
