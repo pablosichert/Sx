@@ -1,0 +1,3 @@
+DIRECTORY="$1"
+
+swiftformat --disable redundantSelf,redundantInit $DIRECTORY
