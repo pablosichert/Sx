@@ -1,21 +1,3 @@
-private extension Operations {
-    func insert(_ operation: (mount: Any, index: Int)) {
-        insert(mount: operation.mount, index: operation.index)
-    }
-
-    func remove(_ operation: (mount: Any, index: Int)) {
-        remove(mount: operation.mount, index: operation.index)
-    }
-
-    func reorder(_ operation: (mount: Any, from: Int, to: Int)) {
-        reorder(mount: operation.mount, from: operation.from, to: operation.to)
-    }
-
-    func replace(_ operation: (old: Any, new: Any, index: Int)) {
-        replace(old: operation.old, new: operation.new, index: operation.index)
-    }
-}
-
 public func reconcile(
     instances: [NodeInstance],
     instantiate: ((node: Node, parent: NodeInstance, index: Int)) -> NodeInstance,
@@ -25,7 +7,7 @@ public func reconcile(
     instances: [NodeInstance],
     operations: Operations
 ) {
-    let operations = Operations()
+    var operations = Operations()
 
     let tryMap = keysTo(instances: instances)
     var keysToInstances = tryMap.map
@@ -48,7 +30,7 @@ public func reconcile(
                     index: index,
                     instance: &instance,
                     node: node,
-                    reorder: operations.reorder as Reorder
+                    reorder: { operations.reorder($0) }
                 )
 
                 return instance
@@ -58,9 +40,9 @@ public func reconcile(
                 index += replace(
                     new: new,
                     old: instance,
-                    insert: operations.insert as Insert,
-                    remove: operations.remove as Remove,
-                    replace: operations.replace as Replace
+                    insert: { operations.insert($0) },
+                    remove: { operations.remove($0) },
+                    replace: { operations.replace($0) }
                 )
 
                 return new
@@ -71,7 +53,7 @@ public func reconcile(
 
         index += insert(
             instance: new,
-            insert: operations.insert as Insert
+            insert: { operations.insert($0) }
         )
 
         return new
@@ -80,14 +62,14 @@ public func reconcile(
     for instance in keysToInstances.values {
         remove(
             instance: instance,
-            remove: operations.remove as Remove
+            remove: { operations.remove($0) }
         )
     }
 
     for instance in rest {
         remove(
             instance: instance,
-            remove: operations.remove as Remove
+            remove: { operations.remove($0) }
         )
     }
 
