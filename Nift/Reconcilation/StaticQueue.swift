@@ -1,12 +1,12 @@
-struct StaticQueue<T>: Sequence, IteratorProtocol {
+public struct StaticQueue<T>: Sequence, IteratorProtocol {
     let elements: [T]
     var index = 0
 
-    init(_ elements: [T]) {
+    public init(_ elements: [T]) {
         self.elements = elements
     }
 
-    mutating func dequeue() -> T? {
+    public mutating func dequeue() -> T? {
         if index >= elements.count {
             return nil
         }
@@ -18,7 +18,7 @@ struct StaticQueue<T>: Sequence, IteratorProtocol {
         return elements[index]
     }
 
-    mutating func next() -> T? {
+    public mutating func next() -> T? {
         return dequeue()
     }
 }
