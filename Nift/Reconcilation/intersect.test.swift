@@ -2,7 +2,8 @@ import func Reconcilation.intersect
 import func XCTest.XCTAssert
 import class XCTest.XCTestCase
 
-private class Test: XCTestCase {
+// swiftlint:disable:next type_name
+class intersectTest: XCTestCase {
     func testOverlappingRanges() {
         let a = 0 ..< 3
         let b = 0 ..< 3

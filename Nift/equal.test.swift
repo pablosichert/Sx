@@ -2,7 +2,8 @@ import func Nift.equal
 import func XCTest.XCTAssert
 import class XCTest.XCTestCase
 
-private class Test: XCTestCase {
+// swiftlint:disable:next type_name
+class equalTest: XCTestCase {
     func testFunctionIdempodent() {
         func foo() {}
 
