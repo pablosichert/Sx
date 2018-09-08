@@ -1,3 +1,7 @@
 DIRECTORY="$1"
 
-swiftformat --disable redundantSelf,redundantInit $DIRECTORY
+if [[ ! $DIRECTORY ]]; then
+    DIRECTORY=.
+fi
+
+swiftformat $DIRECTORY
