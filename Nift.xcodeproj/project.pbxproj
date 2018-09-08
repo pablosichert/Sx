@@ -39,6 +39,7 @@
 		6E745E502144032B0022BD6E /* Native.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745E4F2144032B0022BD6E /* Native.swift */; };
 		6E745E522144039C0022BD6E /* Equal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745E512144039C0022BD6E /* Equal.swift */; };
 		6E745E54214404680022BD6E /* Composite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745E53214404680022BD6E /* Composite.swift */; };
+		6E745EEC214462FE0022BD6E /* Reconcilation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E36D4E22139DBBE00917064 /* Reconcilation.framework */; };
 		6E793A82213C4F4900D0A3C9 /* StaticQueue.test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E793A81213C4F4900D0A3C9 /* StaticQueue.test.swift */; };
 		6EE26FD221318481000D5A33 /* equal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE26FD121318481000D5A33 /* equal.swift */; };
 		6EE26FDE21318941000D5A33 /* Nift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE5D94B20F53C50001851E0 /* Nift.framework */; };
@@ -137,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E745EEC214462FE0022BD6E /* Reconcilation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +508,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Nift.Reconcilation;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -531,6 +534,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Nift.Reconcilation;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

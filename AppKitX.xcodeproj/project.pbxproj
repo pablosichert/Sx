@@ -14,8 +14,7 @@
 		6E745EC6214437BB0022BD6E /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745EC0214437BB0022BD6E /* Text.swift */; };
 		6E745EC7214437BB0022BD6E /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745EC1214437BB0022BD6E /* Menu.swift */; };
 		6E745EC9214437CE0022BD6E /* ===.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745EC8214437CD0022BD6E /* ===.swift */; };
-		6E745ECC214438450022BD6E /* Nift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E745ECB214438450022BD6E /* Nift.framework */; };
-		6E745ECE21443B3C0022BD6E /* Reconcilation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E745ECD21443B3C0022BD6E /* Reconcilation.framework */; };
+		6E745EEE214463250022BD6E /* Nift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E745EED214463250022BD6E /* Nift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,8 +27,7 @@
 		6E745EC0214437BB0022BD6E /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		6E745EC1214437BB0022BD6E /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		6E745EC8214437CD0022BD6E /* ===.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "===.swift"; sourceTree = "<group>"; };
-		6E745ECB214438450022BD6E /* Nift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E745ECD21443B3C0022BD6E /* Reconcilation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Reconcilation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E745EED214463250022BD6E /* Nift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,8 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E745ECE21443B3C0022BD6E /* Reconcilation.framework in Frameworks */,
-				6E745ECC214438450022BD6E /* Nift.framework in Frameworks */,
+				6E745EEE214463250022BD6E /* Nift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,8 +77,7 @@
 		6E745ECA214438450022BD6E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6E745ECD21443B3C0022BD6E /* Reconcilation.framework */,
-				6E745ECB214438450022BD6E /* Nift.framework */,
+				6E745EED214463250022BD6E /* Nift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
