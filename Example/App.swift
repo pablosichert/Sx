@@ -7,8 +7,8 @@ import struct Foundation.Notification
 import struct Foundation.NSRect
 import class Nift.Composite
 import protocol Nift.Node
-import func Nift.NSApplication
-import func Nift.NSWindow
+import func AppKitX.Application
+import func AppKitX.Window
 import class ObjectiveC.NSObject
 
 public class App: Composite {
@@ -61,10 +61,10 @@ public class App: Composite {
 
         func render() -> [Node] {
             return [
-                NSApplication(
+                Application(
                     delegate: AppDelegate(),
                     key: "application", [
-                        NSWindow(
+                        Window(
                             contentRect: NSRect(
                                 x: self.x,
                                 y: self.y,

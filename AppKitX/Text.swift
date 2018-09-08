@@ -1,9 +1,11 @@
 import class AppKit.NSColor
 import struct AppKit.NSRect
 import class AppKit.NSText
-import struct Foundation.UUID
+import protocol Nift.Native
+import protocol Nift.Node
+import struct Nift.Operations
 
-public func NSText(
+public func Text(
     backgroundColor: NSColor? = nil,
     frame: NSRect? = nil,
     key: String? = nil,

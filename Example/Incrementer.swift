@@ -4,8 +4,8 @@ import struct CoreGraphics.CGFloat
 import struct CoreGraphics.CGRect
 import class Nift.Composite
 import protocol Nift.Node
-import func Nift.NSText
-import func Nift.NSView
+import func AppKitX.Text
+import func AppKitX.View
 
 public class Incrementer: Composite {
     struct Properties: Equatable {
@@ -51,7 +51,7 @@ public class Incrementer: Composite {
             if state.count > 0 {
                 for i in 1 ... state.count {
                     numbers.append(
-                        NSText(
+                        Text(
                             frame: CGRect(x: CGFloat(i * 20), y: 0, width: 30, height: 20),
                             key: String(i),
                             string: String(i)
@@ -61,13 +61,13 @@ public class Incrementer: Composite {
             }
 
             return [
-                NSView(
+                View(
                     backgroundColor: NSColor.lightGray.cgColor,
                     key: "view",
                     mouseDown: increase,
                     rightMouseDown: decrease,
                     wantsLayer: true, [
-                        NSText(
+                        Text(
                             frame: CGRect(
                                 x: properties.x - width / 2,
                                 y: properties.y + height / 20,

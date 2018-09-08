@@ -1,39 +1,58 @@
 import class AppKit.NSMenu
 import class AppKit.NSMenuItem
-import struct Foundation.UUID
+import protocol Nift.Native
+import protocol Nift.Node
+import struct Nift.Operations
+import struct ObjectiveC.Selector
 
-public func NSMenu(
+public func MenuItem(
+    action: Selector? = nil,
     key: String? = nil,
+    keyEquivalent: String? = nil,
     title: String? = nil,
-    _ children: [Node] = []
+    _ child: Node? = nil
 ) -> Node {
     return Native.Node(
         key: key,
-        properties: Component.Properties(title: title),
+        properties: Component.Properties(
+            action: action,
+            keyEquivalent: keyEquivalent,
+            title: title
+        ),
         Type: Component.self,
-        children
+        child == nil ? [] : [child!]
     )
 }
 
 private struct Component: Native.Renderable {
     struct Properties: Equatable {
+        let action: Selector?
+        let keyEquivalent: String?
         let title: String?
     }
 
-    let menu = AppKit.NSMenu()
+    let item = NSMenuItem()
 
     init(properties: Any, children: [Any]) {
         apply(properties as! Properties)
 
-        for child in children {
-            if let item = child as? AppKit.NSMenuItem {
-                menu.addItem(item)
+        if children.count >= 1 {
+            if let menu = children[0] as? NSMenu {
+                item.submenu = menu
             }
         }
     }
 
     func apply(_ properties: Properties) {
-        menu.title = properties.title ?? ""
+        item.title = properties.title ?? ""
+
+        if let action = properties.action {
+            item.action = action
+        }
+
+        if let keyEquivalent = properties.keyEquivalent {
+            item.keyEquivalent = keyEquivalent
+        }
     }
 
     func update(properties: Any) {
@@ -64,32 +83,30 @@ private struct Component: Native.Renderable {
     }
 
     func insert(mount: Any, index _: Int) {
-        if let item = mount as? AppKit.NSMenuItem {
-            menu.addItem(item)
+        if let menu = mount as? NSMenu {
+            item.submenu = menu
         }
     }
 
     func remove(mount: Any, index _: Int) {
-        if let item = mount as? AppKit.NSMenuItem {
-            menu.removeItem(item)
+        if let menu = mount as? NSMenu {
+            if item.submenu == menu {
+                item.submenu = nil
+            }
         }
     }
 
-    func reorder(mount: Any, from _: Int, to: Int) {
-        if let item = mount as? AppKit.NSMenuItem {
-            menu.removeItem(item)
-            menu.insertItem(item, at: to)
-        }
-    }
+    func reorder(mount _: Any, from _: Int, to _: Int) {}
 
-    func replace(old: Any, new: Any, index: Int) {
-        if let old = old as? AppKit.NSMenuItem, let new = new as? AppKit.NSMenuItem {
-            menu.removeItem(old)
-            menu.insertItem(new, at: index)
+    func replace(old: Any, new: Any, index _: Int) {
+        if let old = old as? NSMenu, let new = new as? NSMenu {
+            if item.submenu == old {
+                item.submenu = new
+            }
         }
     }
 
     func render() -> Any {
-        return menu
+        return item
     }
 }

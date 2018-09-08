@@ -2,9 +2,11 @@ import class AppKit.NSEvent
 import class AppKit.NSText
 import class AppKit.NSView
 import class CoreGraphics.CGColor
-import struct Foundation.UUID
+import protocol Nift.Native
+import protocol Nift.Node
+import struct Nift.Operations
 
-public func NSView(
+public func View(
     backgroundColor: CGColor? = nil,
     key: String? = nil,
     mouseDown: @escaping (NSEvent) -> Void,
@@ -42,7 +44,7 @@ private struct Component: Native.Renderable {
         let wantsLayer: Bool
     }
 
-    class View: AppKit.NSView {
+    class View: NSView {
         var mouseDown: (NSEvent) -> Void = { _ in }
         var rightMouseDown: (NSEvent) -> Void = { _ in }
 
@@ -61,7 +63,7 @@ private struct Component: Native.Renderable {
         apply(properties as! Properties)
 
         for child in children {
-            if let subview = child as? AppKit.NSView {
+            if let subview = child as? NSView {
                 view.addSubview(subview)
             }
         }
@@ -102,13 +104,13 @@ private struct Component: Native.Renderable {
     }
 
     func insert(mount: Any, index _: Int) {
-        if let subview = mount as? AppKit.NSView {
+        if let subview = mount as? NSView {
             view.addSubview(subview)
         }
     }
 
     func remove(mount: Any, index _: Int) {
-        if let view = mount as? AppKit.NSView {
+        if let view = mount as? NSView {
             view.removeFromSuperview()
         }
     }
@@ -116,7 +118,7 @@ private struct Component: Native.Renderable {
     func reorder(mount _: Any, from _: Int, to _: Int) {}
 
     func replace(old: Any, new: Any, index _: Int) {
-        if let old = old as? AppKit.NSView, let new = new as? AppKit.NSView {
+        if let old = old as? NSView, let new = new as? NSView {
             view.replaceSubview(old, with: new)
         }
     }

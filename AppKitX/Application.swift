@@ -1,9 +1,12 @@
 import class AppKit.NSApplication
 import protocol AppKit.NSApplicationDelegate
 import class AppKit.NSWindow
+import protocol Nift.Native
+import protocol Nift.Node
+import struct Nift.Operations
 
-public func NSApplication(
-    delegate: AppKit.NSApplicationDelegate,
+public func Application(
+    delegate: NSApplicationDelegate,
     key: String? = nil,
     _ children: [Node] = []
 ) -> Node {
@@ -21,16 +24,16 @@ private struct Component: Native.Renderable {
             return lhs.delegate === rhs.delegate
         }
 
-        weak var delegate: AppKit.NSApplicationDelegate?
+        weak var delegate: NSApplicationDelegate?
     }
 
-    var application = AppKit.NSApplication.shared
+    var application = NSApplication.shared
 
     init(properties: Any, children: [Any]) {
         apply(properties as! Properties)
 
         for child in children {
-            if let window = child as? AppKit.NSWindow {
+            if let window = child as? NSWindow {
                 window.orderFront(self)
             }
         }
@@ -68,7 +71,7 @@ private struct Component: Native.Renderable {
     }
 
     func insert(mount: Any, index _: Int) {
-        if let window = mount as? AppKit.NSWindow {
+        if let window = mount as? NSWindow {
             window.orderFront(self)
         }
     }

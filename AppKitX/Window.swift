@@ -1,15 +1,18 @@
 import class AppKit.NSView
 import class AppKit.NSWindow
 import struct Foundation.NSRect
-import struct Foundation.UUID
+import protocol Nift.Native
+import protocol Nift.Node
+import struct Nift.Operations
+import struct Nift.Property
 
-public func NSWindow(
-    backingType: AppKit.NSWindow.BackingStoreType = .buffered,
+public func Window(
+    backingType: NSWindow.BackingStoreType = .buffered,
     contentRect: NSRect = .zero,
     defer defer_: Bool = true,
     key: String? = nil,
-    properties: [Property<AppKit.NSWindow>] = [],
-    styleMask: AppKit.NSWindow.StyleMask = [],
+    properties: [Property<NSWindow>] = [],
+    styleMask: NSWindow.StyleMask = [],
     titlebarAppearsTransparent: Bool = false,
     _ children: [Node] = []
 ) -> Node {
@@ -30,20 +33,20 @@ public func NSWindow(
 
 private struct Component: Native.Renderable {
     struct Properties: Equatable {
-        let backingType: AppKit.NSWindow.BackingStoreType
+        let backingType: NSWindow.BackingStoreType
         let contentRect: NSRect
         let defer_: Bool
-        let properties: [Property<AppKit.NSWindow>]
-        let styleMask: AppKit.NSWindow.StyleMask
+        let properties: [Property<NSWindow>]
+        let styleMask: NSWindow.StyleMask
         let titlebarAppearsTransparent: Bool
     }
 
-    let window: AppKit.NSWindow
+    let window: NSWindow
 
     init(properties: Any, children: [Any]) {
         let properties = properties as! Properties
 
-        window = AppKit.NSWindow(
+        window = NSWindow(
             contentRect: properties.contentRect,
             styleMask: properties.styleMask,
             backing: properties.backingType,
@@ -52,13 +55,13 @@ private struct Component: Native.Renderable {
 
         apply(properties)
 
-        assert(children.count == 1, "You must pass in exactly one view – AppKit.NSWindow.contentView expects a single AppKit.NSView")
+        assert(children.count == 1, "You must pass in exactly one view – NSWindow.contentView expects a single NSView")
 
         if children.count >= 1 {
-            if let view = children[0] as? AppKit.NSView {
+            if let view = children[0] as? NSView {
                 window.contentView = view
             } else {
-                assertionFailure("Child must be an AppKit.NSView")
+                assertionFailure("Child must be an NSView")
             }
         }
     }
@@ -102,13 +105,13 @@ private struct Component: Native.Renderable {
     }
 
     func insert(mount: Any, index _: Int) {
-        if let view = mount as? AppKit.NSView {
+        if let view = mount as? NSView {
             window.contentView = view
         }
     }
 
     func remove(mount: Any, index _: Int) {
-        if let view = mount as? AppKit.NSView {
+        if let view = mount as? NSView {
             if window.contentView == view {
                 window.contentView = nil
             }
@@ -118,7 +121,7 @@ private struct Component: Native.Renderable {
     func reorder(mount _: Any, from _: Int, to _: Int) {}
 
     func replace(old: Any, new: Any, index _: Int) {
-        if let old = old as? AppKit.NSView, let new = new as? AppKit.NSView {
+        if let old = old as? NSView, let new = new as? NSView {
             if window.contentView == old {
                 window.contentView = new
             }

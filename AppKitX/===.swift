@@ -1,3 +1,5 @@
+import func Nift.equal
+
 func === <Arguments, Return>(
     lhs: (Arguments) -> Return,
     rhs: (Arguments) -> Return
