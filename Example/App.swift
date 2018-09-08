@@ -2,13 +2,13 @@ import let AppKit.NSApp
 import class AppKit.NSApplication
 import protocol AppKit.NSApplicationDelegate
 import class AppKit.NSScreen
+import func AppKitX.Application
+import func AppKitX.Window
 import struct CoreGraphics.CGFloat
 import struct Foundation.Notification
 import struct Foundation.NSRect
 import class Nift.Composite
 import protocol Nift.Node
-import func AppKitX.Application
-import func AppKitX.Window
 import class ObjectiveC.NSObject
 
 public class App: Composite {

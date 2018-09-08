@@ -1,11 +1,11 @@
 import class AppKit.NSColor
 import class AppKit.NSEvent
+import func AppKitX.Text
+import func AppKitX.View
 import struct CoreGraphics.CGFloat
 import struct CoreGraphics.CGRect
 import class Nift.Composite
 import protocol Nift.Node
-import func AppKitX.Text
-import func AppKitX.View
 
 public class Incrementer: Composite {
     struct Properties: Equatable {
