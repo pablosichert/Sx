@@ -1,3 +1,6 @@
+import protocol Reconcilation.NodeInstance
+import func Reconcilation.instantiate
+
 public struct Mount<Mount> {
     let instances: [NodeInstance]
 

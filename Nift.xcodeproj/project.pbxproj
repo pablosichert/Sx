@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6E11FECB210FF59F00A47589 /* Mount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E11FECA210FF59F00A47589 /* Mount.swift */; };
-		6E1827BE20F93A5900687325 /* Composite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1827BD20F93A5900687325 /* Composite.swift */; };
-		6E2A0A342117E6C200D395A3 /* Equal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2A0A332117E6C200D395A3 /* Equal.swift */; };
 		6E36D4EA2139DC0800917064 /* reconcile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB9D7D52128603800985D08 /* reconcile.swift */; };
 		6E36D4EB2139DC1500917064 /* StaticQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDDE5E8212B48CE00BE9A11 /* StaticQueue.swift */; };
 		6E36D4EC2139DC1900917064 /* Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB9D7D92128B3BA00985D08 /* Operations.swift */; };
@@ -21,7 +19,6 @@
 		6E36D4F42139DF0800917064 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36D4F32139DF0800917064 /* Node.swift */; };
 		6E36D4F62139DF4600917064 /* Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36D4F52139DF4600917064 /* Operations.swift */; };
 		6E36D4F82139DFC000917064 /* Behavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36D4F72139DFC000917064 /* Behavior.swift */; };
-		6E36D4FC2139E1EA00917064 /* NodeInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36D4FB2139E1EA00917064 /* NodeInstance.swift */; };
 		6E36D53C213B0D4E00917064 /* Reconcilation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E36D4E22139DBBE00917064 /* Reconcilation.framework */; };
 		6E36D549213B2CA900917064 /* remove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36D548213B2CA900917064 /* remove.swift */; };
 		6E36D54B213B2CD700917064 /* replace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36D54A213B2CD700917064 /* replace.swift */; };
@@ -33,14 +30,19 @@
 		6E36D55A213B2DD800917064 /* Replace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36D554213B2DA900917064 /* Replace.swift */; };
 		6E36D55B213B2DDE00917064 /* update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36D546213B2C8600917064 /* update.swift */; };
 		6E36D571213B348C00917064 /* intersect.test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36D570213B348C00917064 /* intersect.test.swift */; };
-		6E47C79220F67CC700612B3E /* instantiate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E47C79120F67CC700612B3E /* instantiate.swift */; };
-		6E5386A620F8E2DF0039FADB /* Native.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5386A520F8E2DF0039FADB /* Native.swift */; };
 		6E5386A820F8E7DE0039FADB /* NSApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5386A720F8E7DE0039FADB /* NSApplication.swift */; };
 		6E5B2C3620FBB50D00F20E00 /* NSText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5B2C3520FBB50D00F20E00 /* NSText.swift */; };
 		6E71388220FF56010000F7BA /* NSMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E71388120FF56010000F7BA /* NSMenu.swift */; };
 		6E71388420FF646D0000F7BA /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E71388320FF646C0000F7BA /* NSMenuItem.swift */; };
 		6E725604211A089D002BD972 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E725603211A089D002BD972 /* Property.swift */; };
 		6E745E4A2143FE6C0022BD6E /* keysTo.test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745E492143FE6C0022BD6E /* keysTo.test.swift */; };
+		6E745E4B214402200022BD6E /* instantiate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E47C79120F67CC700612B3E /* instantiate.swift */; };
+		6E745E4C214402820022BD6E /* Composite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1827BD20F93A5900687325 /* Composite.swift */; };
+		6E745E4D2144029A0022BD6E /* Equal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2A0A332117E6C200D395A3 /* Equal.swift */; };
+		6E745E4E214402BC0022BD6E /* Native.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5386A520F8E2DF0039FADB /* Native.swift */; };
+		6E745E502144032B0022BD6E /* Native.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745E4F2144032B0022BD6E /* Native.swift */; };
+		6E745E522144039C0022BD6E /* Equal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745E512144039C0022BD6E /* Equal.swift */; };
+		6E745E54214404680022BD6E /* Composite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745E53214404680022BD6E /* Composite.swift */; };
 		6E793A82213C4F4900D0A3C9 /* StaticQueue.test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E793A81213C4F4900D0A3C9 /* StaticQueue.test.swift */; };
 		6EE26FD021318452000D5A33 /* ===.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE26FCF21318452000D5A33 /* ===.swift */; };
 		6EE26FD221318481000D5A33 /* equal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE26FD121318481000D5A33 /* equal.swift */; };
@@ -78,7 +80,6 @@
 		6E36D4F32139DF0800917064 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		6E36D4F52139DF4600917064 /* Operations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operations.swift; sourceTree = "<group>"; };
 		6E36D4F72139DFC000917064 /* Behavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Behavior.swift; sourceTree = "<group>"; };
-		6E36D4FB2139E1EA00917064 /* NodeInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInstance.swift; sourceTree = "<group>"; };
 		6E36D537213B0D4E00917064 /* ReconcilationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReconcilationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E36D544213B2C6900917064 /* insert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = insert.swift; sourceTree = "<group>"; };
 		6E36D546213B2C8600917064 /* update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = update.swift; sourceTree = "<group>"; };
@@ -101,6 +102,9 @@
 		6E725603211A089D002BD972 /* Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
 		6E72560A211CED8E002BD972 /* Behavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Behavior.swift; sourceTree = "<group>"; };
 		6E745E492143FE6C0022BD6E /* keysTo.test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = keysTo.test.swift; sourceTree = "<group>"; };
+		6E745E4F2144032B0022BD6E /* Native.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Native.swift; sourceTree = "<group>"; };
+		6E745E512144039C0022BD6E /* Equal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equal.swift; sourceTree = "<group>"; };
+		6E745E53214404680022BD6E /* Composite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Composite.swift; sourceTree = "<group>"; };
 		6E793A81213C4F4900D0A3C9 /* StaticQueue.test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticQueue.test.swift; sourceTree = "<group>"; };
 		6E961ED121011793006BB3C3 /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
 		6EB9D7D52128603800985D08 /* reconcile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reconcile.swift; sourceTree = "<group>"; };
@@ -157,12 +161,16 @@
 			isa = PBXGroup;
 			children = (
 				6E72560A211CED8E002BD972 /* Behavior.swift */,
+				6E1827BD20F93A5900687325 /* Composite.swift */,
+				6E2A0A332117E6C200D395A3 /* Equal.swift */,
 				6E36D544213B2C6900917064 /* insert.swift */,
 				6E36D54E213B2D5400917064 /* Insert.swift */,
+				6E47C79120F67CC700612B3E /* instantiate.swift */,
 				6E36D54C213B2D0B00917064 /* intersect.swift */,
 				6E36D570213B348C00917064 /* intersect.test.swift */,
 				6E563E27211671500011B691 /* keysTo.swift */,
 				6E745E492143FE6C0022BD6E /* keysTo.test.swift */,
+				6E5386A520F8E2DF0039FADB /* Native.swift */,
 				6E47C78B20F67C0200612B3E /* Node.swift */,
 				6E36D4EF2139DC8A00917064 /* NodeInstance.swift */,
 				6E961ED121011793006BB3C3 /* Operation.swift */,
@@ -228,16 +236,14 @@
 				6EE26FCF21318452000D5A33 /* ===.swift */,
 				6E563E2321166DEE0011B691 /* AppKit */,
 				6E36D4F72139DFC000917064 /* Behavior.swift */,
-				6E1827BD20F93A5900687325 /* Composite.swift */,
+				6E745E53214404680022BD6E /* Composite.swift */,
 				6EE26FD121318481000D5A33 /* equal.swift */,
-				6E2A0A332117E6C200D395A3 /* Equal.swift */,
+				6E745E512144039C0022BD6E /* Equal.swift */,
 				6EE26FD321318878000D5A33 /* equal.test.swift */,
 				6EE5D94F20F53C50001851E0 /* Info.plist */,
-				6E47C79120F67CC700612B3E /* instantiate.swift */,
 				6E11FECA210FF59F00A47589 /* Mount.swift */,
-				6E5386A520F8E2DF0039FADB /* Native.swift */,
+				6E745E4F2144032B0022BD6E /* Native.swift */,
 				6E36D4F32139DF0800917064 /* Node.swift */,
-				6E36D4FB2139E1EA00917064 /* NodeInstance.swift */,
 				6E36D4F52139DF4600917064 /* Operations.swift */,
 				6E725603211A089D002BD972 /* Property.swift */,
 				6E36D4E32139DBBE00917064 /* Reconcilation */,
@@ -438,6 +444,7 @@
 			files = (
 				6E36D4F22139DD7300917064 /* Behavior.swift in Sources */,
 				6E36D4F12139DCD800917064 /* Node.swift in Sources */,
+				6E745E4D2144029A0022BD6E /* Equal.swift in Sources */,
 				6E36D4EC2139DC1900917064 /* Operations.swift in Sources */,
 				6E36D4EA2139DC0800917064 /* reconcile.swift in Sources */,
 				6E36D55A213B2DD800917064 /* Replace.swift in Sources */,
@@ -446,12 +453,15 @@
 				6E36D557213B2DBD00917064 /* Insert.swift in Sources */,
 				6E36D559213B2DD300917064 /* Reorder.swift in Sources */,
 				6E36D55B213B2DDE00917064 /* update.swift in Sources */,
+				6E745E4C214402820022BD6E /* Composite.swift in Sources */,
 				6E36D4ED2139DC1B00917064 /* Operation.swift in Sources */,
 				6E36D54D213B2D0B00917064 /* intersect.swift in Sources */,
 				6E36D558213B2DCE00917064 /* Remove.swift in Sources */,
+				6E745E4E214402BC0022BD6E /* Native.swift in Sources */,
 				6E36D54B213B2CD700917064 /* replace.swift in Sources */,
 				6E36D4F02139DC8A00917064 /* NodeInstance.swift in Sources */,
 				6E36D4EE2139DC6700917064 /* keysTo.swift in Sources */,
+				6E745E4B214402200022BD6E /* instantiate.swift in Sources */,
 				6E36D549213B2CA900917064 /* remove.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -481,22 +491,20 @@
 			files = (
 				6E11FECB210FF59F00A47589 /* Mount.swift in Sources */,
 				6E71388420FF646D0000F7BA /* NSMenuItem.swift in Sources */,
-				6E5386A620F8E2DF0039FADB /* Native.swift in Sources */,
 				6EE26FD021318452000D5A33 /* ===.swift in Sources */,
 				6E71388220FF56010000F7BA /* NSMenu.swift in Sources */,
-				6E2A0A342117E6C200D395A3 /* Equal.swift in Sources */,
 				6EEDD81220F97A0D00F1883D /* NSWindow.swift in Sources */,
 				6E5386A820F8E7DE0039FADB /* NSApplication.swift in Sources */,
 				6E36D4F62139DF4600917064 /* Operations.swift in Sources */,
+				6E745E522144039C0022BD6E /* Equal.swift in Sources */,
 				6E5B2C3620FBB50D00F20E00 /* NSText.swift in Sources */,
-				6E47C79220F67CC700612B3E /* instantiate.swift in Sources */,
+				6E745E502144032B0022BD6E /* Native.swift in Sources */,
 				6E36D4F42139DF0800917064 /* Node.swift in Sources */,
 				6EE612EC20FBBBCA00BCDDEB /* NSView.swift in Sources */,
-				6E36D4FC2139E1EA00917064 /* NodeInstance.swift in Sources */,
 				6E725604211A089D002BD972 /* Property.swift in Sources */,
+				6E745E54214404680022BD6E /* Composite.swift in Sources */,
 				6E36D4F82139DFC000917064 /* Behavior.swift in Sources */,
 				6EE26FD221318481000D5A33 /* equal.swift in Sources */,
-				6E1827BE20F93A5900687325 /* Composite.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,6 +1,4 @@
-import func Reconcilation.reconcile
-
-class CompositeInstance: NodeInstance {
+private class CompositeInstance: NodeInstance {
     let component: Composite.Renderable
     var index: Int
     var instances: [NodeInstance]
@@ -66,7 +64,7 @@ class CompositeInstance: NodeInstance {
     }
 }
 
-class NativeInstance: NodeInstance {
+private class NativeInstance: NodeInstance {
     let component: Native.Renderable
     var index: Int
     var instances: [NodeInstance]
@@ -125,7 +123,7 @@ class NativeInstance: NodeInstance {
     }
 }
 
-func instantiate(composite node: Node, parent: NodeInstance? = nil, index: Int) -> CompositeInstance {
+private func instantiate(composite node: Node, parent: NodeInstance? = nil, index: Int) -> CompositeInstance {
     let instance = CompositeInstance(node, parent: parent, index: index)
     var component = instance.component
 
@@ -136,11 +134,11 @@ func instantiate(composite node: Node, parent: NodeInstance? = nil, index: Int) 
     return instance
 }
 
-func instantiate(native node: Node, parent: NodeInstance? = nil, index: Int) -> NativeInstance {
+private func instantiate(native node: Node, parent: NodeInstance? = nil, index: Int) -> NativeInstance {
     return NativeInstance(node: node, parent: parent, index: index)
 }
 
-func instantiate(node: Node, parent: NodeInstance? = nil, index: Int) -> NodeInstance {
+public func instantiate(node: Node, parent: NodeInstance? = nil, index: Int) -> NodeInstance {
     switch node.type {
     case .Native:
         return instantiate(native: node, parent: parent, index: index)
@@ -149,7 +147,7 @@ func instantiate(node: Node, parent: NodeInstance? = nil, index: Int) -> NodeIns
     }
 }
 
-func instantiate(nodes: [Node], parent: NodeInstance? = nil, index: Int) -> [NodeInstance] {
+public func instantiate(nodes: [Node], parent: NodeInstance? = nil, index: Int) -> [NodeInstance] {
     var count = index
 
     return nodes.map({
