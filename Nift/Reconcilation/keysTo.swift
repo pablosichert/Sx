@@ -1,6 +1,6 @@
-typealias TryMap<Key: Hashable, Value> = (map: [Key: Value], rest: [Value])
+public typealias TryMap<Key: Hashable, Value> = (map: [Key: Value], rest: [Value])
 
-func keysTo(instances: [NodeInstance]) -> TryMap<String, NodeInstance> {
+public func keysTo(instances: [NodeInstance]) -> TryMap<String, NodeInstance> {
     var keysToInstances = [String: NodeInstance]()
     var rest: [NodeInstance] = []
 
