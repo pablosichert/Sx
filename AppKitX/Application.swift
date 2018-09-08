@@ -24,7 +24,8 @@ private struct Component: Native.Renderable {
             return lhs.delegate === rhs.delegate
         }
 
-        weak var delegate: NSApplicationDelegate?
+        // swiftlint:disable:next weak_delegate
+        var delegate: NSApplicationDelegate?
     }
 
     var application = NSApplication.shared
