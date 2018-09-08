@@ -1,4 +1,4 @@
-public protocol NodeInstance {
+public protocol NodeInstance: class {
     var node: Node { get }
     var index: Int { get set }
     var instances: [NodeInstance] { get }
@@ -6,7 +6,7 @@ public protocol NodeInstance {
 
     func mount() -> [Any]
 
-    mutating func update(node: Node)
+    func update(node: Node)
 
-    mutating func update(operations: Operations)
+    func update(operations: Operations)
 }

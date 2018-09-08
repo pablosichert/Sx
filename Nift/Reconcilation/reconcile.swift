@@ -24,11 +24,11 @@ public func reconcile(
             instance = rest.dequeue()
         }
 
-        if var instance = instance {
+        if let instance = instance {
             if instance.node.type == node.type {
                 index += update(
                     index: index,
-                    instance: &instance,
+                    instance: instance,
                     node: node,
                     reorder: { operations.reorder($0) }
                 )

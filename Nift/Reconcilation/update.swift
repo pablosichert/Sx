@@ -1,11 +1,10 @@
-private func updateIndices(index: Int, instance: inout NodeInstance) {
-    var instance = instance
+private func updateIndices(index: Int, instance: NodeInstance) {
     instance.index = index
 
     var index = index
 
-    for var instance in instance.instances {
-        updateIndices(index: index, instance: &instance)
+    for instance in instance.instances {
+        updateIndices(index: index, instance: instance)
 
         index += instance.mount().count
     }
@@ -13,7 +12,7 @@ private func updateIndices(index: Int, instance: inout NodeInstance) {
 
 func update(
     index: Int,
-    instance: inout NodeInstance,
+    instance: NodeInstance,
     node: Node,
     reorder: Reorder
 ) -> Int {
@@ -28,7 +27,7 @@ func update(
             reorder((mount: mount, from: instance.index + i, to: index + i))
         }
 
-        updateIndices(index: index, instance: &instance)
+        updateIndices(index: index, instance: instance)
     }
 
     return mounts.count
