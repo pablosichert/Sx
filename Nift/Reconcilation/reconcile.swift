@@ -30,7 +30,7 @@ public func reconcile(
                     index: index,
                     instance: instance,
                     node: node,
-                    reorder: { operations.reorder($0) }
+                    reorder: { operations.add(reorder: $0) }
                 )
 
                 return instance
@@ -40,9 +40,9 @@ public func reconcile(
                 index += replace(
                     new: new,
                     old: instance,
-                    insert: { operations.insert($0) },
-                    remove: { operations.remove($0) },
-                    replace: { operations.replace($0) }
+                    insert: { operations.add(insert: $0) },
+                    remove: { operations.add(remove: $0) },
+                    replace: { operations.add(replace: $0) }
                 )
 
                 return new
@@ -53,7 +53,7 @@ public func reconcile(
 
         index += insert(
             instance: new,
-            insert: { operations.insert($0) }
+            insert: { operations.add(insert: $0) }
         )
 
         return new
@@ -62,14 +62,14 @@ public func reconcile(
     for instance in keysToInstances.values {
         remove(
             instance: instance,
-            remove: { operations.remove($0) }
+            remove: { operations.add(remove: $0) }
         )
     }
 
     for instance in rest {
         remove(
             instance: instance,
-            remove: { operations.remove($0) }
+            remove: { operations.add(remove: $0) }
         )
     }
 

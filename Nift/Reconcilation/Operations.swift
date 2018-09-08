@@ -10,43 +10,27 @@ public struct Operations {
         return inserts.isEmpty && removes.isEmpty && reorders.isEmpty && replaces.isEmpty
     }
 
-    public mutating func insert(mount: Any, index: Int) {
+    public mutating func add(insert: (mount: Any, index: Int)) {
         inserts.append(
-            Operation.Insert(mount: mount, index: index)
+            Operation.Insert(mount: insert.mount, index: insert.index)
         )
     }
 
-    public mutating func insert(_ operation: (mount: Any, index: Int)) {
-        insert(mount: operation.mount, index: operation.index)
-    }
-
-    public mutating func remove(mount: Any, index: Int) {
+    public mutating func add(remove: (mount: Any, index: Int)) {
         removes.append(
-            Operation.Remove(mount: mount, index: index)
+            Operation.Remove(mount: remove.mount, index: remove.index)
         )
     }
 
-    public mutating func remove(_ operation: (mount: Any, index: Int)) {
-        remove(mount: operation.mount, index: operation.index)
-    }
-
-    public mutating func reorder(mount: Any, from: Int, to: Int) {
+    public mutating func add(reorder: (mount: Any, from: Int, to: Int)) {
         reorders.append(
-            Operation.Reorder(mount: mount, from: from, to: to)
+            Operation.Reorder(mount: reorder.mount, from: reorder.from, to: reorder.to)
         )
     }
 
-    public mutating func reorder(_ operation: (mount: Any, from: Int, to: Int)) {
-        reorder(mount: operation.mount, from: operation.from, to: operation.to)
-    }
-
-    public mutating func replace(old: Any, new: Any, index: Int) {
+    public mutating func add(replace: (old: Any, new: Any, index: Int)) {
         replaces.append(
-            Operation.Replace(old: old, new: new, index: index)
+            Operation.Replace(old: replace.old, new: replace.new, index: replace.index)
         )
-    }
-
-    public mutating func replace(_ operation: (old: Any, new: Any, index: Int)) {
-        replace(old: operation.old, new: operation.new, index: operation.index)
     }
 }

@@ -5,11 +5,10 @@ import class XCTest.XCTestCase
 class OperationsTest: XCTestCase {
     func testInsert() {
         var operations = Operations()
-        let insert: (mount: Any, index: Int) = (mount: 0, index: 0)
 
         XCTAssert(operations.inserts.count == 0)
 
-        operations.insert(insert)
+        operations.add(insert: (mount: 0, index: 0))
 
         XCTAssert(!operations.isEmpty)
         XCTAssert(operations.inserts.count == 1)
@@ -19,11 +18,10 @@ class OperationsTest: XCTestCase {
 
     func testRemove() {
         var operations = Operations()
-        let remove: (mount: Any, index: Int) = (mount: 0, index: 0)
 
         XCTAssert(operations.removes.count == 0)
 
-        operations.remove(remove)
+        operations.add(remove: (mount: 0, index: 0))
 
         XCTAssert(!operations.isEmpty)
         XCTAssert(operations.removes.count == 1)
@@ -33,11 +31,10 @@ class OperationsTest: XCTestCase {
 
     func testReorder() {
         var operations = Operations()
-        let reorder: (mount: Any, from: Int, to: Int) = (mount: 0, from: 0, to: 0)
 
         XCTAssert(operations.reorders.count == 0)
 
-        operations.reorder(reorder)
+        operations.add(reorder: (mount: 0, from: 0, to: 0))
 
         XCTAssert(!operations.isEmpty)
         XCTAssert(operations.reorders.count == 1)
@@ -48,11 +45,10 @@ class OperationsTest: XCTestCase {
 
     func testReplace() {
         var operations = Operations()
-        let replace: (old: Any, new: Any, index: Int) = (old: 0, new: 0, index: 0)
 
         XCTAssert(operations.replaces.count == 0)
 
-        operations.replace(replace)
+        operations.add(replace: (old: 0, new: 0, index: 0))
 
         XCTAssert(!operations.isEmpty)
         XCTAssert(operations.replaces.count == 1)
