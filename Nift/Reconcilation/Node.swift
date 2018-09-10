@@ -2,9 +2,9 @@ public protocol Node {
     var children: [Node] { get }
     var ComponentType: Any.Type { get }
     var equal: (Any, Any) -> Bool { get }
+    var InstanceType: NodeInstance.Type { get }
     var key: String? { get }
     var properties: Any { get }
-    var type: Behavior { get }
 }
 
 func != (lhs: [Node], rhs: [Node]) -> Bool {
@@ -29,7 +29,7 @@ func != (lhs: Node, rhs: Node) -> Bool {
 
 func == (lhs: Node, rhs: Node) -> Bool {
     return (
-        lhs.type == rhs.type &&
+        lhs.InstanceType == rhs.InstanceType &&
             lhs.ComponentType == rhs.ComponentType &&
             lhs.key == rhs.key &&
             lhs.equal(lhs.properties, rhs.properties) &&

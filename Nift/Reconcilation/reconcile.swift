@@ -8,7 +8,6 @@ public func reconcile(
     operations: Operations
 ) {
     var operations = Operations()
-
     let tryMap = keysTo(instances: instances)
     var keysToInstances = tryMap.map
     var rest = StaticQueue(tryMap.rest)
@@ -25,7 +24,7 @@ public func reconcile(
         }
 
         if let instance = instance {
-            if instance.node.type == node.type {
+            if instance.node.InstanceType == node.InstanceType {
                 index += update(
                     index: index,
                     instance: instance,

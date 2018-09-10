@@ -4,6 +4,8 @@ public protocol NodeInstance: class {
     var instances: [NodeInstance] { get }
     var parent: NodeInstance? { get set }
 
+    init(node: Node, parent: NodeInstance?, index: Int)
+
     func mount() -> [Any]
 
     func update(node: Node)

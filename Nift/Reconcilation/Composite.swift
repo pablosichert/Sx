@@ -6,9 +6,9 @@ open class Composite: Node {
     public let children: [Node]
     public let ComponentType: Any.Type
     public let equal: (Any, Any) -> Bool
+    public let InstanceType: NodeInstance.Type = CompositeInstance.self
     public let key: String?
     public let properties: Any
-    public let type: Behavior
 
     public init<Properties>(
         key: String?,
@@ -21,7 +21,6 @@ open class Composite: Node {
         self.equal = Equal<Properties>.call
         self.key = key
         self.properties = properties
-        self.type = .Composite
     }
 }
 
