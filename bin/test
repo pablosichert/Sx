@@ -1,0 +1,12 @@
+schemes=(
+    Reconcilation
+    Nift
+    AppKitX
+)
+
+for i in "${schemes[@]}"; do
+    xcodebuild \
+        -workspace Nift.xcworkspace \
+        -scheme Nift \
+        test
+done
