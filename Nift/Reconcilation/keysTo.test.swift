@@ -1,4 +1,3 @@
-import enum Reconcilation.Behavior
 import func Reconcilation.keysTo
 import protocol Reconcilation.Node
 import protocol Reconcilation.NodeInstance
@@ -9,33 +8,26 @@ import class XCTest.XCTestCase
 private struct FakeProperties {}
 
 private struct FakeNode: Node {
-    var children: [Node]
-    var ComponentType: Any.Type
-    var equal: (Any, Any) -> Bool
+    var children: [Node] = []
+    var ComponentType: Any.Type = Any.self
+    var equal: (Any, Any) -> Bool = { _, _ in true }
+    var InstanceType: NodeInstance.Type = FakeInstance.self
     var key: String?
-    var properties: Any
-    var type: Behavior
+    var properties: Any = FakeProperties()
 
     init(key: String? = nil) {
-        self.children = []
-        self.ComponentType = Any.self
-        self.equal = { _, _ in true }
         self.key = key
-        self.properties = FakeProperties()
-        self.type = .Native
     }
 }
 
 private class FakeInstance: NodeInstance {
     var node: Node
-    var index: Int
-    var instances: [NodeInstance]
+    var index: Int = 0
+    var instances: [NodeInstance] = []
     var parent: NodeInstance?
 
-    init(node: Node) {
+    required init(node: Node, parent _: NodeInstance? = nil, index _: Int = 0) {
         self.node = node
-        self.index = 0
-        self.instances = []
     }
 
     func mount() -> [Any] {
