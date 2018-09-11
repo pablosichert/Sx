@@ -1,11 +1,11 @@
 import func Reconcilation.instantiate
 import protocol Reconcilation.NodeInstance
 
-public struct Mount<Mount> {
+public struct Mount<T> {
     let instances: [NodeInstance]
 
-    public var elements: [Mount] {
-        return instances.flatMap({ $0.mount() }) as! [Mount]
+    public var elements: [Any] {
+        return instances.flatMap({ $0.mount() })
     }
 
     public init(_ nodes: [Node]) {
@@ -16,7 +16,7 @@ public struct Mount<Mount> {
         self.init([node])
     }
 
-    public subscript(index: Int) -> Mount {
-        return elements[index]
+    public subscript(index: Int) -> T {
+        return elements[index] as! T
     }
 }
