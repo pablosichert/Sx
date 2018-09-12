@@ -10,23 +10,8 @@
 		6E7255F821194D26002BD972 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7255F721194D26002BD972 /* main.swift */; };
 		6E7255FA21194D30002BD972 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7255F921194D2F002BD972 /* App.swift */; };
 		6E72560121194FB2002BD972 /* Incrementer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E72560021194FB2002BD972 /* Incrementer.swift */; };
-		6E745EF0214463B80022BD6E /* AppKitX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E745EEF214463B80022BD6E /* AppKitX.framework */; };
-		6E745EF1214463B80022BD6E /* AppKitX.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E745EEF214463B80022BD6E /* AppKitX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6EECA4A12149C4D600637725 /* AppKitX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E745EEF214463B80022BD6E /* AppKitX.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		6E745EF2214463B80022BD6E /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				6E745EF1214463B80022BD6E /* AppKitX.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6E7255E621194C79002BD972 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,7 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E745EF0214463B80022BD6E /* AppKitX.framework in Frameworks */,
+				6EECA4A12149C4D600637725 /* AppKitX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +82,6 @@
 				6E7255E221194C79002BD972 /* Sources */,
 				6E7255E321194C79002BD972 /* Frameworks */,
 				6E7255E421194C79002BD972 /* Resources */,
-				6E745EF2214463B80022BD6E /* Embed Frameworks */,
 				6EDE93962147032000016495 /* ShellScript */,
 			);
 			buildRules = (
