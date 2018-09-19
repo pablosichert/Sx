@@ -33,7 +33,7 @@ class CompositeInstance: NodeInstance {
     func rerender() {
         let (instances, operations) = reconcile(
             instances: self.instances,
-            instantiate: instantiate(node:parent:index:),
+            instantiate: instantiate,
             nodes: component.render(),
             parent: self
         )

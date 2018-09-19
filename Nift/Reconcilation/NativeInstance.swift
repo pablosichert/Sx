@@ -29,7 +29,7 @@ class NativeInstance: NodeInstance {
     func update(node: Node) {
         let (instances, operations) = reconcile(
             instances: self.instances,
-            instantiate: instantiate(node:parent:index:),
+            instantiate: instantiate,
             nodes: node.children,
             parent: self
         )
