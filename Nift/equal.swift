@@ -29,15 +29,15 @@ private struct Function: Equatable {
     let contextWrapper: UnsafePointer<ContextWrapper>?
 
     static func from<Arguments, Return>(
-        _ function: (Arguments) -> Return
+        _ function: @escaping (Arguments) -> Return
     ) -> Function {
         return unsafeBitCast(function, to: FunctionWrapper.self).function.pointee
     }
 }
 
 public func equal<Arguments, Return>(
-    _ lhs: (Arguments) -> Return,
-    _ rhs: (Arguments) -> Return
+    _ lhs: @escaping (Arguments) -> Return,
+    _ rhs: @escaping (Arguments) -> Return
 ) -> Bool {
     let functionLhs = Function.from(lhs)
     let functionRhs = Function.from(rhs)
