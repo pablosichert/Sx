@@ -7,21 +7,28 @@ import func XCTest.XCTAssert
 import class XCTest.XCTestCase
 
 private func NativeA(
+    items: Int = 1,
     key: String? = nil,
     children: [Node] = []
 ) -> Node {
     return Native.Node(
         key: key,
-        properties: ComponentA.Properties(),
+        properties: ComponentA.Properties(items: items),
         Type: ComponentA.self,
         children
     )
 }
 
 private struct ComponentA: Native.Renderable {
-    struct Properties: Equatable {}
+    struct Properties: Equatable {
+        let items: Int
+    }
 
-    init(properties _: Any, children _: [Any]) {}
+    let properties: Properties
+
+    init(properties: Any, children _: [Any]) {
+        self.properties = properties as! Properties
+    }
 
     func insert(mount _: Any, index _: Int) {}
 
@@ -33,8 +40,8 @@ private struct ComponentA: Native.Renderable {
 
     func remove(mount _: Any, index _: Int) {}
 
-    func render() -> Any {
-        return {}
+    func render() -> [Any] {
+        return [Any].init(repeating: 0, count: self.properties.items)
     }
 
     func reorder(mount _: Any, from _: Int, to _: Int) {}
@@ -43,21 +50,28 @@ private struct ComponentA: Native.Renderable {
 }
 
 private func NativeB(
+    items: Int = 1,
     key: String? = nil,
     children: [Node] = []
 ) -> Node {
     return Native.Node(
         key: key,
-        properties: ComponentB.Properties(),
+        properties: ComponentB.Properties(items: items),
         Type: ComponentB.self,
         children
     )
 }
 
 private struct ComponentB: Native.Renderable {
-    struct Properties: Equatable {}
+    struct Properties: Equatable {
+        let items: Int
+    }
 
-    init(properties _: Any, children _: [Any]) {}
+    let properties: Properties
+
+    init(properties: Any, children _: [Any]) {
+        self.properties = properties as! Properties
+    }
 
     func insert(mount _: Any, index _: Int) {}
 
@@ -69,8 +83,8 @@ private struct ComponentB: Native.Renderable {
 
     func remove(mount _: Any, index _: Int) {}
 
-    func render() -> Any {
-        return {}
+    func render() -> [Any] {
+        return [Any].init(repeating: 0, count: self.properties.items)
     }
 
     func reorder(mount _: Any, from _: Int, to _: Int) {}

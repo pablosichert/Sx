@@ -128,7 +128,7 @@ private struct Component: Native.Renderable {
         }
     }
 
-    func render() -> Any {
-        return window
+    func render() -> [Any] {
+        return [window]
     }
 }

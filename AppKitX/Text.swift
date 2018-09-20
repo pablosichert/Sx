@@ -80,7 +80,7 @@ private struct Component: Native.Renderable {
 
     func replace(old _: Any, new _: Any, index _: Int) {}
 
-    func render() -> Any {
-        return text
+    func render() -> [Any] {
+        return [text]
     }
 }

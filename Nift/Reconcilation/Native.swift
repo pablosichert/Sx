@@ -39,7 +39,7 @@ public protocol NativeComponentRenderable {
 
     func remove(mount: Any, index: Int)
 
-    func render() -> Any
+    func render() -> [Any]
 
     func reorder(mount: Any, from: Int, to: Int)
 

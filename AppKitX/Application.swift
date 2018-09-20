@@ -86,7 +86,7 @@ private struct Component: Native.Renderable {
         insert(mount: new, index: index)
     }
 
-    func render() -> Any {
-        return application
+    func render() -> [Any] {
+        return [application]
     }
 }

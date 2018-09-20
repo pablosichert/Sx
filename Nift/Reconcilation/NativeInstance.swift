@@ -25,7 +25,7 @@ class NativeInstance: NodeInstance {
     }
 
     func mount() -> [Any] {
-        return [component.render()]
+        return component.render()
     }
 
     func update(node: Node) {

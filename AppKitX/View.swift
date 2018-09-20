@@ -123,7 +123,7 @@ private struct Component: Native.Renderable {
         }
     }
 
-    func render() -> Any {
-        return view
+    func render() -> [Any] {
+        return [view]
     }
 }
