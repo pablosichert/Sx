@@ -20,9 +20,9 @@ public class Incrementer: Composite {
 
     public init(key: String? = nil, x: CGFloat, y: CGFloat) {
         super.init(
+            Component.self,
             key: key,
-            properties: Properties(x: x, y: y),
-            Type: Component.self
+            properties: Properties(x: x, y: y)
         )
     }
 

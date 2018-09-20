@@ -19,9 +19,9 @@ public class App: Composite {
 
     init(key: String? = nil) {
         super.init(
+            Component.self,
             key: key,
-            properties: Properties(),
-            Type: Component.self
+            properties: Properties()
         )
     }
 

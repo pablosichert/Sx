@@ -11,13 +11,13 @@ open class Composite: Node {
     public let properties: Any
 
     public init<Properties>(
+        _ RenderableType: Renderable.Type,
         key: String?,
         properties: Properties,
-        Type: Renderable.Type,
         _ children: [Node] = []
     ) where Properties: Equatable {
         self.children = children
-        self.ComponentType = Type
+        self.ComponentType = RenderableType
         self.equal = Equal<Properties>.call
         self.key = key
         self.properties = properties
