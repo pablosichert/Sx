@@ -194,6 +194,46 @@ class reconcileTest: XCTestCase {
         XCTAssert(reconcilation.operations.reorders.isEmpty)
     }
 
+    func testReplaceInsertWithoutKeys() {
+        let old = [NativeA()]
+        let new = [NativeB(items: 2)]
+        let parent = NativeA(children: old)
+        let instance = instantiate(node: parent, index: 0)
+
+        let reconcilation = reconcile(
+            instances: instance.instances,
+            instantiate: instantiate,
+            nodes: new,
+            parent: instance
+        )
+
+        XCTAssert(reconcilation.instances.count == 1)
+        XCTAssert(reconcilation.operations.replaces.count == 1)
+        XCTAssert(reconcilation.operations.inserts.count == 1)
+        XCTAssert(reconcilation.operations.removes.isEmpty)
+        XCTAssert(reconcilation.operations.reorders.isEmpty)
+    }
+
+    func testReplaceRemoveWithoutKeys() {
+        let old = [NativeA(items: 2)]
+        let new = [NativeB()]
+        let parent = NativeA(children: old)
+        let instance = instantiate(node: parent, index: 0)
+
+        let reconcilation = reconcile(
+            instances: instance.instances,
+            instantiate: instantiate,
+            nodes: new,
+            parent: instance
+        )
+
+        XCTAssert(reconcilation.instances.count == 1)
+        XCTAssert(reconcilation.operations.replaces.count == 1)
+        XCTAssert(reconcilation.operations.removes.count == 1)
+        XCTAssert(reconcilation.operations.inserts.isEmpty)
+        XCTAssert(reconcilation.operations.reorders.isEmpty)
+    }
+
     func testReplaceWithKeys() {
         let old = [NativeA(key: "x")]
         let new = [NativeB(key: "x")]
