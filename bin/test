@@ -1,12 +1,25 @@
-schemes=(
+SCHEMES=(
     Reconcilation
     Nift
     AppKitX
 )
 
-for scheme in "${schemes[@]}"; do
+function test {
+    local SCHEME=$1
+    local DERIVED_DATA_PATH=$(mktemp -d)
+    trap "rm -r $DERIVED_DATA_PATH" EXIT
+
     xcodebuild \
+        -derivedDataPath $DERIVED_DATA_PATH \
         -workspace Nift.xcworkspace \
-        -scheme $scheme \
+        -scheme $SCHEME \
         test
+
+    exit
+}
+
+for SCHEME in "${SCHEMES[@]}"; do
+    test $SCHEME &
 done
+
+wait
