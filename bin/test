@@ -4,6 +4,25 @@ SCHEMES=(
     AppKitX
 )
 
+LOGS_STDOUT=()
+LOGS_STDERR=()
+
+for i in "${!SCHEMES[@]}"; do
+    LOGS_STDOUT[$i]=$(mktemp)
+    LOGS_STDERR[$i]=$(mktemp)
+done
+
+function log {
+    for i in "${!SCHEMES[@]}"; do
+        cat "${LOGS_STDOUT[${i}]}"
+        rm "${LOGS_STDOUT[${i}]}"
+        cat "${LOGS_STDERR[${i}]}" >&2
+        rm "${LOGS_STDERR[${i}]}"
+    done
+}
+
+trap log EXIT
+
 function test {
     local SCHEME=$1
     local DERIVED_DATA_PATH=$(mktemp -d)
@@ -18,8 +37,10 @@ function test {
     exit
 }
 
-for SCHEME in "${SCHEMES[@]}"; do
-    test $SCHEME &
+for i in "${!SCHEMES[@]}"; do
+    test "${SCHEMES[${i}]}" 2> "${LOGS_STDERR[${i}]}" 1> "${LOGS_STDOUT[${i}]}" &
 done
 
 wait
+
+exit
