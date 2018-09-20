@@ -100,8 +100,48 @@ class reconcileTest: XCTestCase {
         XCTAssert(reconcilation.operations.replaces.isEmpty)
     }
 
+    func testInsertWithKeys() {
+        let old = [Node]()
+        let new = [NativeA(key: "x")]
+        let parent = NativeA(children: old)
+        let instance = instantiate(node: parent, index: 0)
+
+        let reconcilation = reconcile(
+            instances: instance.instances,
+            instantiate: instantiate,
+            nodes: new,
+            parent: instance
+        )
+
+        XCTAssert(reconcilation.instances.count == 1)
+        XCTAssert(reconcilation.operations.inserts.count == 1)
+        XCTAssert(reconcilation.operations.removes.isEmpty)
+        XCTAssert(reconcilation.operations.reorders.isEmpty)
+        XCTAssert(reconcilation.operations.replaces.isEmpty)
+    }
+
     func testRemoveWithoutKeys() {
         let old = [NativeA()]
+        let new = [Node]()
+        let parent = NativeA(children: old)
+        let instance = instantiate(node: parent, index: 0)
+
+        let reconcilation = reconcile(
+            instances: instance.instances,
+            instantiate: instantiate,
+            nodes: new,
+            parent: instance
+        )
+
+        XCTAssert(reconcilation.instances.isEmpty)
+        XCTAssert(reconcilation.operations.removes.count == 1)
+        XCTAssert(reconcilation.operations.inserts.isEmpty)
+        XCTAssert(reconcilation.operations.reorders.isEmpty)
+        XCTAssert(reconcilation.operations.replaces.isEmpty)
+    }
+
+    func testRemoveWithKeys() {
+        let old = [NativeA(key: "x")]
         let new = [Node]()
         let parent = NativeA(children: old)
         let instance = instantiate(node: parent, index: 0)
@@ -140,6 +180,26 @@ class reconcileTest: XCTestCase {
         XCTAssert(reconcilation.operations.reorders.isEmpty)
     }
 
+    func testReplaceWithKeys() {
+        let old = [NativeA(key: "x")]
+        let new = [NativeB(key: "x")]
+        let parent = NativeA(children: old)
+        let instance = instantiate(node: parent, index: 0)
+
+        let reconcilation = reconcile(
+            instances: instance.instances,
+            instantiate: instantiate,
+            nodes: new,
+            parent: instance
+        )
+
+        XCTAssert(reconcilation.instances.count == 1)
+        XCTAssert(reconcilation.operations.replaces.count == 1)
+        XCTAssert(reconcilation.operations.inserts.isEmpty)
+        XCTAssert(reconcilation.operations.removes.isEmpty)
+        XCTAssert(reconcilation.operations.reorders.isEmpty)
+    }
+
     func testUpdateWithoutKeys() {
         let old = [NativeA()]
         let new = [NativeA()]
@@ -155,5 +215,42 @@ class reconcileTest: XCTestCase {
 
         XCTAssert(reconcilation.instances.count == 1)
         XCTAssert(reconcilation.operations.isEmpty)
+    }
+
+    func testUpdateWithKeys() {
+        let old = [NativeA(key: "x")]
+        let new = [NativeA(key: "x")]
+        let parent = NativeA(children: old)
+        let instance = instantiate(node: parent, index: 0)
+
+        let reconcilation = reconcile(
+            instances: instance.instances,
+            instantiate: instantiate,
+            nodes: new,
+            parent: instance
+        )
+
+        XCTAssert(reconcilation.instances.count == 1)
+        XCTAssert(reconcilation.operations.isEmpty)
+    }
+
+    func testReorderWithKeys() {
+        let old = [NativeA(key: "1"), NativeA(key: "2")]
+        let new = [NativeA(key: "2"), NativeA(key: "1")]
+        let parent = NativeA(children: old)
+        let instance = instantiate(node: parent, index: 0)
+
+        let reconcilation = reconcile(
+            instances: instance.instances,
+            instantiate: instantiate,
+            nodes: new,
+            parent: instance
+        )
+
+        XCTAssert(reconcilation.instances.count == 2)
+        XCTAssert(reconcilation.operations.reorders.count == 2)
+        XCTAssert(reconcilation.operations.replaces.isEmpty)
+        XCTAssert(reconcilation.operations.inserts.isEmpty)
+        XCTAssert(reconcilation.operations.removes.isEmpty)
     }
 }
