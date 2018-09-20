@@ -5,6 +5,7 @@ import func AppKitX.View
 import struct CoreGraphics.CGFloat
 import struct CoreGraphics.CGRect
 import class Nift.Composite
+import protocol Nift.Initializable
 import protocol Nift.Node
 
 public class Incrementer: Composite {
@@ -13,7 +14,7 @@ public class Incrementer: Composite {
         let y: CGFloat
     }
 
-    struct State: Equatable {
+    struct State: Equatable, Initializable {
         var count = 0
     }
 
@@ -26,10 +27,6 @@ public class Incrementer: Composite {
     }
 
     class Component: Composite<Properties, State>, Renderable {
-        required init(properties: Any, children: [Node]) {
-            super.init(properties: properties as! Properties, state: State(), children)
-        }
-
         func increase(_: NSEvent) {
             setState(State(
                 count: state.count + 1

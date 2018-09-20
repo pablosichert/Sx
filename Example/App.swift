@@ -8,13 +8,14 @@ import struct CoreGraphics.CGFloat
 import struct Foundation.Notification
 import struct Foundation.NSRect
 import class Nift.Composite
+import protocol Nift.Initializable
 import protocol Nift.Node
 import class ObjectiveC.NSObject
 
 public class App: Composite {
-    public struct Properties: Equatable {}
+    struct Properties: Equatable {}
 
-    struct State: Equatable {}
+    struct State: Equatable, Initializable {}
 
     init(key: String? = nil) {
         super.init(
@@ -40,7 +41,7 @@ public class App: Composite {
         let x: CGFloat
         let y: CGFloat
 
-        required init(properties _: Any, children: [Node]) {
+        override init(properties: Properties, children: [Node]) {
             let frame = NSScreen.main!.visibleFrame
 
             let factor = CGFloat(0.5)
@@ -56,7 +57,7 @@ public class App: Composite {
             self.x = x
             self.y = y
 
-            super.init(properties: Properties(), state: State(), children)
+            super.init(properties: properties, children: children)
         }
 
         func render() -> [Node] {

@@ -27,6 +27,8 @@ open class Composite: Node {
 public protocol CompositeComponentRenderableBase {
     var rerender: () -> Void { get set }
 
+    init(properties: Any, children: [Node])
+
     func update(properties: Any)
 
     func update(children: [Node])
@@ -35,21 +37,27 @@ public protocol CompositeComponentRenderableBase {
 }
 
 public protocol CompositeComponentRenderable: CompositeComponentRenderableBase {
-    init(properties: Any, children: [Node])
-
     func render() -> [Node]
 }
 
-open class CompositeComponent<Properties: Equatable, State: Equatable>: CompositeComponentRenderableBase {
+open class CompositeComponent<Properties, State>: CompositeComponentRenderableBase
+    where Properties: Equatable, State: Equatable, State: Initializable {
     public var properties: Properties
     public var children: [Node]
     public var rerender = {}
     public var state: State
 
-    public init(properties: Properties, state: State, _ children: [Node]) {
+    public required convenience init(properties: Any, children: [Node]) {
+        self.init(
+            properties: properties as! Properties,
+            children: children
+        )
+    }
+
+    public init(properties: Properties, children: [Node]) {
         self.properties = properties
         self.children = children
-        self.state = state
+        self.state = State.init()
     }
 
     public func update(properties: Any) {
