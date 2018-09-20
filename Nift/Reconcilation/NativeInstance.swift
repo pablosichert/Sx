@@ -6,6 +6,8 @@ class NativeInstance: NodeInstance {
     weak var parent: NodeInstance?
 
     required init(node: Node, parent: NodeInstance? = nil, index: Int) {
+        assert(node.InstanceType is NativeInstance.Type)
+
         let instances = instantiate(nodes: node.children, index: index)
         let mounts = instances.flatMap({ $0.mount() })
         let Component = node.ComponentType as! Native.Renderable.Type
@@ -27,6 +29,9 @@ class NativeInstance: NodeInstance {
     }
 
     func update(node: Node) {
+        assert(node.InstanceType is NativeInstance.Type)
+        assert(node.ComponentType == self.node.ComponentType)
+
         let (instances, operations) = reconcile(
             instances: self.instances,
             instantiate: instantiate,

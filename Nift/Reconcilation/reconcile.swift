@@ -24,7 +24,10 @@ public func reconcile(
         }
 
         if let instance = instance {
-            if instance.node.ComponentType == node.ComponentType {
+            let equalInstanceType = instance.node.InstanceType == node.InstanceType
+            let equalComponentType = instance.node.ComponentType == node.ComponentType
+
+            if equalInstanceType && equalComponentType {
                 index += update(
                     index: index,
                     instance: instance,

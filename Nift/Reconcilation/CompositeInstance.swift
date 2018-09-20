@@ -6,6 +6,8 @@ class CompositeInstance: NodeInstance {
     weak var parent: NodeInstance?
 
     required init(node: Node, parent: NodeInstance? = nil, index: Int) {
+        assert(node.InstanceType is CompositeInstance.Type)
+
         let Component = node.ComponentType as! Composite.Renderable.Type
         var component = Component.init(properties: node.properties, children: node.children)
         let nodes = component.render()
@@ -44,6 +46,9 @@ class CompositeInstance: NodeInstance {
     }
 
     func update(node: Node) {
+        assert(node.InstanceType is CompositeInstance.Type)
+        assert(node.ComponentType == self.node.ComponentType)
+
         let newProperties = !self.node.equal(self.node.properties, node.properties)
         let newChildren = self.node.children != node.children
 
