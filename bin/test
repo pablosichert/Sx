@@ -6,10 +6,12 @@ SCHEMES=(
 
 LOGS_STDOUT=()
 LOGS_STDERR=()
+COVERAGE=()
 
 for i in "${!SCHEMES[@]}"; do
     LOGS_STDOUT[$i]=$(mktemp)
     LOGS_STDERR[$i]=$(mktemp)
+    COVERAGE[$i]=$(mktemp)
 done
 
 function log {
@@ -19,12 +21,18 @@ function log {
         cat "${LOGS_STDERR[${i}]}" >&2
         rm "${LOGS_STDERR[${i}]}"
     done
+
+    for i in "${!COVERAGE[@]}"; do
+        cat "${COVERAGE[${i}]}"
+        rm "${COVERAGE[${i}]}"
+    done
 }
 
 trap log EXIT
 
 function test {
     local SCHEME=$1
+    local COVERAGE=$2
     local DERIVED_DATA_PATH=$(mktemp -d)
     trap "rm -r $DERIVED_DATA_PATH" EXIT
 
@@ -34,11 +42,19 @@ function test {
         -scheme $SCHEME \
         test
 
+    local LINE_COVERAGE=$(xcrun xccov view \
+            --json \
+            --only-targets \
+            $DERIVED_DATA_PATH/Logs/Test/*/*/*.xccovreport \
+            | jq 'map(select(.name == ("'$SCHEME.framework'")))[0].lineCoverage')
+
+    echo $SCHEME: $LINE_COVERAGE > $COVERAGE
+
     exit
 }
 
 for i in "${!SCHEMES[@]}"; do
-    test "${SCHEMES[${i}]}" 2> "${LOGS_STDERR[${i}]}" 1> "${LOGS_STDOUT[${i}]}" &
+    test "${SCHEMES[${i}]}" "${COVERAGE[${i}]}" 2> "${LOGS_STDERR[${i}]}" 1> "${LOGS_STDOUT[${i}]}" &
 done
 
 wait
