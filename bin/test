@@ -4,9 +4,9 @@ schemes=(
     AppKitX
 )
 
-for i in "${schemes[@]}"; do
+for scheme in "${schemes[@]}"; do
     xcodebuild \
         -workspace Nift.xcworkspace \
-        -scheme Nift \
+        -scheme $scheme \
         test
 done
