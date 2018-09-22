@@ -2,5 +2,10 @@ os: osx
 osx_image: xcode10
 language: swift
 
+addons:
+  homebrew:
+    packages:
+      - jq
+
 script:
   - ./bin/continuousintegration
