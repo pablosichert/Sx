@@ -32,6 +32,8 @@ function test {
         > $COVERAGE_JSON
 }
 
+PIDS=()
+
 for SCHEME in "${SCHEMES[@]}"; do
     DERIVED_DATA_PATH=$BUILD_DIRECTORY/$SCHEME
     LOG_FILE=$DERIVED_DATA_PATH/build.log
@@ -42,9 +44,24 @@ for SCHEME in "${SCHEMES[@]}"; do
         $SCHEME \
         $DERIVED_DATA_PATH \
         &> $LOG_FILE \
-        &
+        & PIDS+=($!)
 done
 
+function collect_statuses {
+    for PID in "${PIDS[@]}"; do
+        wait $PID
+
+        if [ $? -ne 0 ]; then
+            return 1
+        fi
+    done
+}
+
+collect_statuses
+
+BUILD_STATUS=$?
+
+# Wait for potential builds that occurred after a failing one
 wait
 
 function archive_build {
@@ -86,6 +103,16 @@ function archive_build {
         cp $SOURCE/coverage.json $SOURCE/build.log $DESTINATION
     done
 
+    local BUILD_LABEL=passing
+    local BUILD_COLOR=brightgreen
+
+    if [ $BUILD_STATUS -ne 0 ]; then
+        BUILD_LABEL=failing
+        BUILD_COLOR=red
+    fi
+
+    curl -s -w "\n" https://img.shields.io/badge/build-$BUILD_LABEL-$BUILD_COLOR.svg > builds/$COMMIT/badge-build.svg
+
     curl -s -w "\n" https://img.shields.io/badge/coverage-$LINE_COVERAGE%25-brightgreen.svg > builds/$COMMIT/badge-coverage.svg
 
     rm -rf builds/$BRANCH
@@ -102,3 +129,5 @@ function archive_build {
 }
 
 archive_build
+
+exit $BUILD_STATUS
