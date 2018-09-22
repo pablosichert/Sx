@@ -28,19 +28,16 @@ function test {
         > $COVERAGE_JSON
 }
 
-for i in "${!SCHEMES[@]}"; do
-    SCHEME="${SCHEMES[${i}]}"
+for SCHEME in "${SCHEMES[@]}"; do
     DERIVED_DATA_PATH=$BUILD_DIRECTORY/$SCHEME
-    LOG_FILE=$DERIVED_DATA_PATH/log.txt
-    ERROR_FILE=$DERIVED_DATA_PATH/error.txt
+    LOG_FILE=$DERIVED_DATA_PATH/build.log
 
     mkdir $DERIVED_DATA_PATH
 
     test \
         $SCHEME \
         $DERIVED_DATA_PATH \
-        1> $LOG_FILE \
-        2> $ERROR_FILE \
+        &> $LOG_FILE \
         &
 done
 
@@ -65,15 +62,17 @@ function archive_build {
 
     mkdir -p builds
 
-    rm -rf builds/$COMMIT
-    mkdir builds/$COMMIT
-
-    tar -czf builds/$COMMIT/build.tar.gz -C $BUILD_DIRECTORY ./
-
-    curl -s https://img.shields.io/badge/coverage-$LINE_COVERAGE%25-green.svg > builds/$COMMIT/badge-coverage.svg
-
     rm -rf builds/$BRANCH
-    cp -r builds/$COMMIT builds/$BRANCH
+    mkdir builds/$BRANCH
+
+    for SCHEME in "${SCHEMES[@]}"; do
+        SOURCE=$BUILD_DIRECTORY/$SCHEME
+        DESTINATION=builds/$BRANCH/$SCHEME
+        mkdir $DESTINATION
+        cp $SOURCE/coverage.json $SOURCE/build.log $DESTINATION
+    done
+
+    curl -s https://img.shields.io/badge/coverage-$LINE_COVERAGE%25-green.svg > builds/$BRANCH/badge-coverage.svg
 
     git checkout -
 }
