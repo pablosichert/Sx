@@ -25,7 +25,7 @@ function test {
         -derivedDataPath $DERIVED_DATA_PATH \
         -workspace Nift.xcworkspace \
         -scheme $SCHEME \
-        test \
+        test
 
     local COVERAGE=$(xcrun xccov view \
         --json \
@@ -70,17 +70,6 @@ BUILD_STATUS=$?
 wait
 
 function archive_build {
-    local EXECUTABLE_LINES_NIFT=$(cat $BUILD_DIRECTORY/Nift/coverage.json | jq '.executableLines')
-    local COVERED_LINES_NIFT=$(cat $BUILD_DIRECTORY/Nift/coverage.json | jq '.coveredLines')
-
-    local EXECUTABLE_LINES_RECONCILATION=$(cat $BUILD_DIRECTORY/Reconcilation/coverage.json | jq '.executableLines')
-    local COVERED_LINES_RECONCILATION=$(cat $BUILD_DIRECTORY/Reconcilation/coverage.json | jq '.coveredLines')
-
-    local EXECUTABLE_LINES=$((EXECUTABLE_LINES_NIFT+EXECUTABLE_LINES_RECONCILATION))
-    local COVERED_LINES=$((COVERED_LINES_NIFT+COVERED_LINES_RECONCILATION))
-
-    local LINE_COVERAGE=$(bc <<< "$COVERED_LINES*100/$EXECUTABLE_LINES")
-
     local COMMIT=$(git rev-parse --short HEAD)
 
     local GITHUB_PAGES=$(mktemp -d)
@@ -110,14 +99,33 @@ function archive_build {
     local BUILD_LABEL=passing
     local BUILD_COLOR=brightgreen
 
+    local COVERAGE_LABEL=n/a
+    local COVERAGE_COLOR=red
+
     if [ $BUILD_STATUS -ne 0 ]; then
         BUILD_LABEL=failing
         BUILD_COLOR=red
+    else
+        local EXECUTABLE_LINES=0
+        local COVERED_LINES=0
+
+        for SCHEME in "${SCHEMES[@]}"; do
+            SCHEME_EXECUTABLE_LINES=$(cat $BUILD_DIRECTORY/$SCHEME/coverage.json | jq '.executableLines' || echo 0)
+            SCHEME_COVERED_LINES=$(cat $BUILD_DIRECTORY/$SCHEME/coverage.json | jq '.coveredLines' || echo 0)
+
+            EXECUTABLE_LINES=$(($EXECUTABLE_LINES+$SCHEME_EXECUTABLE_LINES))
+            COVERED_LINES=$(($COVERED_LINES+$SCHEME_COVERED_LINES))
+        done
+
+        if [ $EXECUTABLE_LINES -ne 0 ]; then
+            COVERAGE_LABEL=$(bc <<< "$COVERED_LINES*100/$EXECUTABLE_LINES")%25
+            COVERAGE_COLOR=brightgreen
+        fi
     fi
 
     curl -s -w "\n" https://img.shields.io/badge/build-$BUILD_LABEL-$BUILD_COLOR.svg > builds/$COMMIT/badge-build.svg
 
-    curl -s -w "\n" https://img.shields.io/badge/coverage-$LINE_COVERAGE%25-brightgreen.svg > builds/$COMMIT/badge-coverage.svg
+    curl -s -w "\n" https://img.shields.io/badge/coverage-$COVERAGE_LABEL-$COVERAGE_COLOR.svg > builds/$COMMIT/badge-coverage.svg
 
     rm -rf builds/$BRANCH
     cp -r builds/$COMMIT builds/$BRANCH
