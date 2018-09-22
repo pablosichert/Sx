@@ -77,19 +77,22 @@ function archive_build {
 
     mkdir -p builds
 
-    rm -rf builds/$BRANCH
-    mkdir builds/$BRANCH
+    rm -rf builds/$COMMIT
+    mkdir builds/$COMMIT
 
     for SCHEME in "${SCHEMES[@]}"; do
         SOURCE=$BUILD_DIRECTORY/$SCHEME
-        DESTINATION=builds/$BRANCH/$SCHEME
+        DESTINATION=builds/$COMMIT/$SCHEME
         mkdir $DESTINATION
         cp $SOURCE/coverage.json $SOURCE/build.log $DESTINATION
     done
 
-    curl -s -w "\n" https://img.shields.io/badge/coverage-$LINE_COVERAGE%25-brightgreen.svg > builds/$BRANCH/badge-coverage.svg
+    curl -s -w "\n" https://img.shields.io/badge/coverage-$LINE_COVERAGE%25-brightgreen.svg > builds/$COMMIT/badge-coverage.svg
 
-    git add builds/$BRANCH
+    rm -rf builds/$BRANCH
+    cp -r builds/$COMMIT builds/$BRANCH
+
+    git add builds/$COMMIT builds/$BRANCH
     git commit --quiet -m "Build artifacts from commit $COMMIT on branch $BRANCH"
     git push --quiet
 
