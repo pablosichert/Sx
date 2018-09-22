@@ -74,6 +74,8 @@ function archive_build {
 
     curl -s https://img.shields.io/badge/coverage-$LINE_COVERAGE%25-green.svg > builds/$BRANCH/badge-coverage.svg
 
+    git add builds/$BRANCH
+    git commit -m "Build artifacts from commit $COMMIT on branch $BRANCH"
     git checkout -
 }
 
