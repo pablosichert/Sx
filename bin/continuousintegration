@@ -3,6 +3,11 @@ SCHEMES=(
     Nift
 )
 
+if [ -z "$BRANCH" ]; then
+    echo BRANCH is missing from the environment variables >&2
+    exit 1
+fi
+
 if [ -z "$GITHUB_TOKEN" ]; then
     echo GITHUB_TOKEN is missing from the environment variables >&2
     exit 1
@@ -76,7 +81,6 @@ function archive_build {
 
     local LINE_COVERAGE=$(bc <<< "$COVERED_LINES*100/$EXECUTABLE_LINES")
 
-    local BRANCH=$(git rev-parse --abbrev-ref HEAD)
     local COMMIT=$(git rev-parse --short HEAD)
 
     local GITHUB_PAGES=$(mktemp -d)
