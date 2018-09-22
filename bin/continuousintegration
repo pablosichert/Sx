@@ -4,59 +4,78 @@ SCHEMES=(
     AppKitX
 )
 
-LOGS_STDOUT=()
-LOGS_STDERR=()
-COVERAGE=()
-
-for i in "${!SCHEMES[@]}"; do
-    LOGS_STDOUT[$i]=$(mktemp)
-    LOGS_STDERR[$i]=$(mktemp)
-    COVERAGE[$i]=$(mktemp)
-done
-
-function log {
-    for i in "${!SCHEMES[@]}"; do
-        cat "${LOGS_STDOUT[${i}]}"
-        rm "${LOGS_STDOUT[${i}]}"
-        cat "${LOGS_STDERR[${i}]}" >&2
-        rm "${LOGS_STDERR[${i}]}"
-    done
-
-    for i in "${!COVERAGE[@]}"; do
-        cat "${COVERAGE[${i}]}"
-        rm "${COVERAGE[${i}]}"
-    done
-}
-
-trap log EXIT
+BUILD_DIRECTORY=$(mktemp -d)
+trap "rm -r $BUILD_DIRECTORY" EXIT
 
 function test {
     local SCHEME=$1
-    local COVERAGE=$2
-    local DERIVED_DATA_PATH=$(mktemp -d)
-    trap "rm -r $DERIVED_DATA_PATH" EXIT
+    local DERIVED_DATA_PATH=$2
+    local COVERAGE_JSON=$DERIVED_DATA_PATH/coverage.json
 
     xcodebuild \
         -derivedDataPath $DERIVED_DATA_PATH \
         -workspace Nift.xcworkspace \
         -scheme $SCHEME \
-        test
+        test \
 
-    local LINE_COVERAGE=$(xcrun xccov view \
-            --json \
-            --only-targets \
-            $DERIVED_DATA_PATH/Logs/Test/*/*/*.xccovreport \
-            | jq 'map(select(.name == ("'$SCHEME.framework'")))[0].lineCoverage')
+    local COVERAGE=$(xcrun xccov view \
+        --json \
+        $DERIVED_DATA_PATH/Logs/Test/*/*/*.xccovreport
+    )
 
-    echo $SCHEME: $LINE_COVERAGE > $COVERAGE
-
-    exit
+    echo $COVERAGE \
+        | jq '.targets | map(select(.name == ("'$SCHEME.framework'")))[0]' \
+        > $COVERAGE_JSON
 }
 
 for i in "${!SCHEMES[@]}"; do
-    test "${SCHEMES[${i}]}" "${COVERAGE[${i}]}" 2> "${LOGS_STDERR[${i}]}" 1> "${LOGS_STDOUT[${i}]}" &
+    SCHEME="${SCHEMES[${i}]}"
+    DERIVED_DATA_PATH=$BUILD_DIRECTORY/$SCHEME
+    LOG_FILE=$DERIVED_DATA_PATH/log.txt
+    ERROR_FILE=$DERIVED_DATA_PATH/error.txt
+
+    mkdir $DERIVED_DATA_PATH
+
+    test \
+        $SCHEME \
+        $DERIVED_DATA_PATH \
+        1> $LOG_FILE \
+        2> $ERROR_FILE \
+        &
 done
 
 wait
 
-exit
+function archive_build {
+    local EXECUTABLE_LINES_NIFT=$(cat $BUILD_DIRECTORY/Nift/coverage.json | jq '.executableLines')
+    local COVERED_LINES_NIFT=$(cat $BUILD_DIRECTORY/Nift/coverage.json | jq '.coveredLines')
+
+    local EXECUTABLE_LINES_RECONCILATION=$(cat $BUILD_DIRECTORY/Reconcilation/coverage.json | jq '.executableLines')
+    local COVERED_LINES_RECONCILATION=$(cat $BUILD_DIRECTORY/Reconcilation/coverage.json | jq '.coveredLines')
+
+    local EXECUTABLE_LINES=$(($EXECUTABLE_LINES_NIFT + $EXECUTABLE_LINES_RECONCILATION))
+    local COVERED_LINES=$(($COVERED_LINES_NIFT + $COVERED_LINES_RECONCILATION))
+
+    local LINE_COVERAGE=$(bc <<< "$COVERED_LINES*100/$EXECUTABLE_LINES")
+
+    local BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    local COMMIT=$(git rev-parse --short HEAD)
+
+    git checkout gh-pages
+
+    mkdir -p builds
+
+    rm -rf builds/$COMMIT
+    mkdir builds/$COMMIT
+
+    tar -czf builds/$COMMIT/build.tar.gz -C $BUILD_DIRECTORY ./
+
+    curl -s https://img.shields.io/badge/coverage-$LINE_COVERAGE%25-green.svg > builds/$COMMIT/badge-coverage.svg
+
+    rm -rf builds/$BRANCH
+    cp -r builds/$COMMIT builds/$BRANCH
+
+    git checkout -
+}
+
+archive_build
