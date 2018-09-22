@@ -4,6 +4,11 @@ SCHEMES=(
     AppKitX
 )
 
+if [ -z "$GITHUB_TOKEN" ]; then
+    echo GITHUB_TOKEN is missing from the environment variables >&2
+    exit 1
+fi
+
 BUILD_DIRECTORY=$(mktemp -d)
 trap "rm -r $BUILD_DIRECTORY" EXIT
 
@@ -58,7 +63,17 @@ function archive_build {
     local BRANCH=$(git rev-parse --abbrev-ref HEAD)
     local COMMIT=$(git rev-parse --short HEAD)
 
-    git checkout gh-pages
+    local GITHUB_PAGES=$(mktemp -d)
+    trap "rm -rf $GITHUB_PAGES" RETURN
+
+    git clone --quiet -b gh-pages --single-branch \
+        https://$GITHUB_TOKEN@github.com/PabloSichert/Nift \
+        $GITHUB_PAGES
+
+    cd $GITHUB_PAGES
+
+    git config user.name "Continuous Integration"
+    git config user.email ""
 
     mkdir -p builds
 
@@ -72,11 +87,13 @@ function archive_build {
         cp $SOURCE/coverage.json $SOURCE/build.log $DESTINATION
     done
 
-    curl -s https://img.shields.io/badge/coverage-$LINE_COVERAGE%25-green.svg > builds/$BRANCH/badge-coverage.svg
+    curl -s -w "\n" https://img.shields.io/badge/coverage-$LINE_COVERAGE%25-brightgreen.svg > builds/$BRANCH/badge-coverage.svg
 
     git add builds/$BRANCH
-    git commit -m "Build artifacts from commit $COMMIT on branch $BRANCH"
-    git checkout -
+    git commit --quiet -m "Build artifacts from commit $COMMIT on branch $BRANCH"
+    git push --quiet
+
+    cd - &> /dev/null
 }
 
 archive_build
