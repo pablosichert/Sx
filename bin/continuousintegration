@@ -97,6 +97,9 @@ function archive_build {
     git push --quiet
 
     cd - &> /dev/null
+
+    echo "Build logs for commit $COMMIT on branch $BRANCH:"
+    echo https://github.com/PabloSichert/Nift/tree/gh-pages/builds/$COMMIT
 }
 
 archive_build
