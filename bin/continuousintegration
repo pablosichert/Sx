@@ -1,7 +1,6 @@
 SCHEMES=(
     Reconcilation
     Nift
-    AppKitX
 )
 
 if [ -z "$GITHUB_TOKEN" ]; then
