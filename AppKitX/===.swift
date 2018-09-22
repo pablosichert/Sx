@@ -1,8 +1,8 @@
-import func Nift.equal
+import func Nift.compare
 
 func === <Arguments, Return>(
     lhs: @escaping (Arguments) -> Return,
     rhs: @escaping (Arguments) -> Return
 ) -> Bool {
-    return equal(lhs, rhs)
+    return compare(lhs, rhs)
 }

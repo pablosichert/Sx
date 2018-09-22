@@ -35,7 +35,7 @@ private struct Function: Equatable {
     }
 }
 
-public func equal<Arguments, Return>(
+public func compare<Arguments, Return>(
     _ lhs: @escaping (Arguments) -> Return,
     _ rhs: @escaping (Arguments) -> Return
 ) -> Bool {
