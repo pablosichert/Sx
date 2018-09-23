@@ -17,6 +17,8 @@ BUILD_DIRECTORY=$(mktemp -d)
 trap "rm -r $BUILD_DIRECTORY" EXIT
 
 function test {
+    set -e
+
     local SCHEME=$1
     local DERIVED_DATA_PATH=$2
     local COVERAGE_JSON=$DERIVED_DATA_PATH/coverage.json
