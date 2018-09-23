@@ -41,7 +41,7 @@ func replace(
         insert((mount: mountsNew[i - leadingNew.lowerBound], index: i))
     }
 
-    if let shared = shared, let trailingOld = trailingOld, let trailingNew = trailingNew {
+    if let shared = shared {
         for i in shared {
             replace((
                 old: mountsOld[leadingOld.count + i - shared.lowerBound],
@@ -50,18 +50,22 @@ func replace(
             ))
         }
 
-        for i in trailingOld {
-            remove((
-                mount: mountsOld[leadingOld.count + shared.count + i - trailingOld.lowerBound],
-                index: i
-            ))
+        if let trailingOld = trailingOld {
+            for i in trailingOld {
+                remove((
+                    mount: mountsOld[leadingOld.count + shared.count + i - trailingOld.lowerBound],
+                    index: i
+                ))
+            }
         }
 
-        for i in trailingNew {
-            insert((
-                mount: mountsNew[leadingNew.count + shared.count + i - trailingNew.lowerBound],
-                index: i
-            ))
+        if let trailingNew = trailingNew {
+            for i in trailingNew {
+                insert((
+                    mount: mountsNew[leadingNew.count + shared.count + i - trailingNew.lowerBound],
+                    index: i
+                ))
+            }
         }
     }
 
