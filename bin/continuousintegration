@@ -113,8 +113,8 @@ function archive_build {
             SCHEME_EXECUTABLE_LINES=$(cat $BUILD_DIRECTORY/$SCHEME/coverage.json | jq '.executableLines' || echo 0)
             SCHEME_COVERED_LINES=$(cat $BUILD_DIRECTORY/$SCHEME/coverage.json | jq '.coveredLines' || echo 0)
 
-            EXECUTABLE_LINES=$(($EXECUTABLE_LINES+$SCHEME_EXECUTABLE_LINES))
-            COVERED_LINES=$(($COVERED_LINES+$SCHEME_COVERED_LINES))
+            EXECUTABLE_LINES=$((EXECUTABLE_LINES+SCHEME_EXECUTABLE_LINES))
+            COVERED_LINES=$((COVERED_LINES+SCHEME_COVERED_LINES))
         done
 
         if [ $EXECUTABLE_LINES -ne 0 ]; then
