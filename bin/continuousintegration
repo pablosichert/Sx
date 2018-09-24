@@ -84,7 +84,7 @@ function archive_build {
     cd $GITHUB_PAGES
 
     git config user.name "Continuous Integration"
-    git config user.email ""
+    git config user.email "bot@swift.sx"
 
     mkdir -p builds
 
