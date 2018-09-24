@@ -1,7 +1,7 @@
-import struct Nift.Mount
-import protocol Nift.Node
-import struct Nift.Operations
 import protocol Reconcilation.NodeInstance
+import struct Sx.Mount
+import protocol Sx.Node
+import struct Sx.Operations
 import func XCTest.XCTAssert
 import class XCTest.XCTestCase
 

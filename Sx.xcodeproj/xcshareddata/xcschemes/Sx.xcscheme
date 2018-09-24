@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6E36D4E12139DBBE00917064"
-               BuildableName = "Reconcilation.framework"
-               BlueprintName = "Reconcilation"
-               ReferencedContainer = "container:Nift.xcodeproj">
+               BlueprintIdentifier = "6EE5D94A20F53C50001851E0"
+               BuildableName = "Sx.framework"
+               BlueprintName = "Sx"
+               ReferencedContainer = "container:Sx.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,20 +33,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6E36D536213B0D4E00917064"
-               BuildableName = "ReconcilationTests.xctest"
-               BlueprintName = "ReconcilationTests"
-               ReferencedContainer = "container:Nift.xcodeproj">
+               BlueprintIdentifier = "6EE26FD821318941000D5A33"
+               BuildableName = "SxTests.xctest"
+               BlueprintName = "SxTests"
+               ReferencedContainer = "container:Sx.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6E36D4E12139DBBE00917064"
-            BuildableName = "Reconcilation.framework"
-            BlueprintName = "Reconcilation"
-            ReferencedContainer = "container:Nift.xcodeproj">
+            BlueprintIdentifier = "6EE5D94A20F53C50001851E0"
+            BuildableName = "Sx.framework"
+            BlueprintName = "Sx"
+            ReferencedContainer = "container:Sx.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -65,10 +65,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6E36D4E12139DBBE00917064"
-            BuildableName = "Reconcilation.framework"
-            BlueprintName = "Reconcilation"
-            ReferencedContainer = "container:Nift.xcodeproj">
+            BlueprintIdentifier = "6EE5D94A20F53C50001851E0"
+            BuildableName = "Sx.framework"
+            BlueprintName = "Sx"
+            ReferencedContainer = "container:Sx.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -83,10 +83,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6E36D4E12139DBBE00917064"
-            BuildableName = "Reconcilation.framework"
-            BlueprintName = "Reconcilation"
-            ReferencedContainer = "container:Nift.xcodeproj">
+            BlueprintIdentifier = "6EE5D94A20F53C50001851E0"
+            BuildableName = "Sx.framework"
+            BlueprintName = "Sx"
+            ReferencedContainer = "container:Sx.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

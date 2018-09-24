@@ -7,10 +7,10 @@ import func AppKitX.Window
 import struct CoreGraphics.CGFloat
 import struct Foundation.Notification
 import struct Foundation.NSRect
-import class Nift.Composite
-import protocol Nift.Initializable
-import protocol Nift.Node
 import class ObjectiveC.NSObject
+import class Sx.Composite
+import protocol Sx.Initializable
+import protocol Sx.Node
 
 public class App: Composite {
     struct Properties: Equatable {}

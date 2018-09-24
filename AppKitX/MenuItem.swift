@@ -1,9 +1,9 @@
 import class AppKit.NSMenu
 import class AppKit.NSMenuItem
-import protocol Nift.Native
-import protocol Nift.Node
-import struct Nift.Operations
 import struct ObjectiveC.Selector
+import protocol Sx.Native
+import protocol Sx.Node
+import struct Sx.Operations
 
 public func MenuItem(
     action: Selector? = nil,

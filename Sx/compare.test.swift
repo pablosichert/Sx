@@ -1,4 +1,4 @@
-import func Nift.compare
+import func Sx.compare
 import func XCTest.XCTAssert
 import class XCTest.XCTestCase
 

@@ -1,4 +1,4 @@
-import func Nift.compare
+import func Sx.compare
 
 func === <Arguments, Return>(
     lhs: @escaping (Arguments) -> Return,

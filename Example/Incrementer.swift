@@ -4,9 +4,9 @@ import func AppKitX.Text
 import func AppKitX.View
 import struct CoreGraphics.CGFloat
 import struct CoreGraphics.CGRect
-import class Nift.Composite
-import protocol Nift.Initializable
-import protocol Nift.Node
+import class Sx.Composite
+import protocol Sx.Initializable
+import protocol Sx.Node
 
 public class Incrementer: Composite {
     struct Properties: Equatable {

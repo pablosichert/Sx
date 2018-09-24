@@ -42,7 +42,7 @@
 		6E793A82213C4F4900D0A3C9 /* StaticQueue.test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E793A81213C4F4900D0A3C9 /* StaticQueue.test.swift */; };
 		6EB470072152D5D0003A8658 /* reconcile.test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB470062152D5D0003A8658 /* reconcile.test.swift */; };
 		6EE26FD221318481000D5A33 /* compare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE26FD121318481000D5A33 /* compare.swift */; };
-		6EE26FDE21318941000D5A33 /* Nift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE5D94B20F53C50001851E0 /* Nift.framework */; };
+		6EE26FDE21318941000D5A33 /* Sx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE5D94B20F53C50001851E0 /* Sx.framework */; };
 		6EE26FE721318A9A000D5A33 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE26FE621318A9A000D5A33 /* XCTest.framework */; };
 		6EE26FE921318AB8000D5A33 /* compare.test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE26FD321318878000D5A33 /* compare.test.swift */; };
 		6EE475DD2141BFD1000B6403 /* Operations.test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE475DC2141BFD1000B6403 /* Operations.test.swift */; };
@@ -61,7 +61,7 @@
 			containerPortal = 6EE5D94220F53C50001851E0 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 6EE5D94A20F53C50001851E0;
-			remoteInfo = Nift;
+			remoteInfo = Sx;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -102,10 +102,10 @@
 		6EDDE5E8212B48CE00BE9A11 /* StaticQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticQueue.swift; sourceTree = "<group>"; };
 		6EE26FD121318481000D5A33 /* compare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = compare.swift; sourceTree = "<group>"; };
 		6EE26FD321318878000D5A33 /* compare.test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = compare.test.swift; sourceTree = "<group>"; };
-		6EE26FD921318941000D5A33 /* NiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EE26FD921318941000D5A33 /* SxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EE26FE621318A9A000D5A33 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6EE475DC2141BFD1000B6403 /* Operations.test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operations.test.swift; sourceTree = "<group>"; };
-		6EE5D94B20F53C50001851E0 /* Nift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EE5D94B20F53C50001851E0 /* Sx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Sx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EE5D94F20F53C50001851E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,7 +130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EE26FE721318A9A000D5A33 /* XCTest.framework in Frameworks */,
-				6EE26FDE21318941000D5A33 /* Nift.framework in Frameworks */,
+				6EE26FDE21318941000D5A33 /* Sx.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +187,7 @@
 		6EE5D94120F53C50001851E0 = {
 			isa = PBXGroup;
 			children = (
-				6EE5D94D20F53C50001851E0 /* Nift */,
+				6EE5D94D20F53C50001851E0 /* Sx */,
 				6EE5D94C20F53C50001851E0 /* Products */,
 				6EE26FE521318A99000D5A33 /* Frameworks */,
 			);
@@ -196,15 +196,15 @@
 		6EE5D94C20F53C50001851E0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6EE5D94B20F53C50001851E0 /* Nift.framework */,
-				6EE26FD921318941000D5A33 /* NiftTests.xctest */,
+				6EE5D94B20F53C50001851E0 /* Sx.framework */,
+				6EE26FD921318941000D5A33 /* SxTests.xctest */,
 				6E36D4E22139DBBE00917064 /* Reconcilation.framework */,
 				6E36D537213B0D4E00917064 /* ReconcilationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6EE5D94D20F53C50001851E0 /* Nift */ = {
+		6EE5D94D20F53C50001851E0 /* Sx */ = {
 			isa = PBXGroup;
 			children = (
 				6E745E53214404680022BD6E /* Composite.swift */,
@@ -221,7 +221,7 @@
 				6E725603211A089D002BD972 /* Property.swift */,
 				6E36D4E32139DBBE00917064 /* Reconcilation */,
 			);
-			path = Nift;
+			path = Sx;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,9 +280,9 @@
 			productReference = 6E36D537213B0D4E00917064 /* ReconcilationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6EE26FD821318941000D5A33 /* NiftTests */ = {
+		6EE26FD821318941000D5A33 /* SxTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6EE26FE121318941000D5A33 /* Build configuration list for PBXNativeTarget "NiftTests" */;
+			buildConfigurationList = 6EE26FE121318941000D5A33 /* Build configuration list for PBXNativeTarget "SxTests" */;
 			buildPhases = (
 				6EE26FD521318941000D5A33 /* Sources */,
 				6EE26FD621318941000D5A33 /* Frameworks */,
@@ -293,14 +293,14 @@
 			dependencies = (
 				6EE26FE021318941000D5A33 /* PBXTargetDependency */,
 			);
-			name = NiftTests;
-			productName = NiftTests;
-			productReference = 6EE26FD921318941000D5A33 /* NiftTests.xctest */;
+			name = SxTests;
+			productName = SxTests;
+			productReference = 6EE26FD921318941000D5A33 /* SxTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6EE5D94A20F53C50001851E0 /* Nift */ = {
+		6EE5D94A20F53C50001851E0 /* Sx */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6EE5D95320F53C50001851E0 /* Build configuration list for PBXNativeTarget "Nift" */;
+			buildConfigurationList = 6EE5D95320F53C50001851E0 /* Build configuration list for PBXNativeTarget "Sx" */;
 			buildPhases = (
 				6EE5D94620F53C50001851E0 /* Sources */,
 				6EE5D94720F53C50001851E0 /* Frameworks */,
@@ -312,9 +312,9 @@
 			);
 			dependencies = (
 			);
-			name = Nift;
-			productName = Nift;
-			productReference = 6EE5D94B20F53C50001851E0 /* Nift.framework */;
+			name = Sx;
+			productName = Sx;
+			productReference = 6EE5D94B20F53C50001851E0 /* Sx.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -345,7 +345,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6EE5D94520F53C50001851E0 /* Build configuration list for PBXProject "Nift" */;
+			buildConfigurationList = 6EE5D94520F53C50001851E0 /* Build configuration list for PBXProject "Sx" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -357,8 +357,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6EE5D94A20F53C50001851E0 /* Nift */,
-				6EE26FD821318941000D5A33 /* NiftTests */,
+				6EE5D94A20F53C50001851E0 /* Sx */,
+				6EE26FD821318941000D5A33 /* SxTests */,
 				6E36D4E12139DBBE00917064 /* Reconcilation */,
 				6E36D536213B0D4E00917064 /* ReconcilationTests */,
 			);
@@ -486,7 +486,7 @@
 		};
 		6EE26FE021318941000D5A33 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6EE5D94A20F53C50001851E0 /* Nift */;
+			target = 6EE5D94A20F53C50001851E0 /* Sx */;
 			targetProxy = 6EE26FDF21318941000D5A33 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -569,14 +569,14 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = Nift/Info.plist;
+				INFOPLIST_FILE = Sx/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Nift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Sx;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -589,13 +589,13 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Nift/Info.plist;
+				INFOPLIST_FILE = Sx/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.NiftTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.SxTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -612,14 +612,14 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "$(SRCROOT)/Nift/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sx/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Nift.Reconcilation;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Sx.Reconcilation;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
@@ -632,13 +632,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Nift/Info.plist;
+				INFOPLIST_FILE = Sx/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Nift.ReconcilationTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Sx.ReconcilationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -656,7 +656,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "$(SRCROOT)/Nift/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sx/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -664,7 +664,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Nift.Reconcilation;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Sx.Reconcilation;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
@@ -682,7 +682,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "$(SRCROOT)/Nift/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sx/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -690,7 +690,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Nift.Reconcilation;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Sx.Reconcilation;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
@@ -703,13 +703,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Nift/Info.plist;
+				INFOPLIST_FILE = Sx/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Nift.ReconcilationTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Sx.ReconcilationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -722,13 +722,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Nift/Info.plist;
+				INFOPLIST_FILE = Sx/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Nift.ReconcilationTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Sx.ReconcilationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
@@ -739,13 +739,13 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Nift/Info.plist;
+				INFOPLIST_FILE = Sx/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.NiftTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.SxTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -756,13 +756,13 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Nift/Info.plist;
+				INFOPLIST_FILE = Sx/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.NiftTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.SxTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -903,14 +903,14 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = Nift/Info.plist;
+				INFOPLIST_FILE = Sx/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Nift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Sx;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -930,14 +930,14 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = Nift/Info.plist;
+				INFOPLIST_FILE = Sx/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Nift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablosichert.Sx;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
@@ -967,7 +967,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6EE26FE121318941000D5A33 /* Build configuration list for PBXNativeTarget "NiftTests" */ = {
+		6EE26FE121318941000D5A33 /* Build configuration list for PBXNativeTarget "SxTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6EE26FE221318941000D5A33 /* Debug */,
@@ -977,7 +977,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6EE5D94520F53C50001851E0 /* Build configuration list for PBXProject "Nift" */ = {
+		6EE5D94520F53C50001851E0 /* Build configuration list for PBXProject "Sx" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6EE5D95120F53C50001851E0 /* Debug */,
@@ -987,7 +987,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6EE5D95320F53C50001851E0 /* Build configuration list for PBXNativeTarget "Nift" */ = {
+		6EE5D95320F53C50001851E0 /* Build configuration list for PBXNativeTarget "Sx" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6EE5D95420F53C50001851E0 /* Debug */,

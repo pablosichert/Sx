@@ -1,10 +1,10 @@
 import class AppKit.NSView
 import class AppKit.NSWindow
 import struct Foundation.NSRect
-import protocol Nift.Native
-import protocol Nift.Node
-import struct Nift.Operations
-import struct Nift.Property
+import protocol Sx.Native
+import protocol Sx.Node
+import struct Sx.Operations
+import struct Sx.Property
 
 public func Window(
     backingType: NSWindow.BackingStoreType = .buffered,

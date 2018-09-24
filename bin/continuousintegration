@@ -1,6 +1,6 @@
 SCHEMES=(
     Reconcilation
-    Nift
+    Sx
 )
 
 if [ -z "$BRANCH" ]; then
@@ -25,7 +25,7 @@ function test {
 
     xcodebuild \
         -derivedDataPath $DERIVED_DATA_PATH \
-        -workspace Nift.xcworkspace \
+        -workspace Sx.xcworkspace \
         -scheme $SCHEME \
         test
 
@@ -78,7 +78,7 @@ function archive_build {
     trap "rm -rf $GITHUB_PAGES" RETURN
 
     git clone --quiet -b gh-pages --single-branch \
-        https://$GITHUB_TOKEN@github.com/PabloSichert/Nift \
+        https://$GITHUB_TOKEN@github.com/PabloSichert/Sx \
         $GITHUB_PAGES
 
     cd $GITHUB_PAGES
@@ -139,7 +139,7 @@ function archive_build {
     cd - &> /dev/null
 
     echo "Build logs for commit $COMMIT on branch $BRANCH:"
-    echo https://github.com/PabloSichert/Nift/tree/gh-pages/builds/$COMMIT
+    echo https://github.com/PabloSichert/Sx/tree/gh-pages/builds/$COMMIT
 }
 
 archive_build

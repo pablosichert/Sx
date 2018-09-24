@@ -8,6 +8,6 @@
       location = "group:AppKitX.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Nift.xcodeproj">
+      location = "group:Sx.xcodeproj">
    </FileRef>
 </Workspace>

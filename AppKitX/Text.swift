@@ -1,9 +1,9 @@
 import class AppKit.NSColor
 import struct AppKit.NSRect
 import class AppKit.NSText
-import protocol Nift.Native
-import protocol Nift.Node
-import struct Nift.Operations
+import protocol Sx.Native
+import protocol Sx.Node
+import struct Sx.Operations
 
 public func Text(
     backgroundColor: NSColor? = nil,

@@ -2,9 +2,9 @@ import class AppKit.NSEvent
 import class AppKit.NSText
 import class AppKit.NSView
 import class CoreGraphics.CGColor
-import protocol Nift.Native
-import protocol Nift.Node
-import struct Nift.Operations
+import protocol Sx.Native
+import protocol Sx.Node
+import struct Sx.Operations
 
 public func View(
     backgroundColor: CGColor? = nil,

@@ -1,9 +1,9 @@
 import class AppKit.NSApplication
 import protocol AppKit.NSApplicationDelegate
 import class AppKit.NSWindow
-import protocol Nift.Native
-import protocol Nift.Node
-import struct Nift.Operations
+import protocol Sx.Native
+import protocol Sx.Node
+import struct Sx.Operations
 
 public func Application(
     delegate: NSApplicationDelegate,

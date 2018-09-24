@@ -1,5 +1,5 @@
 import class AppKit.NSApplication
-import struct Nift.Mount
+import struct Sx.Mount
 
 let instance = Mount<NSApplication>(
     App()
