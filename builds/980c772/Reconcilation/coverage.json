@@ -1,0 +1,697 @@
+{
+  "coveredLines": 393,
+  "lineCoverage": 0.74573055028463,
+  "files": [
+    {
+      "coveredLines": 0,
+      "lineCoverage": 0,
+      "path": "/Users/travis/build/PabloSichert/Nift/Sx/Reconcilation/Composite.swift",
+      "functions": [
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 18,
+          "executionCount": 0,
+          "name": "",
+          "executableLines": 7
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 47,
+          "executionCount": 0,
+          "name": "closure #1 () -> () in variable initialization expression of Reconcilation.CompositeComponent.rerender : () -> ()",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 50,
+          "executionCount": 0,
+          "name": "",
+          "executableLines": 11
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 63,
+          "executionCount": 0,
+          "name": "Reconcilation.CompositeComponent.update(properties: Any) -> ()",
+          "executableLines": 3
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 67,
+          "executionCount": 0,
+          "name": "Reconcilation.CompositeComponent.update(properties: A) -> ()",
+          "executableLines": 3
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 71,
+          "executionCount": 0,
+          "name": "Reconcilation.CompositeComponent.update(children: Swift.Array<Reconcilation.Node>) -> ()",
+          "executableLines": 3
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 75,
+          "executionCount": 0,
+          "name": "Reconcilation.CompositeComponent.update(properties: Any, children: Swift.Array<Reconcilation.Node>) -> ()",
+          "executableLines": 4
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 80,
+          "executionCount": 0,
+          "name": "Reconcilation.CompositeComponent.setState(B) -> ()",
+          "executableLines": 8
+        }
+      ],
+      "name": "Composite.swift",
+      "executableLines": 40
+    },
+    {
+      "coveredLines": 0,
+      "lineCoverage": 0,
+      "path": "/Users/travis/build/PabloSichert/Nift/Sx/Reconcilation/CompositeInstance.swift",
+      "functions": [
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 8,
+          "executionCount": 0,
+          "name": "",
+          "executableLines": 22
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 9,
+          "executionCount": 0,
+          "name": "implicit closure #1 : @autoclosure () -> Swift.Bool in Reconcilation.CompositeInstance.init(node: Reconcilation.Node, parent: Swift.Optional<Reconcilation.NodeInstance>, index: Swift.Int) -> Reconcilation.CompositeInstance",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 26,
+          "executionCount": 0,
+          "name": "closure #1 () -> () in Reconcilation.CompositeInstance.init(node: Reconcilation.Node, parent: Swift.Optional<Reconcilation.NodeInstance>, index: Swift.Int) -> Reconcilation.CompositeInstance",
+          "executableLines": 3
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 31,
+          "executionCount": 0,
+          "name": "Reconcilation.CompositeInstance.mount() -> Swift.Array<Any>",
+          "executableLines": 3
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 32,
+          "executionCount": 0,
+          "name": "closure #1 (Reconcilation.NodeInstance) -> Swift.Array<Any> in Reconcilation.CompositeInstance.mount() -> Swift.Array<Any>",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 35,
+          "executionCount": 0,
+          "name": "Reconcilation.CompositeInstance.rerender() -> ()",
+          "executableLines": 12
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 48,
+          "executionCount": 0,
+          "name": "Reconcilation.CompositeInstance.update(node: Reconcilation.Node) -> ()",
+          "executableLines": 22
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 49,
+          "executionCount": 0,
+          "name": "implicit closure #1 : @autoclosure () -> Swift.Bool in Reconcilation.CompositeInstance.update(node: Reconcilation.Node) -> ()",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 50,
+          "executionCount": 0,
+          "name": "implicit closure #2 : @autoclosure () -> Swift.Bool in Reconcilation.CompositeInstance.update(node: Reconcilation.Node) -> ()",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 71,
+          "executionCount": 0,
+          "name": "Reconcilation.CompositeInstance.update(operations: Reconcilation.Operations) -> ()",
+          "executableLines": 3
+        }
+      ],
+      "name": "CompositeInstance.swift",
+      "executableLines": 69
+    },
+    {
+      "coveredLines": 5,
+      "lineCoverage": 0.7142857142857143,
+      "path": "/Users/travis/build/PabloSichert/Nift/Sx/Reconcilation/Equal.swift",
+      "functions": [
+        {
+          "coveredLines": 5,
+          "lineCoverage": 0.7142857142857143,
+          "lineNumber": 2,
+          "executionCount": 4,
+          "name": "static Reconcilation.Equal.call(a: Any, b: Any) -> Swift.Bool",
+          "executableLines": 7
+        }
+      ],
+      "name": "Equal.swift",
+      "executableLines": 7
+    },
+    {
+      "coveredLines": 7,
+      "lineCoverage": 1,
+      "path": "/Users/travis/build/PabloSichert/Nift/Sx/Reconcilation/Native.swift",
+      "functions": [
+        {
+          "coveredLines": 7,
+          "lineCoverage": 1,
+          "lineNumber": 20,
+          "executionCount": 31,
+          "name": "",
+          "executableLines": 7
+        }
+      ],
+      "name": "Native.swift",
+      "executableLines": 7
+    },
+    {
+      "coveredLines": 50,
+      "lineCoverage": 0.8928571428571429,
+      "path": "/Users/travis/build/PabloSichert/Nift/Sx/Reconcilation/NativeInstance.swift",
+      "functions": [
+        {
+          "coveredLines": 18,
+          "lineCoverage": 1,
+          "lineNumber": 8,
+          "executionCount": 27,
+          "name": "",
+          "executableLines": 18
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 9,
+          "executionCount": 27,
+          "name": "implicit closure #1 : @autoclosure () -> Swift.Bool in Reconcilation.NativeInstance.init(node: Reconcilation.Node, parent: Swift.Optional<Reconcilation.NodeInstance>, index: Swift.Int) -> Reconcilation.NativeInstance",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 12,
+          "executionCount": 10,
+          "name": "closure #1 (Reconcilation.NodeInstance) -> Swift.Array<Any> in Reconcilation.NativeInstance.init(node: Reconcilation.Node, parent: Swift.Optional<Reconcilation.NodeInstance>, index: Swift.Int) -> Reconcilation.NativeInstance",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 3,
+          "lineCoverage": 1,
+          "lineNumber": 27,
+          "executionCount": 36,
+          "name": "Reconcilation.NativeInstance.mount() -> Swift.Array<Any>",
+          "executableLines": 3
+        },
+        {
+          "coveredLines": 25,
+          "lineCoverage": 0.8928571428571429,
+          "lineNumber": 31,
+          "executionCount": 4,
+          "name": "Reconcilation.NativeInstance.update(node: Reconcilation.Node) -> ()",
+          "executableLines": 28
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 32,
+          "executionCount": 4,
+          "name": "implicit closure #1 : @autoclosure () -> Swift.Bool in Reconcilation.NativeInstance.update(node: Reconcilation.Node) -> ()",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 33,
+          "executionCount": 4,
+          "name": "implicit closure #2 : @autoclosure () -> Swift.Bool in Reconcilation.NativeInstance.update(node: Reconcilation.Node) -> ()",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 60,
+          "executionCount": 0,
+          "name": "Reconcilation.NativeInstance.update(operations: Reconcilation.Operations) -> ()",
+          "executableLines": 3
+        }
+      ],
+      "name": "NativeInstance.swift",
+      "executableLines": 56
+    },
+    {
+      "coveredLines": 0,
+      "lineCoverage": 0,
+      "path": "/Users/travis/build/PabloSichert/Nift/Sx/Reconcilation/Node.swift",
+      "functions": [
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 10,
+          "executionCount": 0,
+          "name": "Reconcilation.!= infix(Swift.Array<Reconcilation.Node>, Swift.Array<Reconcilation.Node>) -> Swift.Bool",
+          "executableLines": 3
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 33,
+          "executionCount": 0,
+          "name": "implicit closure #1 : @autoclosure () throws -> Swift.Bool in Reconcilation.== infix(Reconcilation.Node, Reconcilation.Node) -> Swift.Bool",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 34,
+          "executionCount": 0,
+          "name": "implicit closure #2 : @autoclosure () throws -> Swift.Bool in Reconcilation.== infix(Reconcilation.Node, Reconcilation.Node) -> Swift.Bool",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 35,
+          "executionCount": 0,
+          "name": "implicit closure #3 : @autoclosure () throws -> Swift.Bool in Reconcilation.== infix(Reconcilation.Node, Reconcilation.Node) -> Swift.Bool",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 36,
+          "executionCount": 0,
+          "name": "implicit closure #4 : @autoclosure () throws -> Swift.Bool in Reconcilation.== infix(Reconcilation.Node, Reconcilation.Node) -> Swift.Bool",
+          "executableLines": 1
+        }
+      ],
+      "name": "Node.swift",
+      "executableLines": 7
+    },
+    {
+      "coveredLines": 27,
+      "lineCoverage": 1,
+      "path": "/Users/travis/build/PabloSichert/Nift/Sx/Reconcilation/Operations.swift",
+      "functions": [
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 7,
+          "executionCount": 20,
+          "name": "",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 3,
+          "lineCoverage": 1,
+          "lineNumber": 9,
+          "executionCount": 11,
+          "name": "Reconcilation.Operations.isEmpty.getter : Swift.Bool",
+          "executableLines": 3
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 10,
+          "executionCount": 10,
+          "name": "implicit closure #1 : @autoclosure () throws -> Swift.Bool in Reconcilation.Operations.isEmpty.getter : Swift.Bool",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 10,
+          "executionCount": 9,
+          "name": "implicit closure #2 : @autoclosure () throws -> Swift.Bool in Reconcilation.Operations.isEmpty.getter : Swift.Bool",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 10,
+          "executionCount": 8,
+          "name": "implicit closure #3 : @autoclosure () throws -> Swift.Bool in Reconcilation.Operations.isEmpty.getter : Swift.Bool",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 5,
+          "lineCoverage": 1,
+          "lineNumber": 13,
+          "executionCount": 4,
+          "name": "Reconcilation.Operations.add(insert: (mount: Any, index: Swift.Int)) -> ()",
+          "executableLines": 5
+        },
+        {
+          "coveredLines": 5,
+          "lineCoverage": 1,
+          "lineNumber": 19,
+          "executionCount": 4,
+          "name": "Reconcilation.Operations.add(remove: (mount: Any, index: Swift.Int)) -> ()",
+          "executableLines": 5
+        },
+        {
+          "coveredLines": 5,
+          "lineCoverage": 1,
+          "lineNumber": 25,
+          "executionCount": 3,
+          "name": "Reconcilation.Operations.add(reorder: (mount: Any, from: Swift.Int, to: Swift.Int)) -> ()",
+          "executableLines": 5
+        },
+        {
+          "coveredLines": 5,
+          "lineCoverage": 1,
+          "lineNumber": 31,
+          "executionCount": 5,
+          "name": "Reconcilation.Operations.add(replace: (old: Any, new: Any, index: Swift.Int)) -> ()",
+          "executableLines": 5
+        }
+      ],
+      "name": "Operations.swift",
+      "executableLines": 27
+    },
+    {
+      "coveredLines": 17,
+      "lineCoverage": 1,
+      "path": "/Users/travis/build/PabloSichert/Nift/Sx/Reconcilation/StaticQueue.swift",
+      "functions": [
+        {
+          "coveredLines": 3,
+          "lineCoverage": 1,
+          "lineNumber": 5,
+          "executionCount": 18,
+          "name": "",
+          "executableLines": 3
+        },
+        {
+          "coveredLines": 11,
+          "lineCoverage": 1,
+          "lineNumber": 9,
+          "executionCount": 29,
+          "name": "Reconcilation.StaticQueue.dequeue() -> Swift.Optional<A>",
+          "executableLines": 11
+        },
+        {
+          "coveredLines": 3,
+          "lineCoverage": 1,
+          "lineNumber": 21,
+          "executionCount": 20,
+          "name": "Reconcilation.StaticQueue.next() -> Swift.Optional<A>",
+          "executableLines": 3
+        }
+      ],
+      "name": "StaticQueue.swift",
+      "executableLines": 17
+    },
+    {
+      "coveredLines": 11,
+      "lineCoverage": 1,
+      "path": "/Users/travis/build/PabloSichert/Nift/Sx/Reconcilation/insert.swift",
+      "functions": [
+        {
+          "coveredLines": 11,
+          "lineCoverage": 1,
+          "lineNumber": 4,
+          "executionCount": 2,
+          "name": "Reconcilation.insert(instance: Reconcilation.NodeInstance, insert: ((mount: Any, index: Swift.Int)) -> ()) -> Swift.Int",
+          "executableLines": 11
+        }
+      ],
+      "name": "insert.swift",
+      "executableLines": 11
+    },
+    {
+      "coveredLines": 23,
+      "lineCoverage": 1,
+      "path": "/Users/travis/build/PabloSichert/Nift/Sx/Reconcilation/instantiate.swift",
+      "functions": [
+        {
+          "coveredLines": 5,
+          "lineCoverage": 1,
+          "lineNumber": 1,
+          "executionCount": 27,
+          "name": "Reconcilation.instantiate(node: Reconcilation.Node, parent: Swift.Optional<Reconcilation.NodeInstance>, index: Swift.Int) -> Reconcilation.NodeInstance",
+          "executableLines": 5
+        },
+        {
+          "coveredLines": 11,
+          "lineCoverage": 1,
+          "lineNumber": 7,
+          "executionCount": 27,
+          "name": "Reconcilation.instantiate(nodes: Swift.Array<Reconcilation.Node>, parent: Swift.Optional<Reconcilation.NodeInstance>, index: Swift.Int) -> Swift.Array<Reconcilation.NodeInstance>",
+          "executableLines": 11
+        },
+        {
+          "coveredLines": 7,
+          "lineCoverage": 1,
+          "lineNumber": 10,
+          "executionCount": 10,
+          "name": "closure #1 (Reconcilation.Node) -> Reconcilation.NodeInstance in Reconcilation.instantiate(nodes: Swift.Array<Reconcilation.Node>, parent: Swift.Optional<Reconcilation.NodeInstance>, index: Swift.Int) -> Swift.Array<Reconcilation.NodeInstance>",
+          "executableLines": 7
+        }
+      ],
+      "name": "instantiate.swift",
+      "executableLines": 23
+    },
+    {
+      "coveredLines": 16,
+      "lineCoverage": 1,
+      "path": "/Users/travis/build/PabloSichert/Nift/Sx/Reconcilation/intersect.swift",
+      "functions": [
+        {
+          "coveredLines": 13,
+          "lineCoverage": 1,
+          "lineNumber": 4,
+          "executionCount": 13,
+          "name": "Reconcilation.intersect<A where A: Swift.Strideable, A.Stride: Swift.SignedInteger>(Swift.Range<A>, Swift.Range<A>) -> Swift.Optional<Swift.Range<A>>",
+          "executableLines": 13
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 8,
+          "executionCount": 11,
+          "name": "implicit closure #1 : @autoclosure () throws -> Swift.Bool in Reconcilation.intersect<A where A: Swift.Strideable, A.Stride: Swift.SignedInteger>(Swift.Range<A>, Swift.Range<A>) -> Swift.Optional<Swift.Range<A>>",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 9,
+          "executionCount": 11,
+          "name": "implicit closure #2 : @autoclosure () throws -> Swift.Bool in Reconcilation.intersect<A where A: Swift.Strideable, A.Stride: Swift.SignedInteger>(Swift.Range<A>, Swift.Range<A>) -> Swift.Optional<Swift.Range<A>>",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 11,
+          "executionCount": 9,
+          "name": "implicit closure #3 : @autoclosure () throws -> Swift.Bool in Reconcilation.intersect<A where A: Swift.Strideable, A.Stride: Swift.SignedInteger>(Swift.Range<A>, Swift.Range<A>) -> Swift.Optional<Swift.Range<A>>",
+          "executableLines": 1
+        }
+      ],
+      "name": "intersect.swift",
+      "executableLines": 16
+    },
+    {
+      "coveredLines": 14,
+      "lineCoverage": 1,
+      "path": "/Users/travis/build/PabloSichert/Nift/Sx/Reconcilation/keysTo.swift",
+      "functions": [
+        {
+          "coveredLines": 14,
+          "lineCoverage": 1,
+          "lineNumber": 3,
+          "executionCount": 18,
+          "name": "Reconcilation.keysTo(instances: Swift.Array<Reconcilation.NodeInstance>) -> (map: Swift.Dictionary<Swift.String, Reconcilation.NodeInstance>, rest: Swift.Array<Reconcilation.NodeInstance>)",
+          "executableLines": 14
+        }
+      ],
+      "name": "keysTo.swift",
+      "executableLines": 14
+    },
+    {
+      "coveredLines": 129,
+      "lineCoverage": 1,
+      "path": "/Users/travis/build/PabloSichert/Nift/Sx/Reconcilation/reconcile.swift",
+      "functions": [
+        {
+          "coveredLines": 74,
+          "lineCoverage": 1,
+          "lineNumber": 14,
+          "executionCount": 15,
+          "name": "Reconcilation.reconcile(instances: Swift.Array<Reconcilation.NodeInstance>, instantiate: ((node: Reconcilation.Node, parent: Reconcilation.NodeInstance, index: Swift.Int)) -> Reconcilation.NodeInstance, nodes: Swift.Array<Reconcilation.Node>, parent: Reconcilation.NodeInstance) -> (instances: Swift.Array<Reconcilation.NodeInstance>, operations: Reconcilation.Operations)",
+          "executableLines": 74
+        },
+        {
+          "coveredLines": 47,
+          "lineCoverage": 1,
+          "lineNumber": 21,
+          "executionCount": 10,
+          "name": "closure #1 (Reconcilation.Node) -> Reconcilation.NodeInstance in Reconcilation.reconcile(instances: Swift.Array<Reconcilation.NodeInstance>, instantiate: ((node: Reconcilation.Node, parent: Reconcilation.NodeInstance, index: Swift.Int)) -> Reconcilation.NodeInstance, nodes: Swift.Array<Reconcilation.Node>, parent: Reconcilation.NodeInstance) -> (instances: Swift.Array<Reconcilation.NodeInstance>, operations: Reconcilation.Operations)",
+          "executableLines": 47
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 35,
+          "executionCount": 8,
+          "name": "implicit closure #1 : @autoclosure () throws -> Swift.Bool in closure #1 (Reconcilation.Node) -> Reconcilation.NodeInstance in Reconcilation.reconcile(instances: Swift.Array<Reconcilation.NodeInstance>, instantiate: ((node: Reconcilation.Node, parent: Reconcilation.NodeInstance, index: Swift.Int)) -> Reconcilation.NodeInstance, nodes: Swift.Array<Reconcilation.Node>, parent: Reconcilation.NodeInstance) -> (instances: Swift.Array<Reconcilation.NodeInstance>, operations: Reconcilation.Operations)",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 40,
+          "executionCount": 2,
+          "name": "closure #1 ((mount: Any, from: Swift.Int, to: Swift.Int)) -> () in closure #1 (Reconcilation.Node) -> Reconcilation.NodeInstance in Reconcilation.reconcile(instances: Swift.Array<Reconcilation.NodeInstance>, instantiate: ((node: Reconcilation.Node, parent: Reconcilation.NodeInstance, index: Swift.Int)) -> Reconcilation.NodeInstance, nodes: Swift.Array<Reconcilation.Node>, parent: Reconcilation.NodeInstance) -> (instances: Swift.Array<Reconcilation.NodeInstance>, operations: Reconcilation.Operations)",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 50,
+          "executionCount": 1,
+          "name": "closure #2 ((mount: Any, index: Swift.Int)) -> () in closure #1 (Reconcilation.Node) -> Reconcilation.NodeInstance in Reconcilation.reconcile(instances: Swift.Array<Reconcilation.NodeInstance>, instantiate: ((node: Reconcilation.Node, parent: Reconcilation.NodeInstance, index: Swift.Int)) -> Reconcilation.NodeInstance, nodes: Swift.Array<Reconcilation.Node>, parent: Reconcilation.NodeInstance) -> (instances: Swift.Array<Reconcilation.NodeInstance>, operations: Reconcilation.Operations)",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 51,
+          "executionCount": 1,
+          "name": "closure #3 ((mount: Any, index: Swift.Int)) -> () in closure #1 (Reconcilation.Node) -> Reconcilation.NodeInstance in Reconcilation.reconcile(instances: Swift.Array<Reconcilation.NodeInstance>, instantiate: ((node: Reconcilation.Node, parent: Reconcilation.NodeInstance, index: Swift.Int)) -> Reconcilation.NodeInstance, nodes: Swift.Array<Reconcilation.Node>, parent: Reconcilation.NodeInstance) -> (instances: Swift.Array<Reconcilation.NodeInstance>, operations: Reconcilation.Operations)",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 52,
+          "executionCount": 4,
+          "name": "closure #4 ((old: Any, new: Any, index: Swift.Int)) -> () in closure #1 (Reconcilation.Node) -> Reconcilation.NodeInstance in Reconcilation.reconcile(instances: Swift.Array<Reconcilation.NodeInstance>, instantiate: ((node: Reconcilation.Node, parent: Reconcilation.NodeInstance, index: Swift.Int)) -> Reconcilation.NodeInstance, nodes: Swift.Array<Reconcilation.Node>, parent: Reconcilation.NodeInstance) -> (instances: Swift.Array<Reconcilation.NodeInstance>, operations: Reconcilation.Operations)",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 63,
+          "executionCount": 2,
+          "name": "closure #5 ((mount: Any, index: Swift.Int)) -> () in closure #1 (Reconcilation.Node) -> Reconcilation.NodeInstance in Reconcilation.reconcile(instances: Swift.Array<Reconcilation.NodeInstance>, instantiate: ((node: Reconcilation.Node, parent: Reconcilation.NodeInstance, index: Swift.Int)) -> Reconcilation.NodeInstance, nodes: Swift.Array<Reconcilation.Node>, parent: Reconcilation.NodeInstance) -> (instances: Swift.Array<Reconcilation.NodeInstance>, operations: Reconcilation.Operations)",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 72,
+          "executionCount": 1,
+          "name": "closure #2 ((mount: Any, index: Swift.Int)) -> () in Reconcilation.reconcile(instances: Swift.Array<Reconcilation.NodeInstance>, instantiate: ((node: Reconcilation.Node, parent: Reconcilation.NodeInstance, index: Swift.Int)) -> Reconcilation.NodeInstance, nodes: Swift.Array<Reconcilation.Node>, parent: Reconcilation.NodeInstance) -> (instances: Swift.Array<Reconcilation.NodeInstance>, operations: Reconcilation.Operations)",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 79,
+          "executionCount": 1,
+          "name": "closure #3 ((mount: Any, index: Swift.Int)) -> () in Reconcilation.reconcile(instances: Swift.Array<Reconcilation.NodeInstance>, instantiate: ((node: Reconcilation.Node, parent: Reconcilation.NodeInstance, index: Swift.Int)) -> Reconcilation.NodeInstance, nodes: Swift.Array<Reconcilation.Node>, parent: Reconcilation.NodeInstance) -> (instances: Swift.Array<Reconcilation.NodeInstance>, operations: Reconcilation.Operations)",
+          "executableLines": 1
+        }
+      ],
+      "name": "reconcile.swift",
+      "executableLines": 129
+    },
+    {
+      "coveredLines": 9,
+      "lineCoverage": 1,
+      "path": "/Users/travis/build/PabloSichert/Nift/Sx/Reconcilation/remove.swift",
+      "functions": [
+        {
+          "coveredLines": 9,
+          "lineCoverage": 1,
+          "lineNumber": 4,
+          "executionCount": 2,
+          "name": "Reconcilation.remove(instance: Reconcilation.NodeInstance, remove: ((mount: Any, index: Swift.Int)) -> ()) -> ()",
+          "executableLines": 9
+        }
+      ],
+      "name": "remove.swift",
+      "executableLines": 9
+    },
+    {
+      "coveredLines": 60,
+      "lineCoverage": 0.8955223880597015,
+      "path": "/Users/travis/build/PabloSichert/Nift/Sx/Reconcilation/replace.swift",
+      "functions": [
+        {
+          "coveredLines": 60,
+          "lineCoverage": 0.8955223880597015,
+          "lineNumber": 7,
+          "executionCount": 4,
+          "name": "Reconcilation.replace(new: Reconcilation.NodeInstance, old: Reconcilation.NodeInstance, insert: ((mount: Any, index: Swift.Int)) -> (), remove: ((mount: Any, index: Swift.Int)) -> (), replace: ((old: Any, new: Any, index: Swift.Int)) -> ()) -> Swift.Int",
+          "executableLines": 67
+        }
+      ],
+      "name": "replace.swift",
+      "executableLines": 67
+    },
+    {
+      "coveredLines": 25,
+      "lineCoverage": 0.8928571428571429,
+      "path": "/Users/travis/build/PabloSichert/Nift/Sx/Reconcilation/update.swift",
+      "functions": [
+        {
+          "coveredLines": 8,
+          "lineCoverage": 0.7272727272727273,
+          "lineNumber": 1,
+          "executionCount": 2,
+          "name": "Reconcilation.(updateIndices in _A4867A7F5EB4C470AD843F6EEE21074E)(index: Swift.Int, instance: Reconcilation.NodeInstance) -> ()",
+          "executableLines": 11
+        },
+        {
+          "coveredLines": 17,
+          "lineCoverage": 1,
+          "lineNumber": 18,
+          "executionCount": 4,
+          "name": "Reconcilation.update(index: Swift.Int, instance: Reconcilation.NodeInstance, node: Reconcilation.Node, reorder: ((mount: Any, from: Swift.Int, to: Swift.Int)) -> ()) -> Swift.Int",
+          "executableLines": 17
+        }
+      ],
+      "name": "update.swift",
+      "executableLines": 28
+    }
+  ],
+  "name": "Reconcilation.framework",
+  "executableLines": 527,
+  "buildProductPath": "/var/folders/nz/vv4_9tw56nv9k3tkvyszvwg80000gn/T/tmp.7hEuv3ts/Reconcilation/Build/Products/Test/Reconcilation.framework/Versions/A/Reconcilation"
+}
