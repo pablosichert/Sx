@@ -1,0 +1,140 @@
+{
+  "coveredLines": 26,
+  "lineCoverage": 0.3466666666666667,
+  "files": [
+    {
+      "coveredLines": 13,
+      "lineCoverage": 1,
+      "path": "/Users/travis/build/PabloSichert/Sx/Sx/Mount.swift",
+      "functions": [
+        {
+          "coveredLines": 3,
+          "lineCoverage": 1,
+          "lineNumber": 7,
+          "executionCount": 7,
+          "name": "Sx.Mount.elements.getter : Swift.Array<Any>",
+          "executableLines": 3
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 8,
+          "executionCount": 11,
+          "name": "closure #1 (Reconcilation.NodeInstance) -> Swift.Array<Any> in Sx.Mount.elements.getter : Swift.Array<Any>",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 6,
+          "lineCoverage": 1,
+          "lineNumber": 11,
+          "executionCount": 2,
+          "name": "",
+          "executableLines": 6
+        },
+        {
+          "coveredLines": 3,
+          "lineCoverage": 1,
+          "lineNumber": 19,
+          "executionCount": 3,
+          "name": "Sx.Mount.subscript.getter : (Swift.Int) -> A",
+          "executableLines": 3
+        }
+      ],
+      "name": "Mount.swift",
+      "executableLines": 13
+    },
+    {
+      "coveredLines": 0,
+      "lineCoverage": 0,
+      "path": "/Users/travis/build/PabloSichert/Sx/Sx/Property.swift",
+      "functions": [
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 10,
+          "executionCount": 0,
+          "name": "static Sx.Property.== infix(Sx.Property<A>, Sx.Property<A>) -> Swift.Bool",
+          "executableLines": 7
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 15,
+          "executionCount": 0,
+          "name": "implicit closure #1 : @autoclosure () throws -> Swift.Bool in static Sx.Property.== infix(Sx.Property<A>, Sx.Property<A>) -> Swift.Bool",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 15,
+          "executionCount": 0,
+          "name": "implicit closure #2 : @autoclosure () throws -> Swift.Bool in implicit closure #1 : @autoclosure () throws -> Swift.Bool in static Sx.Property.== infix(Sx.Property<A>, Sx.Property<A>) -> Swift.Bool",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 32,
+          "executionCount": 0,
+          "name": "",
+          "executableLines": 38
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 35,
+          "executionCount": 0,
+          "name": "closure #1 (A) -> () in Sx.Property.init<A>(hashValue: Swift.Int, id: Foundation.UUID, path: Swift.ReferenceWritableKeyPath<A, A1>, value: A1, valuesEqual: (Any, Any) -> Swift.Bool) -> Sx.Property<A>",
+          "executableLines": 1
+        },
+        {
+          "coveredLines": 0,
+          "lineCoverage": 0,
+          "lineNumber": 79,
+          "executionCount": 0,
+          "name": "closure #1 (Any, Any) -> Swift.Bool in Sx.Property.init<A>(Swift.ReferenceWritableKeyPath<A, A1>, A1) -> Sx.Property<A>",
+          "executableLines": 1
+        }
+      ],
+      "name": "Property.swift",
+      "executableLines": 49
+    },
+    {
+      "coveredLines": 13,
+      "lineCoverage": 1,
+      "path": "/Users/travis/build/PabloSichert/Sx/Sx/compare.swift",
+      "functions": [
+        {
+          "coveredLines": 3,
+          "lineCoverage": 1,
+          "lineNumber": 33,
+          "executionCount": 18,
+          "name": "static Sx.(Function in _BF0BA0697922F849B71D0FA0500448D0).from<A, B>((A) -> B) -> Sx.(Function in _BF0BA0697922F849B71D0FA0500448D0)",
+          "executableLines": 3
+        },
+        {
+          "coveredLines": 9,
+          "lineCoverage": 1,
+          "lineNumber": 41,
+          "executionCount": 9,
+          "name": "Sx.compare<A, B>((A) -> B, (A) -> B) -> Swift.Bool",
+          "executableLines": 9
+        },
+        {
+          "coveredLines": 1,
+          "lineCoverage": 1,
+          "lineNumber": 48,
+          "executionCount": 7,
+          "name": "implicit closure #1 : @autoclosure () throws -> Swift.Bool in Sx.compare<A, B>((A) -> B, (A) -> B) -> Swift.Bool",
+          "executableLines": 1
+        }
+      ],
+      "name": "compare.swift",
+      "executableLines": 13
+    }
+  ],
+  "name": "Sx.framework",
+  "executableLines": 75,
+  "buildProductPath": "/var/folders/nz/vv4_9tw56nv9k3tkvyszvwg80000gn/T/tmp.HsuFfm4k/tvOS/Sx/Build/Products/Test-appletvsimulator/Sx.framework/Sx"
+}
