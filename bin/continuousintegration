@@ -1,3 +1,17 @@
+PLATFORMS=(
+    macOS
+    iOS
+    watchOS
+    tvOS
+)
+
+DESTINATIONS=(
+    "platform=macOS"
+    "platform=iOS Simulator,name=iPhone XR"
+    "platform=watchOS Simulator,name=Apple Watch Series 4 - 40mm"
+    "platform=tvOS Simulator,name=Apple TV"
+)
+
 SCHEMES=(
     Reconcilation
     Sx
@@ -19,14 +33,21 @@ trap "rm -r $BUILD_DIRECTORY" EXIT
 function test {
     set -e
 
-    local SCHEME=$1
-    local DERIVED_DATA_PATH=$2
+    local DERIVED_DATA_PATH=$1
+    local PLATFORM=$2
+    local DESTINATION=$3
+    local SCHEME=$4
     local COVERAGE_JSON=$DERIVED_DATA_PATH/coverage.json
 
+    if [ "$PLATFORM" = "watchOS" ]; then
+        return
+    fi
+
     xcodebuild \
-        -derivedDataPath $DERIVED_DATA_PATH \
+        -derivedDataPath "$DERIVED_DATA_PATH" \
         -workspace Sx.xcworkspace \
-        -scheme $SCHEME \
+        -scheme "$SCHEME" \
+        -destination "$DESTINATION" \
         test
 
     local COVERAGE=$(xcrun xccov view \
@@ -41,17 +62,25 @@ function test {
 
 PIDS=()
 
-for SCHEME in "${SCHEMES[@]}"; do
-    DERIVED_DATA_PATH=$BUILD_DIRECTORY/$SCHEME
-    LOG_FILE=$DERIVED_DATA_PATH/build.log
+PLATFORMS_LENGTH=${#PLATFORMS[@]}
 
-    mkdir $DERIVED_DATA_PATH
+for i in $(eval echo "{0..$((PLATFORMS_LENGTH-1))}"); do
+    for SCHEME in "${SCHEMES[@]}"; do
+        PLATFORM=${PLATFORMS[$i]}
+        DESTINATION=${DESTINATIONS[$i]}
+        DERIVED_DATA_PATH=$BUILD_DIRECTORY/$PLATFORM/$SCHEME
+        LOG_FILE=$DERIVED_DATA_PATH/build.log
 
-    test \
-        $SCHEME \
-        $DERIVED_DATA_PATH \
-        &> $LOG_FILE \
-        & PIDS+=($!)
+        mkdir -p "$DERIVED_DATA_PATH"
+
+        test \
+            "$DERIVED_DATA_PATH" \
+            "$PLATFORM" \
+            "$DESTINATION" \
+            "$SCHEME" \
+            &> $LOG_FILE \
+            & PIDS+=($!)
+    done
 done
 
 function collect_statuses {
@@ -71,6 +100,24 @@ BUILD_STATUS=$?
 # Wait for potential builds that occurred after a failing one
 wait
 
+# https://stackoverflow.com/questions/1527049/join-elements-of-an-array/17841619#comment37571340_17841619
+function join {
+    perl -e '$s = shift @ARGV; print join($s, @ARGV);' "$@"
+}
+
+function create_platforms_badge {
+    local COLOR=brightgreen
+    local URL=https://img.shields.io/badge/platforms-
+
+    URL=$URL$( join " | " "$@" )
+
+    URL=$URL-$COLOR
+
+    URL=$URL.svg
+
+    curl -s -w "\n" "$URL"
+}
+
 function archive_build {
     local COMMIT=$(git rev-parse --short HEAD)
 
@@ -89,45 +136,58 @@ function archive_build {
     mkdir -p builds
 
     rm -rf builds/$COMMIT
-    mkdir builds/$COMMIT
+    mkdir "builds/$COMMIT"
 
-    for SCHEME in "${SCHEMES[@]}"; do
-        SOURCE=$BUILD_DIRECTORY/$SCHEME
-        DESTINATION=builds/$COMMIT/$SCHEME
-        mkdir $DESTINATION
-        cp $SOURCE/coverage.json $SOURCE/build.log $DESTINATION
-    done
+    local PLATFORMS_LENGTH=${#PLATFORMS[@]}
 
-    local BUILD_LABEL=passing
-    local BUILD_COLOR=brightgreen
+    for i in $(eval echo "{0..$((PLATFORMS_LENGTH-1))}"); do
+        local PLATFORM=${PLATFORMS[$i]}
 
-    local COVERAGE_LABEL=n/a
-    local COVERAGE_COLOR=red
-
-    if [ $BUILD_STATUS -ne 0 ]; then
-        BUILD_LABEL=failing
-        BUILD_COLOR=red
-    else
-        local EXECUTABLE_LINES=0
-        local COVERED_LINES=0
+        if [ "$PLATFORM" = "watchOS" ]; then
+            continue
+        fi
 
         for SCHEME in "${SCHEMES[@]}"; do
-            SCHEME_EXECUTABLE_LINES=$(cat $BUILD_DIRECTORY/$SCHEME/coverage.json | jq '.executableLines' || echo 0)
-            SCHEME_COVERED_LINES=$(cat $BUILD_DIRECTORY/$SCHEME/coverage.json | jq '.coveredLines' || echo 0)
-
-            EXECUTABLE_LINES=$((EXECUTABLE_LINES+SCHEME_EXECUTABLE_LINES))
-            COVERED_LINES=$((COVERED_LINES+SCHEME_COVERED_LINES))
+            SOURCE=$BUILD_DIRECTORY/$PLATFORM/$SCHEME
+            DESTINATION=builds/$COMMIT/$PLATFORM/$SCHEME
+            mkdir -p "$DESTINATION"
+            cp $SOURCE/coverage.json $SOURCE/build.log $DESTINATION
         done
 
-        if [ $EXECUTABLE_LINES -ne 0 ]; then
-            COVERAGE_LABEL=$(bc <<< "$COVERED_LINES*100/$EXECUTABLE_LINES")%25
-            COVERAGE_COLOR=brightgreen
+        local BUILD_LABEL=passing
+        local BUILD_COLOR=brightgreen
+
+        local COVERAGE_LABEL=n/a
+        local COVERAGE_COLOR=red
+
+        if [ $BUILD_STATUS -ne 0 ]; then
+            BUILD_LABEL=failing
+            BUILD_COLOR=red
+        else
+            local EXECUTABLE_LINES=0
+            local COVERED_LINES=0
+
+            for SCHEME in "${SCHEMES[@]}"; do
+                SCHEME_EXECUTABLE_LINES=$(cat $BUILD_DIRECTORY/$PLATFORM/$SCHEME/coverage.json | jq '.executableLines' || echo 0)
+                SCHEME_COVERED_LINES=$(cat $BUILD_DIRECTORY/$PLATFORM/$SCHEME/coverage.json | jq '.coveredLines' || echo 0)
+
+                EXECUTABLE_LINES=$((EXECUTABLE_LINES+SCHEME_EXECUTABLE_LINES))
+                COVERED_LINES=$((COVERED_LINES+SCHEME_COVERED_LINES))
+            done
+
+            if [ $EXECUTABLE_LINES -ne 0 ]; then
+                COVERAGE_LABEL=$(bc <<< "$COVERED_LINES*100/$EXECUTABLE_LINES")%25
+                COVERAGE_COLOR=brightgreen
+            fi
         fi
-    fi
 
-    curl -s -w "\n" https://img.shields.io/badge/build-$BUILD_LABEL-$BUILD_COLOR.svg > builds/$COMMIT/badge-build.svg
+        curl -s -w "\n" https://img.shields.io/badge/build-$BUILD_LABEL-$BUILD_COLOR.svg > builds/$COMMIT/$PLATFORM/badge-build.svg
 
-    curl -s -w "\n" https://img.shields.io/badge/coverage-$COVERAGE_LABEL-$COVERAGE_COLOR.svg > builds/$COMMIT/badge-coverage.svg
+        curl -s -w "\n" https://img.shields.io/badge/coverage-$COVERAGE_LABEL-$COVERAGE_COLOR.svg > builds/$COMMIT/$PLATFORM/badge-coverage.svg
+    done
+
+    local IFS=" "
+    create_platforms_badge ${PLATFORMS[*]} > builds/$COMMIT/badge-platforms.svg
 
     rm -rf builds/$BRANCH
     cp -r builds/$COMMIT builds/$BRANCH
