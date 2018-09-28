@@ -60,7 +60,7 @@ function test {
         > $COVERAGE_JSON
 }
 
-PIDS=()
+BUILD_STATUS=0
 
 PLATFORMS_LENGTH=${#PLATFORMS[@]}
 
@@ -79,26 +79,15 @@ for i in $(eval echo "{0..$((PLATFORMS_LENGTH-1))}"); do
             "$DESTINATION" \
             "$SCHEME" \
             &> $LOG_FILE \
-            & PIDS+=($!)
-    done
-done
+            & PID=$!
 
-function collect_statuses {
-    for PID in "${PIDS[@]}"; do
         wait $PID
 
         if [ $? -ne 0 ]; then
-            return 1
+            BUILD_STATUS=1
         fi
     done
-}
-
-collect_statuses
-
-BUILD_STATUS=$?
-
-# Wait for potential builds that occurred after a failing one
-wait
+done
 
 # https://stackoverflow.com/questions/1527049/join-elements-of-an-array/17841619#comment37571340_17841619
 function join {
