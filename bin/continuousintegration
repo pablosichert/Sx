@@ -57,13 +57,14 @@ function test {
 }
 
 BUILD_STATUS=0
-
+EXIT_CODES=()
+INDEX_BUILD=0
 PLATFORMS_LENGTH=${#PLATFORMS[@]}
 
-for i in $(eval echo "{0..$((PLATFORMS_LENGTH-1))}"); do
+for INDEX_PLATFORM in $(eval echo "{0..$((PLATFORMS_LENGTH-1))}"); do
     for SCHEME in "${SCHEMES[@]}"; do
-        PLATFORM=${PLATFORMS[$i]}
-        DESTINATION=${DESTINATIONS[$i]}
+        PLATFORM=${PLATFORMS[$INDEX_PLATFORM]}
+        DESTINATION=${DESTINATIONS[INDEX_PLATFORM]}
         DERIVED_DATA_PATH=$BUILD_DIRECTORY/$PLATFORM/$SCHEME
         LOG_FILE=$DERIVED_DATA_PATH/build.log
 
@@ -79,9 +80,20 @@ for i in $(eval echo "{0..$((PLATFORMS_LENGTH-1))}"); do
 
         wait $PID
 
-        if [ $? -ne 0 ]; then
+        EXIT_CODE=$?
+        EXIT_CODES+=($EXIT_CODE)
+
+        echo -n "Building $SCHEME on $PLATFORM "
+
+        if [ $EXIT_CODE -eq 0 ]; then
+            echo "succeeded"
+        else
+            echo "failed"
+
             BUILD_STATUS=1
         fi
+
+        INDEX_BUILD=$((INDEX_BUILD+1))
     done
 done
 
@@ -110,15 +122,10 @@ function archive_build {
 
     local PLATFORMS_LENGTH=${#PLATFORMS[@]}
 
-    for i in $(eval echo "{0..$((PLATFORMS_LENGTH-1))}"); do
-        local PLATFORM=${PLATFORMS[$i]}
+    local INDEX_BUILD=0
 
-        for SCHEME in "${SCHEMES[@]}"; do
-            SOURCE=$BUILD_DIRECTORY/$PLATFORM/$SCHEME
-            DESTINATION=builds/$COMMIT/$PLATFORM/$SCHEME
-            mkdir -p "$DESTINATION"
-            cp $SOURCE/coverage.json $SOURCE/build.log $DESTINATION
-        done
+    for INDEX_PLATFORM in $(eval echo "{0..$((PLATFORMS_LENGTH-1))}"); do
+        local PLATFORM=${PLATFORMS[$INDEX_PLATFORM]}
 
         local BUILD_LABEL=passing
         local BUILD_COLOR=brightgreen
@@ -126,28 +133,37 @@ function archive_build {
         local COVERAGE_LABEL=n/a
         local COVERAGE_COLOR=red
 
-        if [ $BUILD_STATUS -ne 0 ]; then
-            BUILD_LABEL=failing
-            BUILD_COLOR=red
-        else
-            local LINES_EXECUTABLE_PLATFORM=0
-            local LINES_COVERED_PLATFORM=0
+        local LINES_EXECUTABLE_PLATFORM=0
+        local LINES_COVERED_PLATFORM=0
 
-            for SCHEME in "${SCHEMES[@]}"; do
+        for SCHEME in "${SCHEMES[@]}"; do
+            local SOURCE=$BUILD_DIRECTORY/$PLATFORM/$SCHEME
+            local DESTINATION=builds/$COMMIT/$PLATFORM/$SCHEME
+
+            mkdir -p "$DESTINATION"
+
+            if [ ${EXIT_CODES[$INDEX_BUILD]} -ne 0 ]; then
+                BUILD_LABEL=failing
+                BUILD_COLOR=red
+            else
+                cp $SOURCE/coverage.json $SOURCE/build.log $DESTINATION
+
                 LINES_EXECUTABLE_SCHEME=$(cat $BUILD_DIRECTORY/$PLATFORM/$SCHEME/coverage.json | jq '.executableLines' || echo 0)
                 LINES_COVERED_SCHEME=$(cat $BUILD_DIRECTORY/$PLATFORM/$SCHEME/coverage.json | jq '.coveredLines' || echo 0)
 
                 LINES_EXECUTABLE_PLATFORM=$((LINES_EXECUTABLE_PLATFORM+LINES_EXECUTABLE_SCHEME))
                 LINES_COVERED_PLATFORM=$((LINES_COVERED_PLATFORM+LINES_COVERED_SCHEME))
-            done
-
-            if [ $LINES_EXECUTABLE_PLATFORM -ne 0 ]; then
-                LINES_EXECUTABLE_GLOBAL=$((LINES_EXECUTABLE_GLOBAL+LINES_EXECUTABLE_PLATFORM))
-                LINES_COVERED_GLOBAL=$((LINES_COVERED_GLOBAL+LINES_COVERED_PLATFORM))
-
-                COVERAGE_LABEL=$(bc <<< "$LINES_COVERED_PLATFORM*100/$LINES_EXECUTABLE_PLATFORM")%25
-                COVERAGE_COLOR=brightgreen
             fi
+
+            INDEX_BUILD=$((INDEX_BUILD+1))
+        done
+
+        if [ $LINES_EXECUTABLE_PLATFORM -ne 0 ]; then
+            LINES_EXECUTABLE_GLOBAL=$((LINES_EXECUTABLE_GLOBAL+LINES_EXECUTABLE_PLATFORM))
+            LINES_COVERED_GLOBAL=$((LINES_COVERED_GLOBAL+LINES_COVERED_PLATFORM))
+
+            COVERAGE_LABEL=$(bc <<< "$LINES_COVERED_PLATFORM*100/$LINES_EXECUTABLE_PLATFORM")%25
+            COVERAGE_COLOR=brightgreen
         fi
 
         curl -s -w "\n" https://img.shields.io/badge/build-$BUILD_LABEL-$BUILD_COLOR.svg > builds/$COMMIT/$PLATFORM/badge-build.svg
