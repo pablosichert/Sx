@@ -89,24 +89,6 @@ for i in $(eval echo "{0..$((PLATFORMS_LENGTH-1))}"); do
     done
 done
 
-# https://stackoverflow.com/questions/1527049/join-elements-of-an-array/17841619#comment37571340_17841619
-function join {
-    perl -e '$s = shift @ARGV; print join($s, @ARGV);' "$@"
-}
-
-function create_platforms_badge {
-    local COLOR=brightgreen
-    local URL=https://img.shields.io/badge/platforms-
-
-    URL=$URL$( join " | " "$@" )
-
-    URL=$URL-$COLOR
-
-    URL=$URL.svg
-
-    curl -s -w "\n" "$URL"
-}
-
 function archive_build {
     local COMMIT=$(git rev-parse --short HEAD)
 
@@ -126,6 +108,9 @@ function archive_build {
 
     rm -rf builds/$COMMIT
     mkdir "builds/$COMMIT"
+
+    local LINES_EXECUTABLE_GLOBAL=0
+    local LINES_COVERED_GLOBAL=0
 
     local PLATFORMS_LENGTH=${#PLATFORMS[@]}
 
@@ -153,30 +138,40 @@ function archive_build {
             BUILD_LABEL=failing
             BUILD_COLOR=red
         else
-            local EXECUTABLE_LINES=0
-            local COVERED_LINES=0
+            local LINES_EXECUTABLE_PLATFORM=0
+            local LINES_COVERED_PLATFORM=0
 
             for SCHEME in "${SCHEMES[@]}"; do
-                SCHEME_EXECUTABLE_LINES=$(cat $BUILD_DIRECTORY/$PLATFORM/$SCHEME/coverage.json | jq '.executableLines' || echo 0)
-                SCHEME_COVERED_LINES=$(cat $BUILD_DIRECTORY/$PLATFORM/$SCHEME/coverage.json | jq '.coveredLines' || echo 0)
+                LINES_EXECUTABLE_SCHEME=$(cat $BUILD_DIRECTORY/$PLATFORM/$SCHEME/coverage.json | jq '.executableLines' || echo 0)
+                LINES_COVERED_SCHEME=$(cat $BUILD_DIRECTORY/$PLATFORM/$SCHEME/coverage.json | jq '.coveredLines' || echo 0)
 
-                EXECUTABLE_LINES=$((EXECUTABLE_LINES+SCHEME_EXECUTABLE_LINES))
-                COVERED_LINES=$((COVERED_LINES+SCHEME_COVERED_LINES))
+                LINES_EXECUTABLE_PLATFORM=$((LINES_EXECUTABLE_PLATFORM+LINES_EXECUTABLE_SCHEME))
+                LINES_COVERED_PLATFORM=$((LINES_COVERED_PLATFORM+LINES_COVERED_SCHEME))
             done
 
-            if [ $EXECUTABLE_LINES -ne 0 ]; then
-                COVERAGE_LABEL=$(bc <<< "$COVERED_LINES*100/$EXECUTABLE_LINES")%25
+            if [ $LINES_EXECUTABLE_PLATFORM -ne 0 ]; then
+                LINES_EXECUTABLE_GLOBAL=$((LINES_EXECUTABLE_GLOBAL+LINES_EXECUTABLE_PLATFORM))
+                LINES_COVERED_GLOBAL=$((LINES_COVERED_GLOBAL+LINES_COVERED_PLATFORM))
+
+                COVERAGE_LABEL=$(bc <<< "$LINES_COVERED_PLATFORM*100/$LINES_EXECUTABLE_PLATFORM")%25
                 COVERAGE_COLOR=brightgreen
             fi
         fi
 
         curl -s -w "\n" https://img.shields.io/badge/build-$BUILD_LABEL-$BUILD_COLOR.svg > builds/$COMMIT/$PLATFORM/badge-build.svg
-
+        curl -s -w "\n" https://img.shields.io/badge/build-$PLATFORM-$BUILD_COLOR.svg > builds/$COMMIT/badge-$PLATFORM.svg
         curl -s -w "\n" https://img.shields.io/badge/coverage-$COVERAGE_LABEL-$COVERAGE_COLOR.svg > builds/$COMMIT/$PLATFORM/badge-coverage.svg
     done
 
-    local IFS=" "
-    create_platforms_badge ${PLATFORMS[*]} > builds/$COMMIT/badge-platforms.svg
+    local COVERAGE_GLOBAL_LABEL=n/a
+    local COVERAGE_GLOBAL_COLOR=red
+
+    if [ $LINES_EXECUTABLE_GLOBAL -ne 0 ]; then
+        COVERAGE_GLOBAL_LABEL=$(bc <<< "$LINES_COVERED_GLOBAL*100/$LINES_EXECUTABLE_GLOBAL")%25
+        COVERAGE_GLOBAL_COLOR=brightgreen
+    fi
+
+    curl -s -w "\n" https://img.shields.io/badge/coverage-$COVERAGE_LABEL-$COVERAGE_COLOR.svg > builds/$COMMIT/badge-coverage.svg
 
     rm -rf builds/$BRANCH
     cp -r builds/$COMMIT builds/$BRANCH
