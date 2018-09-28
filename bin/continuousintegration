@@ -8,7 +8,7 @@ PLATFORMS=(
 DESTINATIONS=(
     "platform=macOS"
     "platform=iOS Simulator,name=iPhone XR"
-    "platform=watchOS Simulator,name=Apple Watch Series 4 - 40mm"
+    "platform=iOS Simulator,name=iPhone XR" # watchOS currently doesn't provide unit tests, so they are run on iOS
     "platform=tvOS Simulator,name=Apple TV"
 )
 
@@ -38,10 +38,6 @@ function test {
     local DESTINATION=$3
     local SCHEME=$4
     local COVERAGE_JSON=$DERIVED_DATA_PATH/coverage.json
-
-    if [ "$PLATFORM" = "watchOS" ]; then
-        return
-    fi
 
     xcodebuild \
         -derivedDataPath "$DERIVED_DATA_PATH" \
@@ -116,10 +112,6 @@ function archive_build {
 
     for i in $(eval echo "{0..$((PLATFORMS_LENGTH-1))}"); do
         local PLATFORM=${PLATFORMS[$i]}
-
-        if [ "$PLATFORM" = "watchOS" ]; then
-            continue
-        fi
 
         for SCHEME in "${SCHEMES[@]}"; do
             SOURCE=$BUILD_DIRECTORY/$PLATFORM/$SCHEME
