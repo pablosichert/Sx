@@ -109,7 +109,7 @@ function archive_build {
     cd $GITHUB_PAGES
 
     git config user.name "Continuous Integration"
-    git config user.email "bot@swift.sx"
+    git config user.email ""
 
     rm -rf $COMMIT
     mkdir "$COMMIT"
