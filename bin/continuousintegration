@@ -103,19 +103,16 @@ function archive_build {
     local GITHUB_PAGES=$(mktemp -d)
     trap "rm -rf $GITHUB_PAGES" RETURN
 
-    git clone --quiet -b gh-pages --single-branch \
-        https://$GITHUB_TOKEN@github.com/PabloSichert/Sx \
-        $GITHUB_PAGES
+    git clone --quiet \
+        https://$GITHUB_TOKEN@github.com/Sx-Bot/builds
 
     cd $GITHUB_PAGES
 
     git config user.name "Continuous Integration"
     git config user.email "bot@swift.sx"
 
-    mkdir -p builds
-
-    rm -rf builds/$COMMIT
-    mkdir "builds/$COMMIT"
+    rm -rf $COMMIT
+    mkdir "$COMMIT"
 
     local LINES_EXECUTABLE_GLOBAL=0
     local LINES_COVERED_GLOBAL=0
@@ -138,7 +135,7 @@ function archive_build {
 
         for SCHEME in "${SCHEMES[@]}"; do
             local SOURCE=$BUILD_DIRECTORY/$PLATFORM/$SCHEME
-            local DESTINATION=builds/$COMMIT/$PLATFORM/$SCHEME
+            local DESTINATION=$COMMIT/$PLATFORM/$SCHEME
 
             mkdir -p "$DESTINATION"
 
@@ -166,9 +163,9 @@ function archive_build {
             COVERAGE_COLOR=brightgreen
         fi
 
-        curl -s -w "\n" https://img.shields.io/badge/build-$BUILD_LABEL-$BUILD_COLOR.svg > builds/$COMMIT/$PLATFORM/badge-build.svg
-        curl -s -w "\n" https://img.shields.io/badge/build-$PLATFORM-$BUILD_COLOR.svg > builds/$COMMIT/badge-$PLATFORM.svg
-        curl -s -w "\n" https://img.shields.io/badge/coverage-$COVERAGE_LABEL-$COVERAGE_COLOR.svg > builds/$COMMIT/$PLATFORM/badge-coverage.svg
+        curl -s -w "\n" https://img.shields.io/badge/build-$BUILD_LABEL-$BUILD_COLOR.svg > $COMMIT/$PLATFORM/badge-build.svg
+        curl -s -w "\n" https://img.shields.io/badge/build-$PLATFORM-$BUILD_COLOR.svg > $COMMIT/badge-$PLATFORM.svg
+        curl -s -w "\n" https://img.shields.io/badge/coverage-$COVERAGE_LABEL-$COVERAGE_COLOR.svg > $COMMIT/$PLATFORM/badge-coverage.svg
     done
 
     local COVERAGE_GLOBAL_LABEL=n/a
@@ -179,19 +176,19 @@ function archive_build {
         COVERAGE_GLOBAL_COLOR=brightgreen
     fi
 
-    curl -s -w "\n" https://img.shields.io/badge/coverage-$COVERAGE_LABEL-$COVERAGE_COLOR.svg > builds/$COMMIT/badge-coverage.svg
+    curl -s -w "\n" https://img.shields.io/badge/coverage-$COVERAGE_LABEL-$COVERAGE_COLOR.svg > $COMMIT/badge-coverage.svg
 
-    rm -rf builds/$BRANCH
-    cp -r builds/$COMMIT builds/$BRANCH
+    rm -rf $BRANCH
+    cp -r $COMMIT $BRANCH
 
-    git add builds/$COMMIT builds/$BRANCH
+    git add $COMMIT $BRANCH
     git commit --quiet -m "Build artifacts from commit $COMMIT on branch $BRANCH"
     git push --quiet
 
     cd - &> /dev/null
 
     echo "Build logs for commit $COMMIT on branch $BRANCH:"
-    echo https://github.com/PabloSichert/Sx/tree/gh-pages/builds/$COMMIT
+    echo https://github.com/Sx-Bot/builds/$COMMIT
 }
 
 archive_build
