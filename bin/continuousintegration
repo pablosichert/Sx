@@ -100,13 +100,14 @@ done
 function archive_build {
     local COMMIT=$(git rev-parse --short HEAD)
 
-    local GITHUB_PAGES=$(mktemp -d)
-    trap "rm -rf $GITHUB_PAGES" RETURN
+    local BUILDS=$(mktemp -d)
+    trap "rm -rf $BUILDS" RETURN
 
     git clone --quiet \
-        https://$GITHUB_TOKEN@github.com/Sx-Bot/builds
+        https://$GITHUB_TOKEN@github.com/Sx-Bot/builds \
+        $BUILDS
 
-    cd $GITHUB_PAGES
+    cd $BUILDS
 
     git config user.name "Continuous Integration"
     git config user.email ""
@@ -188,7 +189,7 @@ function archive_build {
     cd - &> /dev/null
 
     echo "Build logs for commit $COMMIT on branch $BRANCH:"
-    echo https://github.com/Sx-Bot/builds/$COMMIT
+    echo https://github.com/Sx-Bot/builds/tree/master/$COMMIT
 }
 
 archive_build
