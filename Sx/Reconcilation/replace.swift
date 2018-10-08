@@ -11,15 +11,15 @@ func replace(
     let mountsNew = new.mount()
     let new = new.index ..< new.index + mountsNew.count
 
-    let shared = intersect(old, new)
-
     let leadingOld: CountableRange<Int>
-    let trailingOld: CountableRange<Int>?
+    let trailingOld: CountableRange<Int>
+
+    let shared = old.clamped(to: new)
 
     let leadingNew: CountableRange<Int>
-    let trailingNew: CountableRange<Int>?
+    let trailingNew: CountableRange<Int>
 
-    if let shared = shared {
+    if shared.count > 0 {
         leadingOld = old.lowerBound ..< shared.lowerBound
         trailingOld = shared.upperBound ..< old.upperBound
 
@@ -27,10 +27,10 @@ func replace(
         trailingNew = shared.upperBound ..< new.upperBound
     } else {
         leadingOld = old
-        trailingOld = nil
+        trailingOld = old.upperBound ..< old.upperBound
 
         leadingNew = new
-        trailingNew = nil
+        trailingNew = new.upperBound ..< new.upperBound
     }
 
     for i in leadingOld {
@@ -41,32 +41,26 @@ func replace(
         insert((mount: mountsNew[i - leadingNew.lowerBound], index: i))
     }
 
-    if let shared = shared {
-        for i in shared {
-            replace((
-                old: mountsOld[leadingOld.count + i - shared.lowerBound],
-                new: mountsNew[leadingNew.count + i - shared.lowerBound],
-                index: i
-            ))
-        }
+    for i in shared {
+        replace((
+            old: mountsOld[leadingOld.count + i - shared.lowerBound],
+            new: mountsNew[leadingNew.count + i - shared.lowerBound],
+            index: i
+        ))
+    }
 
-        if let trailingOld = trailingOld {
-            for i in trailingOld {
-                remove((
-                    mount: mountsOld[leadingOld.count + shared.count + i - trailingOld.lowerBound],
-                    index: i
-                ))
-            }
-        }
+    for i in trailingOld {
+        remove((
+            mount: mountsOld[leadingOld.count + shared.count + i - trailingOld.lowerBound],
+            index: i
+        ))
+    }
 
-        if let trailingNew = trailingNew {
-            for i in trailingNew {
-                insert((
-                    mount: mountsNew[leadingNew.count + shared.count + i - trailingNew.lowerBound],
-                    index: i
-                ))
-            }
-        }
+    for i in trailingNew {
+        insert((
+            mount: mountsNew[leadingNew.count + shared.count + i - trailingNew.lowerBound],
+            index: i
+        ))
     }
 
     return mountsNew.count
