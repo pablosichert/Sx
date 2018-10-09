@@ -1,4 +1,4 @@
-func replace(
+public func replace(
     new: NodeInstance,
     old: NodeInstance,
     insert: Insert,
@@ -11,13 +11,13 @@ func replace(
     let mountsNew = new.mount()
     let new = new.index ..< new.index + mountsNew.count
 
-    let leadingOld: CountableRange<Int>
-    let trailingOld: CountableRange<Int>
+    let leadingOld: Range<Int>
+    let trailingOld: Range<Int>
 
     let shared = old.clamped(to: new)
 
-    let leadingNew: CountableRange<Int>
-    let trailingNew: CountableRange<Int>
+    let leadingNew: Range<Int>
+    let trailingNew: Range<Int>
 
     if shared.count > 0 {
         leadingOld = old.lowerBound ..< shared.lowerBound

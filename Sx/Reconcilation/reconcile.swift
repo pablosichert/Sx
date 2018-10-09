@@ -1,7 +1,7 @@
-typealias Insert = ((mount: Any, index: Int)) -> Void
-typealias Remove = ((mount: Any, index: Int)) -> Void
-typealias Reorder = ((mount: Any, from: Int, to: Int)) -> Void
-typealias Replace = ((old: Any, new: Any, index: Int)) -> Void
+public typealias Insert = ((mount: Any, index: Int)) -> Void
+public typealias Remove = ((mount: Any, index: Int)) -> Void
+public typealias Reorder = ((mount: Any, from: Int, to: Int)) -> Void
+public typealias Replace = ((old: Any, new: Any, index: Int)) -> Void
 
 public func reconcile(
     instances: [NodeInstance],
