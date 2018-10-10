@@ -1,4 +1,4 @@
-func remove(
+public func remove(
     instance: NodeInstance,
     remove: Remove
 ) {
