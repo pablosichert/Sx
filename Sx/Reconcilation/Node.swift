@@ -7,11 +7,11 @@ public protocol Node {
     var properties: Any { get }
 }
 
-func != (lhs: [Node], rhs: [Node]) -> Bool {
+public func != (lhs: [Node], rhs: [Node]) -> Bool {
     return !(lhs == rhs)
 }
 
-func == (lhs: [Node], rhs: [Node]) -> Bool {
+public func == (lhs: [Node], rhs: [Node]) -> Bool {
     if lhs.count != rhs.count {
         return false
     }
@@ -23,11 +23,11 @@ func == (lhs: [Node], rhs: [Node]) -> Bool {
     return true
 }
 
-func != (lhs: Node, rhs: Node) -> Bool {
+public func != (lhs: Node, rhs: Node) -> Bool {
     return !(lhs == rhs)
 }
 
-func == (lhs: Node, rhs: Node) -> Bool {
+public func == (lhs: Node, rhs: Node) -> Bool {
     return (
         lhs.InstanceType == rhs.InstanceType &&
             lhs.ComponentType == rhs.ComponentType &&

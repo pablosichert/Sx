@@ -1,11 +1,11 @@
-class NativeInstance: NodeInstance {
+public class NativeInstance: NodeInstance {
     let component: Native.Renderable
-    var index: Int
-    var instances: [NodeInstance]
-    var node: Node
-    weak var parent: NodeInstance?
+    public var index: Int
+    public var instances: [NodeInstance]
+    public var node: Node
+    public weak var parent: NodeInstance?
 
-    required init(node: Node, parent: NodeInstance? = nil, index: Int) {
+    public required init(node: Node, parent: NodeInstance? = nil, index: Int) {
         assert(node.InstanceType is NativeInstance.Type)
         assert(node.ComponentType is Native.Renderable.Type)
 
@@ -25,11 +25,11 @@ class NativeInstance: NodeInstance {
         }
     }
 
-    func mount() -> [Any] {
+    public func mount() -> [Any] {
         return component.render()
     }
 
-    func update(node: Node) {
+    public func update(node: Node) {
         assert(node.InstanceType is NativeInstance.Type)
         assert(node.ComponentType == self.node.ComponentType)
 
@@ -58,7 +58,7 @@ class NativeInstance: NodeInstance {
         self.node = node
     }
 
-    func update(operations: Operations) {
+    public func update(operations: Operations) {
         component.update(operations: operations)
     }
 }

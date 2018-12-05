@@ -1,11 +1,11 @@
-class CompositeInstance: NodeInstance {
+public class CompositeInstance: NodeInstance {
     let component: Composite.Renderable
-    var index: Int
-    var instances: [NodeInstance]
-    var node: Node
-    weak var parent: NodeInstance?
+    public var index: Int
+    public var instances: [NodeInstance]
+    public var node: Node
+    public weak var parent: NodeInstance?
 
-    required init(node: Node, parent: NodeInstance? = nil, index: Int) {
+    public required init(node: Node, parent: NodeInstance? = nil, index: Int) {
         assert(node.InstanceType is CompositeInstance.Type)
         assert(node.ComponentType is Composite.Renderable.Type)
 
@@ -29,7 +29,7 @@ class CompositeInstance: NodeInstance {
         }
     }
 
-    func mount() -> [Any] {
+    public func mount() -> [Any] {
         return instances.flatMap({ $0.mount() })
     }
 
@@ -46,7 +46,7 @@ class CompositeInstance: NodeInstance {
         self.instances = instances
     }
 
-    func update(node: Node) {
+    public func update(node: Node) {
         assert(node.InstanceType is CompositeInstance.Type)
         assert(node.ComponentType == self.node.ComponentType)
 
@@ -69,7 +69,7 @@ class CompositeInstance: NodeInstance {
         self.node = node
     }
 
-    func update(operations: Operations) {
+    public func update(operations: Operations) {
         parent?.update(operations: operations)
     }
 }
