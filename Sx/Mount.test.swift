@@ -2,7 +2,7 @@ import protocol Reconcilation.NodeInstance
 import struct Sx.Mount
 import protocol Sx.Node
 import struct Sx.Operations
-import func XCTest.XCTAssert
+import func XCTest.XCTAssertEqual
 import class XCTest.XCTestCase
 
 private struct FakeNode: Node {
@@ -41,9 +41,9 @@ class MountTest: XCTestCase {
     func testMountNode() {
         let mounts = Mount<Int>(FakeNode(properties: 123))
 
-        XCTAssert(mounts.elements.count == 1)
-        XCTAssert(mounts.elements as! [Int] == [123])
-        XCTAssert(mounts[0] == 123)
+        XCTAssertEqual(mounts.elements.count, 1)
+        XCTAssertEqual(mounts.elements as! [Int], [123])
+        XCTAssertEqual(mounts[0], 123)
     }
 
     func testMountNodes() {
@@ -52,9 +52,9 @@ class MountTest: XCTestCase {
             FakeNode(properties: 456),
         ])
 
-        XCTAssert(mounts.elements.count == 2)
-        XCTAssert(mounts.elements as! [Int] == [123, 456])
-        XCTAssert(mounts[0] == 123)
-        XCTAssert(mounts[1] == 456)
+        XCTAssertEqual(mounts.elements.count, 2)
+        XCTAssertEqual(mounts.elements as! [Int], [123, 456])
+        XCTAssertEqual(mounts[0], 123)
+        XCTAssertEqual(mounts[1], 456)
     }
 }
