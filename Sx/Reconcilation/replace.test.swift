@@ -8,7 +8,7 @@ import class XCTest.XCTestCase
 private struct FakeNode: Node {
     var children: [Node] = []
     var ComponentType: Any.Type = Any.self
-    var equal: (Any, Any) -> Bool = { _, _ in true }
+    var equal: (Any, Any) -> Bool = { _, _ in false }
     var InstanceType: NodeInstance.Type = FakeInstance.self
     var key: String?
     var properties: Any = 0
