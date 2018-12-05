@@ -2,8 +2,8 @@ import struct Foundation.UUID
 
 private struct Static {
     /* Use this value as a fallback, when no sensible hash can be computed.
-     * Should be avoided if possible since hash sets / maps will perform badly. */
-    static let hashValue = UUID().hashValue
+     * This is the case when the property does not conform to the hashable protocol. */
+    static let hashValue = 0
 }
 
 public struct Property<Root>: Hashable {
