@@ -10,7 +10,7 @@ private func updateIndices(index: Int, instance: NodeInstance) {
     }
 }
 
-func update(
+public func update(
     index: Int,
     instance: NodeInstance,
     node: Node,
