@@ -261,6 +261,7 @@
 				6E36D4DE2139DBBE00917064 /* Frameworks */,
 				6E36D4DF2139DBBE00917064 /* Headers */,
 				6E36D4E02139DBBE00917064 /* Resources */,
+				6E2E42FF21B8555E000AD16F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -406,6 +407,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6E2E42FF21B8555E000AD16F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./bin/lint\n";
+		};
 		6E563E202116652A0011B691 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -417,7 +435,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = ./bin/lint;
+			shellScript = "./bin/lint\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
