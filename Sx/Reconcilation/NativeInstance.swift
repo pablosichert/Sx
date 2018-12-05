@@ -7,6 +7,7 @@ class NativeInstance: NodeInstance {
 
     required init(node: Node, parent: NodeInstance? = nil, index: Int) {
         assert(node.InstanceType is NativeInstance.Type)
+        assert(node.ComponentType is Native.Renderable.Type)
 
         let instances = instantiate(nodes: node.children, index: index)
         let mounts = instances.flatMap({ $0.mount() })

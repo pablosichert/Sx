@@ -7,6 +7,7 @@ class CompositeInstance: NodeInstance {
 
     required init(node: Node, parent: NodeInstance? = nil, index: Int) {
         assert(node.InstanceType is CompositeInstance.Type)
+        assert(node.ComponentType is Composite.Renderable.Type)
 
         let Component = node.ComponentType as! Composite.Renderable.Type
         var component = Component.init(properties: node.properties, children: node.children)
