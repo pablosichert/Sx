@@ -5,12 +5,28 @@ public class CompositeInstance: NodeInstance {
     public var node: Node
     public weak var parent: NodeInstance?
 
-    public required init(node: Node, parent: NodeInstance? = nil, index: Int) {
+    public required convenience init(node: Node, parent: NodeInstance? = nil, index: Int) {
+        assert(node is Composite)
         assert(node.InstanceType is CompositeInstance.Type)
+
+        self.init(
+            node: (node as! Composite),
+            parent: parent,
+            index: index
+        )
+    }
+
+    init(node: Composite, parent: NodeInstance? = nil, index: Int) {
         assert(node.ComponentType is Composite.Renderable.Type)
 
         let Component = node.ComponentType as! Composite.Renderable.Type
-        var component = Component.init(properties: node.properties, children: node.children)
+
+        var component = Component.init(
+            properties: node.properties,
+            state: node.state,
+            children: node.children
+        )
+
         let nodes = component.render()
         let instances = instantiate(nodes: nodes, index: index)
 

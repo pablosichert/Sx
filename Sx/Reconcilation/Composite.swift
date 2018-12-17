@@ -9,11 +9,13 @@ open class Composite: Node {
     public let InstanceType: NodeInstance.Type = CompositeInstance.self
     public let key: String?
     public let properties: Any
+    public let state: Any
 
-    public init<Properties>(
+    public init<Properties, State>(
         _ RenderableType: Renderable.Type,
         key: String?,
         properties: Properties,
+        state: State,
         _ children: [Node] = []
     ) where Properties: Equatable {
         self.children = children
@@ -21,13 +23,14 @@ open class Composite: Node {
         self.equal = Equal<Properties>.call
         self.key = key
         self.properties = properties
+        self.state = state
     }
 }
 
 public protocol CompositeComponentRenderableBase {
     var rerender: () -> Void { get set }
 
-    init(properties: Any, children: [Node])
+    init(properties: Any, state: Any, children: [Node])
 
     func update(properties: Any)
 
@@ -40,24 +43,24 @@ public protocol CompositeComponentRenderable: CompositeComponentRenderableBase {
     func render() -> [Node]
 }
 
-open class CompositeComponent<Properties, State>: CompositeComponentRenderableBase
-    where Properties: Equatable, State: Equatable, State: Initializable {
+open class CompositeComponent<Properties: Equatable, State: Equatable>: CompositeComponentRenderableBase {
     public var properties: Properties
     public var children: [Node]
     public var rerender = {}
     public var state: State
 
-    public required convenience init(properties: Any, children: [Node]) {
+    public required convenience init(properties: Any, state: Any, children: [Node]) {
         self.init(
             properties: properties as! Properties,
+            state: state as! State,
             children: children
         )
     }
 
-    public init(properties: Properties, children: [Node]) {
+    public init(properties: Properties, state: State, children: [Node]) {
         self.properties = properties
+        self.state = state
         self.children = children
-        self.state = State.init()
     }
 
     public func update(properties: Any) {

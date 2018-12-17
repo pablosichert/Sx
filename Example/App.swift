@@ -9,19 +9,19 @@ import struct Foundation.Notification
 import struct Foundation.NSRect
 import class ObjectiveC.NSObject
 import class Sx.Composite
-import protocol Sx.Initializable
 import protocol Sx.Node
 
 public class App: Composite {
     struct Properties: Equatable {}
 
-    struct State: Equatable, Initializable {}
+    struct State: Equatable {}
 
     init(key: String? = nil) {
         super.init(
             Component.self,
             key: key,
-            properties: Properties()
+            properties: Properties(),
+            state: State()
         )
     }
 
@@ -41,7 +41,7 @@ public class App: Composite {
         let x: CGFloat
         let y: CGFloat
 
-        override init(properties: Properties, children: [Node]) {
+        override init(properties: Properties, state: State, children: [Node]) {
             let frame = NSScreen.main!.visibleFrame
 
             let factor = CGFloat(0.5)
@@ -57,7 +57,7 @@ public class App: Composite {
             self.x = x
             self.y = y
 
-            super.init(properties: properties, children: children)
+            super.init(properties: properties, state: state, children: children)
         }
 
         func render() -> [Node] {

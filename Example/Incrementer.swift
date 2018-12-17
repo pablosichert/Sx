@@ -5,7 +5,6 @@ import func AppKitX.View
 import struct CoreGraphics.CGFloat
 import struct CoreGraphics.CGRect
 import class Sx.Composite
-import protocol Sx.Initializable
 import protocol Sx.Node
 
 public class Incrementer: Composite {
@@ -14,7 +13,7 @@ public class Incrementer: Composite {
         let y: CGFloat
     }
 
-    struct State: Equatable, Initializable {
+    struct State: Equatable {
         var count = 0
     }
 
@@ -22,7 +21,8 @@ public class Incrementer: Composite {
         super.init(
             Component.self,
             key: key,
-            properties: Properties(x: x, y: y)
+            properties: Properties(x: x, y: y),
+            state: State()
         )
     }
 
