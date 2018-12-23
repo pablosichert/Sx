@@ -43,18 +43,14 @@ public class Incrementer: Composite {
             let width = CGFloat(100)
             let height = CGFloat(20)
 
-            var numbers: [Node] = []
-
-            if state.count > 0 {
-                for i in 1 ... state.count {
-                    numbers.append(
-                        Text(
-                            frame: CGRect(x: CGFloat(i * 20), y: 0, width: 30, height: 20),
-                            key: String(i),
-                            string: String(i)
-                        )
+            let numbers = (state.count > 0) && {
+                (1 ... state.count).map({ i in
+                    Text(
+                        frame: CGRect(x: CGFloat(i * 20), y: 0, width: 30, height: 20),
+                        key: String(i),
+                        string: String(i)
                     )
-                }
+                })
             }
 
             return [

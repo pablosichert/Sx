@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E41401421CFCE9000CB062C /* &&.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E41401321CFCE8F00CB062C /* &&.swift */; };
 		6E7255F821194D26002BD972 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7255F721194D26002BD972 /* main.swift */; };
 		6E7255FA21194D30002BD972 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7255F921194D2F002BD972 /* App.swift */; };
 		6E72560121194FB2002BD972 /* Incrementer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E72560021194FB2002BD972 /* Incrementer.swift */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6E41401321CFCE8F00CB062C /* &&.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "&&.swift"; sourceTree = "<group>"; };
 		6E7255E621194C79002BD972 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7255F021194C7B002BD972 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E7255F721194D26002BD972 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -63,11 +65,12 @@
 		6E7255E821194C79002BD972 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				6E41401321CFCE8F00CB062C /* &&.swift */,
 				6E7255F921194D2F002BD972 /* App.swift */,
 				6E7255FB21194EE6002BD972 /* Example.entitlements */,
+				6E72560021194FB2002BD972 /* Incrementer.swift */,
 				6E7255F021194C7B002BD972 /* Info.plist */,
 				6E7255F721194D26002BD972 /* main.swift */,
-				6E72560021194FB2002BD972 /* Incrementer.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 				6E7255F821194D26002BD972 /* main.swift in Sources */,
 				6E72560121194FB2002BD972 /* Incrementer.swift in Sources */,
 				6E7255FA21194D30002BD972 /* App.swift in Sources */,
+				6E41401421CFCE9000CB062C /* &&.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
