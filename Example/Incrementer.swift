@@ -39,7 +39,7 @@ public class Incrementer: Composite {
             ))
         }
 
-        func render() -> [Node] {
+        func render() -> [Node?] {
             let width = CGFloat(100)
             let height = CGFloat(20)
 

@@ -60,7 +60,7 @@ public class App: Composite {
             super.init(properties: properties, state: state, children: children)
         }
 
-        func render() -> [Node] {
+        func render() -> [Node?] {
             return [
                 Application(
                     delegate: AppDelegate(),

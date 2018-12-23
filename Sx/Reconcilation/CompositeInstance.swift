@@ -27,7 +27,7 @@ public class CompositeInstance: NodeInstance {
             children: node.children
         )
 
-        let nodes = component.render()
+        let nodes = component.render().compactMap({ $0 })
         let instances = instantiate(nodes: nodes, index: index)
 
         self.component = component
@@ -53,7 +53,7 @@ public class CompositeInstance: NodeInstance {
         let (instances, operations) = reconcile(
             instances: self.instances,
             instantiate: instantiate,
-            nodes: component.render(),
+            nodes: component.render().compactMap({ $0 }),
             parent: self
         )
 

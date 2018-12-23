@@ -40,7 +40,7 @@ public protocol CompositeComponentRenderableBase {
 }
 
 public protocol CompositeComponentRenderable: CompositeComponentRenderableBase {
-    func render() -> [Node]
+    func render() -> [Node?]
 }
 
 open class CompositeComponent<Properties: Equatable, State: Equatable>: CompositeComponentRenderableBase {
