@@ -2,7 +2,7 @@ import struct Sx.Property
 import func XCTest.XCTAssertEqual
 import class XCTest.XCTestCase
 
-class SomeHashable: Hashable {
+private class SomeHashable: Hashable {
     static func == (lhs: SomeHashable, rhs: SomeHashable) -> Bool {
         return lhs.value == rhs.value
     }
@@ -18,7 +18,7 @@ class SomeHashable: Hashable {
     }
 }
 
-class SomeEquatable: Equatable {
+private class SomeEquatable: Equatable {
     static func == (lhs: SomeEquatable, rhs: SomeEquatable) -> Bool {
         guard let lhsValue = lhs.value as? String, let rhsValue = rhs.value as? String else {
             return false
@@ -34,7 +34,7 @@ class SomeEquatable: Equatable {
     }
 }
 
-class WithHashableProperty {
+private class WithHashableProperty {
     var foo: SomeHashable
 
     init(_ foo: String) {
@@ -42,11 +42,11 @@ class WithHashableProperty {
     }
 }
 
-class WithEquatableProperty {
+private class WithEquatableProperty {
     var foo: SomeEquatable = SomeEquatable("foo")
 }
 
-class WithProperty {
+private class WithProperty {
     var foo: Any = "foo"
 }
 

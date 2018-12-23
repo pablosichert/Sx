@@ -2,7 +2,7 @@ import Reconcilation
 import func XCTest.XCTAssertEqual
 import class XCTest.XCTestCase
 
-struct NodeImplementation: Node {
+private struct NodeImplementation: Node {
     let children: [Node]
     let ComponentType: Any.Type
     let equal: (Any, Any) -> Bool
