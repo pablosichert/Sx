@@ -9,7 +9,7 @@ import struct Sx.Property
 public func Window(
     backingType: NSWindow.BackingStoreType = .buffered,
     contentRect: NSRect = .zero,
-    defer defer_: Bool = true,
+    defer: Bool = true,
     key: String? = nil,
     properties: [Property<NSWindow>] = [],
     styleMask: NSWindow.StyleMask = [],
@@ -21,7 +21,7 @@ public func Window(
         properties: Component.Properties(
             backingType: backingType,
             contentRect: contentRect,
-            defer_: defer_,
+            defer: `defer`,
             properties: properties,
             styleMask: styleMask,
             titlebarAppearsTransparent: titlebarAppearsTransparent
@@ -35,7 +35,7 @@ private struct Component: Native.Renderable {
     struct Properties: Equatable {
         let backingType: NSWindow.BackingStoreType
         let contentRect: NSRect
-        let defer_: Bool
+        let `defer`: Bool
         let properties: [Property<NSWindow>]
         let styleMask: NSWindow.StyleMask
         let titlebarAppearsTransparent: Bool
@@ -50,7 +50,7 @@ private struct Component: Native.Renderable {
             contentRect: properties.contentRect,
             styleMask: properties.styleMask,
             backing: properties.backingType,
-            defer: properties.defer_
+            defer: properties.defer
         )
 
         apply(properties)
