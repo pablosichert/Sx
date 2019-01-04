@@ -57,13 +57,9 @@ private struct Component: Native.Renderable {
 
         assert(children.count == 1, "You must pass in exactly one view – NSWindow.contentView expects a single NSView")
 
-        if children.count >= 1 {
-            if let view = children[0] as? NSView {
-                window.contentView = view
-            } else {
-                assertionFailure("Child must be an NSView")
-            }
-        }
+        assert(children[0] is NSView, "Child must be an NSView")
+
+        window.contentView = children[0] as? NSView
     }
 
     func apply(_ properties: Properties) {
