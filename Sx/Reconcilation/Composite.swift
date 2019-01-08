@@ -32,11 +32,11 @@ public protocol CompositeComponentRenderableBase {
 
     init(properties: Any, state: Any, children: [Node])
 
-    func update(properties: Any)
+    func update(properties: (next: Any, previous: Any))
 
     func update(children: [Node])
 
-    func update(properties: Any, children: [Node])
+    func update(properties: (next: Any, previous: Any), children: [Node])
 }
 
 public protocol CompositeComponentRenderable: CompositeComponentRenderableBase {
@@ -63,19 +63,19 @@ open class CompositeComponent<Properties: Equatable, State: Equatable>: Composit
         self.children = children
     }
 
-    public func update(properties: Any) {
-        update(properties: properties as! Properties)
+    public func update(properties: (next: Any, previous: Any)) {
+        update(properties: (properties.next as! Properties, properties.previous as! Properties))
     }
 
-    public func update(properties: Properties) {
-        self.properties = properties
+    public func update(properties: (next: Properties, previous: Properties)) {
+        self.properties = properties.next
     }
 
     public func update(children: [Node]) {
         self.children = children
     }
 
-    public func update(properties: Any, children: [Node]) {
+    public func update(properties: (next: Any, previous: Any), children: [Node]) {
         update(properties: properties)
         update(children: children)
     }

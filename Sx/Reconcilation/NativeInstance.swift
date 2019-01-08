@@ -47,11 +47,20 @@ public class NativeInstance: NodeInstance {
         case (false, false):
             break
         case (true, false):
-            component.update(properties: node.properties)
+            component.update(properties: (
+                next: node.properties,
+                previous: self.node.properties
+            ))
         case (false, true):
             component.update(operations: operations)
         case (true, true):
-            component.update(properties: node.properties, operations: operations)
+            component.update(
+                properties: (
+                    next: node.properties,
+                    previous: self.node.properties
+                ),
+                operations: operations
+            )
         }
 
         self.instances = instances

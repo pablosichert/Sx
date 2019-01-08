@@ -31,11 +31,11 @@ public protocol NativeComponentRenderable {
 
     func insert(mount: Any, index: Int)
 
-    func update(properties: Any)
+    func update(properties: (next: Any, previous: Any))
 
     func update(operations: Operations)
 
-    func update(properties: Any, operations: Operations)
+    func update(properties: (next: Any, previous: Any), operations: Operations)
 
     func remove(mount: Any, index: Int)
 

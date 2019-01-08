@@ -44,8 +44,8 @@ private struct Component: Native.Renderable {
         application.delegate = properties.delegate
     }
 
-    func update(properties: Any) {
-        apply(properties as! Properties)
+    func update(properties: (next: Any, previous: Any)) {
+        apply(properties.next as! Properties)
     }
 
     func update(operations: Operations) {
@@ -66,7 +66,7 @@ private struct Component: Native.Renderable {
         }
     }
 
-    func update(properties: Any, operations: Operations) {
+    func update(properties: (next: Any, previous: Any), operations: Operations) {
         update(properties: properties)
         update(operations: operations)
     }

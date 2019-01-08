@@ -73,11 +73,20 @@ public class CompositeInstance: NodeInstance {
         case (false, false):
             return
         case (true, false):
-            component.update(properties: node.properties)
+            component.update(properties: (
+                next: node.properties,
+                previous: self.node.properties
+            ))
         case (false, true):
             component.update(children: node.children)
         case (true, true):
-            component.update(properties: node.properties, children: node.children)
+            component.update(
+                properties: (
+                    next: node.properties,
+                    previous: self.node.properties
+                ),
+                children: node.children
+            )
         }
 
         rerender()
