@@ -77,7 +77,11 @@ public class App: Composite {
                             \NSWindow.styleMask => [.titled, .closable, .resizable],
                             \NSWindow.titlebarAppearsTransparent => true,
                             children: [
-                                Incrementer(key: "incrementer", x: width / 2, y: height / 2),
+                                Incrementer(
+                                    key: "incrementer",
+                                    x: self.width / 2,
+                                    y: self.height / 2
+                                ),
                             ]
                         ),
                     ]

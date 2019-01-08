@@ -1,6 +1,6 @@
 import struct Sx.Property
 
-infix operator =>
+infix operator =>: AssignmentPrecedence
 
 public func => <Root, Value>(
     path: ReferenceWritableKeyPath<Root, Value>,

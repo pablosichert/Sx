@@ -1,11 +1,25 @@
 import class AppKit.NSColor
 import class AppKit.NSEvent
-import func AppKitX.Text
-import func AppKitX.View
+import class AppKit.NSText
+import class AppKit.NSView
+import AppKitX
 import struct CoreGraphics.CGFloat
 import struct CoreGraphics.CGRect
 import class Sx.Composite
 import protocol Sx.Node
+
+private class View: NSView {
+    var mouseDown: (NSEvent) -> Void = { _ in }
+    var rightMouseDown: (NSEvent) -> Void = { _ in }
+
+    override func mouseDown(with event: NSEvent) {
+        mouseDown(event)
+    }
+
+    override func rightMouseDown(with event: NSEvent) {
+        rightMouseDown(event)
+    }
+}
 
 public class Incrementer: Composite {
     struct Properties: Equatable {
@@ -43,34 +57,37 @@ public class Incrementer: Composite {
             let width = CGFloat(100)
             let height = CGFloat(20)
 
-            let numbers = (state.count > 0) && {
-                (1 ... state.count).map({ i in
-                    Text(
-                        frame: CGRect(x: CGFloat(i * 20), y: 0, width: 30, height: 20),
+            let numbers = { (_: ()) in
+                (1 ... self.state.count).map({ i in
+                    NSText.Node(
                         key: String(i),
-                        string: String(i)
+                        \NSText.backgroundColor => nil,
+                        \NSText.frame => CGRect(x: CGFloat(i * 20), y: 0, width: 30, height: 20),
+                        \NSText.string => String(i)
                     )
                 })
             }
 
             return [
-                View(
-                    backgroundColor: NSColor.lightGray.cgColor,
+                View.Node(
                     key: "view",
-                    mouseDown: increase,
-                    rightMouseDown: decrease,
-                    wantsLayer: true, [
-                        Text(
-                            frame: CGRect(
+                    \View.wantsLayer => true,
+                    \View.backgroundColor => NSColor.lightGray.cgColor,
+                    \View.mouseDown => increase,
+                    \View.rightMouseDown => decrease,
+                    children: [
+                        NSText.Node(
+                            key: "count",
+                            \NSText.backgroundColor => nil,
+                            \NSText.frame => CGRect(
                                 x: properties.x - width / 2,
                                 y: properties.y + height / 20,
                                 width: width,
                                 height: height
                             ),
-                            key: "count",
-                            string: "Count is " + String(state.count)
+                            \NSText.string => "Count is " + String(state.count)
                         ),
-                    ] + numbers
+                    ] + ((state.count > 0) && numbers)
                 ),
             ]
         }

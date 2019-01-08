@@ -9,9 +9,8 @@
 /* Begin PBXBuildFile section */
 		6E745EC2214437BB0022BD6E /* NSWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745EBC214437BB0022BD6E /* NSWindow.swift */; };
 		6E745EC3214437BB0022BD6E /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745EBD214437BB0022BD6E /* MenuItem.swift */; };
-		6E745EC4214437BB0022BD6E /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745EBE214437BB0022BD6E /* View.swift */; };
+		6E745EC4214437BB0022BD6E /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745EBE214437BB0022BD6E /* NSView.swift */; };
 		6E745EC5214437BB0022BD6E /* NSApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745EBF214437BB0022BD6E /* NSApplication.swift */; };
-		6E745EC6214437BB0022BD6E /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745EC0214437BB0022BD6E /* Text.swift */; };
 		6E745EC7214437BB0022BD6E /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745EC1214437BB0022BD6E /* Menu.swift */; };
 		6E745EC9214437CE0022BD6E /* ===.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E745EC8214437CD0022BD6E /* ===.swift */; };
 		6E745EEE214463250022BD6E /* Sx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E745EED214463250022BD6E /* Sx.framework */; };
@@ -22,9 +21,8 @@
 		6E745E942144369D0022BD6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E745EBC214437BB0022BD6E /* NSWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSWindow.swift; sourceTree = "<group>"; };
 		6E745EBD214437BB0022BD6E /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
-		6E745EBE214437BB0022BD6E /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		6E745EBE214437BB0022BD6E /* NSView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
 		6E745EBF214437BB0022BD6E /* NSApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSApplication.swift; sourceTree = "<group>"; };
-		6E745EC0214437BB0022BD6E /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		6E745EC1214437BB0022BD6E /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		6E745EC8214437CD0022BD6E /* ===.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "===.swift"; sourceTree = "<group>"; };
 		6E745EED214463250022BD6E /* Sx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Sx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,9 +65,8 @@
 				6E745EC1214437BB0022BD6E /* Menu.swift */,
 				6E745EBD214437BB0022BD6E /* MenuItem.swift */,
 				6E745EBF214437BB0022BD6E /* NSApplication.swift */,
+				6E745EBE214437BB0022BD6E /* NSView.swift */,
 				6E745EBC214437BB0022BD6E /* NSWindow.swift */,
-				6E745EC0214437BB0022BD6E /* Text.swift */,
-				6E745EBE214437BB0022BD6E /* View.swift */,
 			);
 			path = AppKitX;
 			sourceTree = "<group>";
@@ -179,10 +176,9 @@
 			files = (
 				6E745EC3214437BB0022BD6E /* MenuItem.swift in Sources */,
 				6E745EC7214437BB0022BD6E /* Menu.swift in Sources */,
-				6E745EC4214437BB0022BD6E /* View.swift in Sources */,
+				6E745EC4214437BB0022BD6E /* NSView.swift in Sources */,
 				6E745EC9214437CE0022BD6E /* ===.swift in Sources */,
 				6E745EC2214437BB0022BD6E /* NSWindow.swift in Sources */,
-				6E745EC6214437BB0022BD6E /* Text.swift in Sources */,
 				6E745EC5214437BB0022BD6E /* NSApplication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
