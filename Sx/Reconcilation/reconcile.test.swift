@@ -32,11 +32,11 @@ private struct ComponentA: Native.Renderable {
 
     func insert(mount _: Any, index _: Int) {}
 
-    func update(properties _: Any) {}
+    func update(properties _: (next: Any, previous: Any)) {}
 
     func update(operations _: Operations) {}
 
-    func update(properties _: Any, operations _: Operations) {}
+    func update(properties _: (next: Any, previous: Any), operations _: Operations) {}
 
     func remove(mount _: Any, index _: Int) {}
 
@@ -75,11 +75,11 @@ private struct ComponentB: Native.Renderable {
 
     func insert(mount _: Any, index _: Int) {}
 
-    func update(properties _: Any) {}
+    func update(properties _: (next: Any, previous: Any)) {}
 
     func update(operations _: Operations) {}
 
-    func update(properties _: Any, operations _: Operations) {}
+    func update(properties _: (next: Any, previous: Any), operations _: Operations) {}
 
     func remove(mount _: Any, index _: Int) {}
 
