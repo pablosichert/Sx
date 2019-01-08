@@ -76,7 +76,7 @@ public struct Property<Root>: Hashable {
             id: id,
             path: path,
             value: value,
-            valuesEqual: { (_: Any, _: Any) -> Bool in false }
+            valuesEqual: { _, _ in false }
         )
     }
 }
