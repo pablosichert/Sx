@@ -61,9 +61,9 @@ public class Incrementer: Composite {
                 (1 ... self.state.count).map({ i in
                     NSText.Node(
                         key: String(i),
-                        \NSText.backgroundColor => nil,
-                        \NSText.frame => CGRect(x: CGFloat(i * 20), y: 0, width: 30, height: 20),
-                        \NSText.string => String(i)
+                        \.backgroundColor => nil,
+                        \.frame => CGRect(x: CGFloat(i * 20), y: 0, width: 30, height: 20),
+                        \.string => String(i)
                     )
                 })
             }
@@ -71,21 +71,21 @@ public class Incrementer: Composite {
             return [
                 View.Node(
                     key: "view",
-                    \View.wantsLayer => true,
-                    \View.backgroundColor => NSColor.lightGray.cgColor,
-                    \View.mouseDown => increase,
-                    \View.rightMouseDown => decrease,
+                    \.wantsLayer => true,
+                    \.backgroundColor => NSColor.lightGray.cgColor,
+                    \.mouseDown => increase,
+                    \.rightMouseDown => decrease,
                     children: [
                         NSText.Node(
                             key: "count",
-                            \NSText.backgroundColor => nil,
-                            \NSText.frame => CGRect(
+                            \.backgroundColor => nil,
+                            \.frame => CGRect(
                                 x: properties.x - width / 2,
                                 y: properties.y + height / 20,
                                 width: width,
                                 height: height
                             ),
-                            \NSText.string => "Count is " + String(state.count)
+                            \.string => "Count is " + String(state.count)
                         ),
                     ] + ((state.count > 0) && numbers)
                 ),

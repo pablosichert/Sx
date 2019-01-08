@@ -64,18 +64,18 @@ public class App: Composite {
             return [
                 NSApplication.Node(
                     key: "application",
-                    \NSApplication.delegate => AppDelegate(),
+                    \.delegate => AppDelegate(),
                     children: [
                         NSWindow.Node(
                             key: "window",
-                            \NSWindow.contentRect => NSRect(
+                            \.contentRect => NSRect(
                                 x: self.x,
                                 y: self.y,
                                 width: self.width,
                                 height: self.height
                             ),
-                            \NSWindow.styleMask => [.titled, .closable, .resizable],
-                            \NSWindow.titlebarAppearsTransparent => true,
+                            \.styleMask => [.titled, .closable, .resizable],
+                            \.titlebarAppearsTransparent => true,
                             children: [
                                 Incrementer(
                                     key: "incrementer",
