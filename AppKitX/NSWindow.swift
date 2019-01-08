@@ -4,56 +4,50 @@ import struct Foundation.NSRect
 import protocol Sx.Native
 import protocol Sx.Node
 import struct Sx.Operations
+import struct Sx.Properties
 import struct Sx.Property
 
-public func Window(
-    backingType: NSWindow.BackingStoreType = .buffered,
-    contentRect: NSRect = .zero,
-    defer: Bool = true,
-    key: String? = nil,
-    properties: [Property<NSWindow>] = [],
-    styleMask: NSWindow.StyleMask = [],
-    titlebarAppearsTransparent: Bool = false,
-    _ children: [Node] = []
-) -> Node {
-    return Native.Node(
-        key: key,
-        properties: Component.Properties(
-            backingType: backingType,
-            contentRect: contentRect,
-            defer: `defer`,
-            properties: properties,
-            styleMask: styleMask,
-            titlebarAppearsTransparent: titlebarAppearsTransparent
-        ),
-        Type: Component.self,
-        children
-    )
+public typealias Properties = Sx.Properties<NSWindow>
+
+public extension NSWindow {
+    var `defer`: Bool {
+        get { return false }
+        set {}
+    }
+
+    var contentRect: NSRect {
+        get { return contentLayoutRect }
+        set { setFrame(newValue, display: true) }
+    }
+
+    static func Node(
+        key: String,
+        _ properties: Property<NSWindow>...,
+        children: [Node] = []
+    ) -> Node {
+        return Native.Node(
+            key: key,
+            properties: Properties(properties),
+            Type: Component.self,
+            children
+        )
+    }
 }
 
 private struct Component: Native.Renderable {
-    struct Properties: Equatable {
-        let backingType: NSWindow.BackingStoreType
-        let contentRect: NSRect
-        let `defer`: Bool
-        let properties: [Property<NSWindow>]
-        let styleMask: NSWindow.StyleMask
-        let titlebarAppearsTransparent: Bool
-    }
-
     let window: NSWindow
 
     init(properties: Any, children: [Any]) {
         let properties = properties as! Properties
 
         window = NSWindow(
-            contentRect: properties.contentRect,
-            styleMask: properties.styleMask,
-            backing: properties.backingType,
-            defer: properties.defer
+            contentRect: properties[\NSWindow.contentLayoutRect] ?? .zero,
+            styleMask: properties[\NSWindow.styleMask] ?? [],
+            backing: properties[\NSWindow.backingType] ?? .buffered,
+            defer: properties[\NSWindow.defer] ?? true
         )
 
-        apply(properties)
+        apply((next: properties, previous: Properties()))
 
         assert(children.count == 1, "You must pass in exactly one view – NSWindow.contentView expects a single NSView")
 
@@ -62,19 +56,17 @@ private struct Component: Native.Renderable {
         window.contentView = children[0] as? NSView
     }
 
-    func apply(_ properties: Properties) {
-        window.backingType = properties.backingType
-        window.contentRect(forFrameRect: properties.contentRect)
-        window.styleMask = properties.styleMask
-        window.titlebarAppearsTransparent = properties.titlebarAppearsTransparent
-
-        for property in properties.properties {
+    func apply(_ properties: (next: Properties, previous: Properties)) {
+        for property in properties.next where !properties.previous.contains(property) {
             property.apply(window)
         }
     }
 
     func update(properties: (next: Any, previous: Any)) {
-        apply(properties.next as! Properties)
+        apply((
+            next: properties.next as! Properties,
+            previous: properties.previous as! Properties
+        ))
     }
 
     func update(operations: Operations) {

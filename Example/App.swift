@@ -2,8 +2,8 @@ import let AppKit.NSApp
 import class AppKit.NSApplication
 import protocol AppKit.NSApplicationDelegate
 import class AppKit.NSScreen
-import func AppKitX.Application
-import func AppKitX.Window
+import class AppKit.NSWindow
+import AppKitX
 import struct CoreGraphics.CGFloat
 import struct Foundation.Notification
 import struct Foundation.NSRect
@@ -65,16 +65,17 @@ public class App: Composite {
                 Application(
                     delegate: AppDelegate(),
                     key: "application", [
-                        Window(
-                            contentRect: NSRect(
+                        NSWindow.Node(
+                            key: "window",
+                            \NSWindow.contentRect => NSRect(
                                 x: self.x,
                                 y: self.y,
                                 width: self.width,
                                 height: self.height
                             ),
-                            key: "window",
-                            styleMask: [.titled, .closable, .resizable],
-                            titlebarAppearsTransparent: true, [
+                            \NSWindow.styleMask => [.titled, .closable, .resizable],
+                            \NSWindow.titlebarAppearsTransparent => true,
+                            children: [
                                 Incrementer(key: "incrementer", x: width / 2, y: height / 2),
                             ]
                         ),
