@@ -9,23 +9,29 @@ import struct Sx.Operations
 import struct Sx.Properties
 import struct Sx.Property
 
-public extension NSView {
-    var backgroundColor: CGColor? {
-        get { return layer?.backgroundColor }
-        set { layer?.backgroundColor = newValue }
-    }
+public protocol NSViewNode {}
 
-    static func Node<View: NSView>(
+public extension NSViewNode where Self: NSView {
+    static func Node(
         key: String,
-        _ properties: Property<View>...,
+        _ properties: Property<Self>...,
         children: [Node] = []
     ) -> Node {
         return Native.Node(
             key: key,
-            properties: Properties<View>(properties),
-            Type: Component<View>.self,
+            properties: Properties<Self>(properties),
+            Type: Component<Self>.self,
             children
         )
+    }
+}
+
+extension NSView: NSViewNode {}
+
+public extension NSView {
+    var backgroundColor: CGColor? {
+        get { return layer?.backgroundColor }
+        set { layer?.backgroundColor = newValue }
     }
 }
 
