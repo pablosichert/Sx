@@ -62,9 +62,10 @@ public class App: Composite {
 
         func render() -> [Node?] {
             return [
-                Application(
-                    delegate: AppDelegate(),
-                    key: "application", [
+                NSApplication.Node(
+                    key: "application",
+                    \NSApplication.delegate => AppDelegate(),
+                    children: [
                         NSWindow.Node(
                             key: "window",
                             \NSWindow.contentRect => NSRect(

@@ -7,7 +7,7 @@ import struct Sx.Operations
 import struct Sx.Properties
 import struct Sx.Property
 
-public typealias Properties = Sx.Properties<NSWindow>
+private typealias Properties = Sx.Properties<NSWindow>
 
 public extension NSWindow {
     var `defer`: Bool {

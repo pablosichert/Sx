@@ -4,34 +4,31 @@ import class AppKit.NSWindow
 import protocol Sx.Native
 import protocol Sx.Node
 import struct Sx.Operations
+import struct Sx.Properties
+import struct Sx.Property
 
-public func Application(
-    delegate: NSApplicationDelegate,
-    key: String? = nil,
-    _ children: [Node] = []
-) -> Node {
-    return Native.Node(
-        key: key,
-        properties: Component.Properties(delegate: delegate),
-        Type: Component.self,
-        children
-    )
+private typealias Properties = Sx.Properties<NSApplication>
+
+public extension NSApplication {
+    static func Node(
+        key: String,
+        _ properties: Property<NSApplication>...,
+        children: [Node] = []
+    ) -> Node {
+        return Native.Node(
+            key: key,
+            properties: Properties(properties),
+            Type: Component.self,
+            children
+        )
+    }
 }
 
 private struct Component: Native.Renderable {
-    struct Properties: Equatable {
-        static func == (lhs: Properties, rhs: Properties) -> Bool {
-            return lhs.delegate === rhs.delegate
-        }
-
-        // swiftlint:disable:next weak_delegate
-        var delegate: NSApplicationDelegate?
-    }
-
     var application = NSApplication.shared
 
     init(properties: Any, children: [Any]) {
-        apply(properties as! Properties)
+        apply((next: properties as! Properties, previous: Properties()))
 
         for child in children {
             if let window = child as? NSWindow {
@@ -40,12 +37,17 @@ private struct Component: Native.Renderable {
         }
     }
 
-    func apply(_ properties: Properties) {
-        application.delegate = properties.delegate
+    func apply(_ properties: (next: Properties, previous: Properties)) {
+        for property in properties.next where !properties.previous.contains(property) {
+            property.apply(application)
+        }
     }
 
     func update(properties: (next: Any, previous: Any)) {
-        apply(properties.next as! Properties)
+        apply((
+            next: properties.next as! Properties,
+            previous: properties.previous as! Properties
+        ))
     }
 
     func update(operations: Operations) {
