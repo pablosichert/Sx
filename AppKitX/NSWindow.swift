@@ -7,7 +7,24 @@ import struct Sx.Operations
 import struct Sx.Properties
 import struct Sx.Property
 
-private typealias Properties = Sx.Properties<NSWindow>
+public protocol NSWindowNode {}
+
+public extension NSWindowNode where Self: NSWindow {
+    static func Node(
+        key: String,
+        _ properties: Property<Self>...,
+        children: [Node] = []
+    ) -> Node {
+        return Native.Node(
+            key: key,
+            properties: Properties<Self>(properties),
+            Type: Component<Self>.self,
+            children
+        )
+    }
+}
+
+extension NSWindow: NSWindowNode {}
 
 public extension NSWindow {
     var `defer`: Bool {
@@ -19,32 +36,21 @@ public extension NSWindow {
         get { return contentLayoutRect }
         set { setFrame(newValue, display: true) }
     }
-
-    static func Node(
-        key: String,
-        _ properties: Property<NSWindow>...,
-        children: [Node] = []
-    ) -> Node {
-        return Native.Node(
-            key: key,
-            properties: Properties(properties),
-            Type: Component.self,
-            children
-        )
-    }
 }
 
-private struct Component: Native.Renderable {
-    let window: NSWindow
+private struct Component<Window: NSWindow>: Native.Renderable {
+    typealias Properties = Sx.Properties<Window>
+
+    let window: Window
 
     init(properties: Any, children: [Any]) {
         let properties = properties as! Properties
 
-        window = NSWindow(
-            contentRect: properties[\NSWindow.contentLayoutRect] ?? .zero,
-            styleMask: properties[\NSWindow.styleMask] ?? [],
-            backing: properties[\NSWindow.backingType] ?? .buffered,
-            defer: properties[\NSWindow.defer] ?? true
+        window = Window.init(
+            contentRect: properties[\Window.contentLayoutRect] ?? .zero,
+            styleMask: properties[\Window.styleMask] ?? [],
+            backing: properties[\Window.backingType] ?? .buffered,
+            defer: properties[\Window.defer] ?? true
         )
 
         apply((next: properties, previous: Properties()))
