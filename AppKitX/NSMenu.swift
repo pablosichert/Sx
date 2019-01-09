@@ -3,29 +3,35 @@ import class AppKit.NSMenuItem
 import protocol Sx.Native
 import protocol Sx.Node
 import struct Sx.Operations
+import struct Sx.Properties
+import struct Sx.Property
 
-public func Menu(
-    key: String? = nil,
-    title: String? = nil,
-    _ children: [Node] = []
-) -> Node {
-    return Native.Node(
-        key: key,
-        properties: Component.Properties(title: title),
-        Type: Component.self,
-        children
-    )
+public protocol NSMenuNode {}
+
+public extension NSMenuNode where Self: NSMenu {
+    static func Node(
+        key: String,
+        _ properties: Property<Self>...,
+        children: [Node] = []
+    ) -> Node {
+        return Native.Node(
+            key: key,
+            properties: Sx.Properties<Self>(properties),
+            Type: Component<Self>.self,
+            children
+        )
+    }
 }
 
-private struct Component: Native.Renderable {
-    struct Properties: Equatable {
-        let title: String?
-    }
+extension NSMenu: NSMenuNode {}
 
-    let menu = NSMenu()
+private struct Component<Menu: NSMenu>: Native.Renderable {
+    typealias Properties = Sx.Properties<Menu>
+
+    let menu = Menu.init()
 
     init(properties: Any, children: [Any]) {
-        apply(properties as! Properties)
+        apply((next: properties as! Properties, previous: Properties()))
 
         for child in children {
             if let item = child as? NSMenuItem {
@@ -34,12 +40,17 @@ private struct Component: Native.Renderable {
         }
     }
 
-    func apply(_ properties: Properties) {
-        menu.title = properties.title ?? ""
+    func apply(_ properties: (next: Properties, previous: Properties)) {
+        for property in properties.next where !properties.previous.contains(property) {
+            property.apply(menu)
+        }
     }
 
     func update(properties: (next: Any, previous: Any)) {
-        apply(properties.next as! Properties)
+        apply((
+            next: properties.next as! Properties,
+            previous: properties.previous as! Properties
+        ))
     }
 
     func update(operations: Operations) {
