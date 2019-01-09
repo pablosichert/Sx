@@ -4,37 +4,35 @@ import struct ObjectiveC.Selector
 import protocol Sx.Native
 import protocol Sx.Node
 import struct Sx.Operations
+import struct Sx.Properties
+import struct Sx.Property
 
-public func MenuItem(
-    action: Selector? = nil,
-    key: String? = nil,
-    keyEquivalent: String? = nil,
-    title: String? = nil,
-    _ child: Node? = nil
-) -> Node {
-    return Native.Node(
-        key: key,
-        properties: Component.Properties(
-            action: action,
-            keyEquivalent: keyEquivalent,
-            title: title
-        ),
-        Type: Component.self,
-        child == nil ? [] : [child!]
-    )
+public protocol NSMenuItemNode {}
+
+public extension NSMenuItemNode where Self: NSMenuItem {
+    static func Node(
+        key: String,
+        _ properties: Property<Self>...,
+        children: [Node] = []
+    ) -> Node {
+        return Native.Node(
+            key: key,
+            properties: Properties<Self>(properties),
+            Type: Component<Self>.self,
+            children
+        )
+    }
 }
 
-private struct Component: Native.Renderable {
-    struct Properties: Equatable {
-        let action: Selector?
-        let keyEquivalent: String?
-        let title: String?
-    }
+extension NSMenuItem: NSMenuItemNode {}
 
-    let item = NSMenuItem()
+private struct Component<MenuItem: NSMenuItem>: Native.Renderable {
+    typealias Properties = Sx.Properties<MenuItem>
+
+    let item = MenuItem()
 
     init(properties: Any, children: [Any]) {
-        apply(properties as! Properties)
+        apply((next: properties as! Properties, previous: Properties()))
 
         if children.count >= 1 {
             if let menu = children[0] as? NSMenu {
@@ -43,20 +41,17 @@ private struct Component: Native.Renderable {
         }
     }
 
-    func apply(_ properties: Properties) {
-        item.title = properties.title ?? ""
-
-        if let action = properties.action {
-            item.action = action
-        }
-
-        if let keyEquivalent = properties.keyEquivalent {
-            item.keyEquivalent = keyEquivalent
+    func apply(_ properties: (next: Properties, previous: Properties)) {
+        for property in properties.next where !properties.previous.contains(property) {
+            property.apply(item)
         }
     }
 
     func update(properties: (next: Any, previous: Any)) {
-        apply(properties.next as! Properties)
+        apply((
+            next: properties.next as! Properties,
+            previous: properties.previous as! Properties
+        ))
     }
 
     func update(operations: Operations) {
