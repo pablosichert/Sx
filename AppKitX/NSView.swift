@@ -13,7 +13,7 @@ public protocol NSViewNode {}
 
 public extension NSViewNode where Self: NSView {
     static func Node(
-        key: String,
+        key: String? = nil,
         _ properties: Property<Self>...,
         children: [Node] = []
     ) -> Node {

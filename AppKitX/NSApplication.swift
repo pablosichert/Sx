@@ -11,7 +11,7 @@ private typealias Properties = Sx.Properties<NSApplication>
 
 public extension NSApplication {
     static func Node(
-        key: String,
+        key: String? = nil,
         _ properties: Property<NSApplication>...,
         children: [Node] = []
     ) -> Node {

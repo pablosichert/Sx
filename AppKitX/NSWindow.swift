@@ -11,7 +11,7 @@ public protocol NSWindowNode {}
 
 public extension NSWindowNode where Self: NSWindow {
     static func Node(
-        key: String,
+        key: String? = nil,
         _ properties: Property<Self>...,
         children: [Node] = []
     ) -> Node {

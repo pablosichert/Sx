@@ -11,7 +11,7 @@ public protocol NSMenuItemNode {}
 
 public extension NSMenuItemNode where Self: NSMenuItem {
     static func Node(
-        key: String,
+        key: String? = nil,
         _ properties: Property<Self>...,
         children: [Node] = []
     ) -> Node {

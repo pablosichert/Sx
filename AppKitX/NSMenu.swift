@@ -10,7 +10,7 @@ public protocol NSMenuNode {}
 
 public extension NSMenuNode where Self: NSMenu {
     static func Node(
-        key: String,
+        key: String? = nil,
         _ properties: Property<Self>...,
         children: [Node] = []
     ) -> Node {
