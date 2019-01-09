@@ -36,6 +36,7 @@ public class App: Composite {
     }
 
     class Component: Composite<Properties, State>, Renderable {
+        let delegate = AppDelegate()
         let width: CGFloat
         let height: CGFloat
         let x: CGFloat
@@ -64,7 +65,7 @@ public class App: Composite {
             return [
                 NSApplication.Node(
                     key: "application",
-                    \.delegate => AppDelegate(),
+                    \.delegate => self.delegate,
                     children: [
                         NSWindow.Node(
                             key: "window",
