@@ -1,14 +1,18 @@
 import let AppKit.NSApp
 import class AppKit.NSApplication
 import protocol AppKit.NSApplicationDelegate
+import class AppKit.NSMenu
+import class AppKit.NSMenuItem
 import class AppKit.NSScreen
 import class AppKit.NSWindow
 import AppKitX
 import struct CoreGraphics.CGFloat
 import struct Foundation.Notification
 import struct Foundation.NSRect
+import ObjectiveC
 import class ObjectiveC.NSObject
 import class Sx.Composite
+import struct Sx.Mount
 import protocol Sx.Node
 
 public class App: Composite {
@@ -26,12 +30,22 @@ public class App: Composite {
     }
 
     class AppDelegate: NSObject, NSApplicationDelegate {
+        let menuInstance = Mount<NSMenu>(
+            Menu(quit: #selector(quit(sender:)))
+        )
+
         func applicationDidFinishLaunching(_: Notification) {
+            NSApp.mainMenu = menuInstance[0]
             NSApp.activate(ignoringOtherApps: true)
         }
 
         func applicationShouldTerminateAfterLastWindowClosed(_: AppKit.NSApplication) -> Bool {
             return true
+        }
+
+        @objc
+        func quit(sender _: NSMenuItem) {
+            NSApp.terminate(self)
         }
     }
 

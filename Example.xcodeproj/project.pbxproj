@@ -12,6 +12,7 @@
 		6E7255FA21194D30002BD972 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7255F921194D2F002BD972 /* App.swift */; };
 		6E72560121194FB2002BD972 /* Incrementer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E72560021194FB2002BD972 /* Incrementer.swift */; };
 		6EA5806A21E44CA800630D80 /* =>.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA5806921E44CA800630D80 /* =>.swift */; };
+		6EA5806C21E573FC00630D80 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA5806B21E573FC00630D80 /* Menu.swift */; };
 		6EECA4A12149C4D600637725 /* AppKitX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E745EEF214463B80022BD6E /* AppKitX.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		6E72560021194FB2002BD972 /* Incrementer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Incrementer.swift; sourceTree = "<group>"; };
 		6E745EEF214463B80022BD6E /* AppKitX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AppKitX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EA5806921E44CA800630D80 /* =>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "=>.swift"; sourceTree = "<group>"; };
+		6EA5806B21E573FC00630D80 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 				6E72560021194FB2002BD972 /* Incrementer.swift */,
 				6E7255F021194C7B002BD972 /* Info.plist */,
 				6E7255F721194D26002BD972 /* main.swift */,
+				6EA5806B21E573FC00630D80 /* Menu.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EA5806C21E573FC00630D80 /* Menu.swift in Sources */,
 				6E7255F821194D26002BD972 /* main.swift in Sources */,
 				6E72560121194FB2002BD972 /* Incrementer.swift in Sources */,
 				6E7255FA21194D30002BD972 /* App.swift in Sources */,
