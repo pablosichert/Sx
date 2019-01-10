@@ -65,6 +65,24 @@ public struct Property<Root>: Hashable {
         )
     }
 
+    public init<Arguments, Return>(
+        _ path: ReferenceWritableKeyPath<Root, (Arguments) -> Return>,
+        _ value: @escaping (Arguments) -> Return
+    ) {
+        self.init(
+            hashValue: Function.from(value).hashValue,
+            path: path,
+            value: value,
+            valuesEqual: { a, b in
+                guard let a = a as? (Arguments) -> Return, let b = b as? (Arguments) -> Return else {
+                    return false
+                }
+
+                return Function.from(a) == Function.from(b)
+            }
+        )
+    }
+
     public init<Value>(
         _ path: ReferenceWritableKeyPath<Root, Value>,
         _ value: Value

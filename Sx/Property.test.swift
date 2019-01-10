@@ -46,6 +46,11 @@ private class WithEquatableProperty {
     var foo: SomeEquatable = SomeEquatable("foo")
 }
 
+private class WithFunctionProperty {
+    var foo: (Bool) -> Bool = { $0 }
+    var bar: Bool = false
+}
+
 private class WithProperty {
     var foo: Any = "foo"
 }
@@ -94,6 +99,34 @@ class PropertyTest: XCTestCase {
     func testEquatablePropertyTypesDifferent() {
         let a = Property(\WithEquatableProperty.foo, SomeEquatable("foo"))
         let b = Property(\WithEquatableProperty.foo, SomeEquatable(123))
+
+        XCTAssertEqual(a == b, false)
+    }
+
+    func testFunctionPropertyIdempodent() {
+        let a = Property(\WithFunctionProperty.foo, { $0 })
+
+        XCTAssertEqual(a == a, true)
+    }
+
+    func testFunctionPropertyEqual() {
+        let function: (Bool) -> Bool = { $0 }
+        let a = Property(\WithFunctionProperty.foo, function)
+        let b = Property(\WithFunctionProperty.foo, function)
+
+        XCTAssertEqual(a == b, true)
+    }
+
+    func testFunctionPropertyDifferent() {
+        let a = Property(\WithFunctionProperty.foo, { $0 })
+        let b = Property(\WithFunctionProperty.foo, { $0 })
+
+        XCTAssertEqual(a == b, false)
+    }
+
+    func testFunctionPropertyUnrelated() {
+        let a = Property(\WithFunctionProperty.foo, { $0 })
+        let b = Property(\WithFunctionProperty.bar, false)
 
         XCTAssertEqual(a == b, false)
     }
