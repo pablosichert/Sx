@@ -22,28 +22,24 @@ private struct Context {
     let unkown2: UnsafePointer<Any>
 }
 
-private struct Function: Equatable {
-    let unknown0: UnsafePointer<Any>
-    let unknown1: UnsafePointer<Any>
-    let address: UnsafePointer<Any>
-    let contextWrapper: UnsafePointer<ContextWrapper>?
+public struct Function {
+    private let unknown0: UnsafePointer<Any>
+    private let unknown1: UnsafePointer<Any>
+    private let address: UnsafePointer<Any>
+    private let contextWrapper: UnsafePointer<ContextWrapper>?
 
-    static func from<Arguments, Return>(
+    public static func from<Arguments, Return>(
         _ function: @escaping (Arguments) -> Return
     ) -> Function {
         return unsafeBitCast(function, to: FunctionWrapper.self).function.pointee
     }
 }
 
-public func compare<Arguments, Return>(
-    _ lhs: @escaping (Arguments) -> Return,
-    _ rhs: @escaping (Arguments) -> Return
-) -> Bool {
-    let functionLhs = Function.from(lhs)
-    let functionRhs = Function.from(rhs)
+extension Function: Equatable {
+    public static func == (lhs: Function, rhs: Function) -> Bool {
+        let contextLhs = lhs.contextWrapper?.pointee.context
+        let contextRhs = rhs.contextWrapper?.pointee.context
 
-    let contextLhs = functionLhs.contextWrapper?.pointee.context
-    let contextRhs = functionRhs.contextWrapper?.pointee.context
-
-    return functionLhs.address == functionRhs.address && contextLhs == contextRhs
+        return lhs.address == rhs.address && contextLhs == contextRhs
+    }
 }

@@ -2,7 +2,6 @@ import class AppKit.NSMenu
 import class AppKit.NSMenuItem
 import AppKitX
 import struct ObjectiveC.Selector
-import func Sx.compare
 import class Sx.Composite
 import protocol Sx.Node
 

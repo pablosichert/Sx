@@ -1,47 +1,53 @@
-import func Sx.compare
+import struct Sx.Function
 import func XCTest.XCTAssertEqual
 import class XCTest.XCTestCase
 
-// swiftlint:disable:next type_name
-class compareTest: XCTestCase {
+private func == <Arguments, Return>(
+    _ lhs: @escaping (Arguments) -> Return,
+    _ rhs: @escaping (Arguments) -> Return
+) -> Bool {
+    return Function.from(lhs) == Function.from(rhs)
+}
+
+class FunctionTest: XCTestCase {
     func testFunctionIdempodent() {
         func foo() {}
 
-        XCTAssertEqual(compare(foo, foo), true)
+        XCTAssertEqual(foo == foo, true)
     }
 
     func testFunctionSameReference() {
         func foo() {}
         let bar = foo
 
-        XCTAssertEqual(compare(foo, bar), true)
+        XCTAssertEqual(foo == bar, true)
     }
 
     func testFunctionDifferent() {
         func foo() {}
         func bar() {}
 
-        XCTAssertEqual(compare(foo, bar), false)
+        XCTAssertEqual(foo == bar, false)
     }
 
     func testClosureIdempodent() {
         let foo = {}
 
-        XCTAssertEqual(compare(foo, foo), true)
+        XCTAssertEqual(foo == foo, true)
     }
 
     func testClosureSameReference() {
         let foo = {}
         let bar = foo
 
-        XCTAssertEqual(compare(foo, bar), true)
+        XCTAssertEqual(foo == bar, true)
     }
 
     func testClosureDifferent() {
         let foo = {}
         let bar = {}
 
-        XCTAssertEqual(compare(foo, bar), false)
+        XCTAssertEqual(foo == bar, false)
     }
 
     func testInstanceMethodIdempodent() {
@@ -51,7 +57,7 @@ class compareTest: XCTestCase {
 
         let foo = Foo()
 
-        XCTAssertEqual(compare(foo.foo, foo.foo), true)
+        XCTAssertEqual(foo.foo == foo.foo, true)
     }
 
     func testInstanceMethodSameReference() {
@@ -62,7 +68,7 @@ class compareTest: XCTestCase {
         let foo = Foo().foo
         let bar = foo
 
-        XCTAssertEqual(compare(foo, bar), true)
+        XCTAssertEqual(foo == bar, true)
     }
 
     func testInstanceMethodDifferent() {
@@ -73,6 +79,6 @@ class compareTest: XCTestCase {
         let foo = Foo().foo
         let bar = Foo().foo
 
-        XCTAssertEqual(compare(foo, bar), false)
+        XCTAssertEqual(foo == bar, false)
     }
 }
