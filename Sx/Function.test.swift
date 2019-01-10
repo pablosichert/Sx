@@ -81,4 +81,11 @@ class FunctionTest: XCTestCase {
 
         XCTAssertEqual(foo == bar, false)
     }
+
+    func testFunctionHashable() {
+        let foo = Function.from({})
+        let map = [foo: "foo"]
+
+        XCTAssertEqual(map[foo] == "foo", true)
+    }
 }

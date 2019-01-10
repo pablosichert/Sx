@@ -43,3 +43,11 @@ extension Function: Equatable {
         return lhs.address == rhs.address && contextLhs == contextRhs
     }
 }
+
+extension Function: Hashable {
+    public var hashValue: Int {
+        let contextHash = contextWrapper?.pointee.context.hashValue ?? 0
+
+        return address.hashValue ^ contextHash
+    }
+}
