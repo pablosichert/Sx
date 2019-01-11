@@ -16,6 +16,13 @@ public func => <Root, Value>(
     return Property(path, value)
 }
 
+public func => <Root, Arguments, Return>(
+    path: ReferenceWritableKeyPath<Root, (Arguments) -> Return>,
+    value: @escaping (Arguments) -> Return
+) -> Property<Root> {
+    return Property(path, value)
+}
+
 public func => <Root, Value>(
     path: ReferenceWritableKeyPath<Root, Value>,
     value: Value
