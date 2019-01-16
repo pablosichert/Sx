@@ -4,6 +4,7 @@ language: swift
 
 addons:
   homebrew:
+    update: true
     packages:
       - jq
       - swiftformat
