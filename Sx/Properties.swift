@@ -1,4 +1,5 @@
 public struct Properties<Root> {
+    let array: [Property<Root>]
     let set: Set<Property<Root>>
     let map: [PartialKeyPath<Root>: Any]
 
@@ -13,6 +14,7 @@ public struct Properties<Root> {
             map[property.path as! PartialKeyPath<Root>] = property.value
         }
 
+        self.array = properties
         self.set = Set(properties)
         self.map = map
     }
@@ -39,7 +41,7 @@ extension Properties: Equatable {
 }
 
 extension Properties: Sequence {
-    public func makeIterator() -> SetIterator<Property<Root>> {
-        return set.makeIterator()
+    public func makeIterator() -> IndexingIterator<[Property<Root>]> {
+        return array.makeIterator()
     }
 }
