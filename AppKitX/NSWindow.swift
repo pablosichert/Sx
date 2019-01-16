@@ -46,7 +46,7 @@ private struct Component<Window: NSWindow>: Native.Renderable {
     init(properties: Any, children: [Any]) {
         let properties = properties as! Properties
 
-        window = Window.init(
+        window = Window(
             contentRect: properties[\Window.contentLayoutRect] ?? .zero,
             styleMask: properties[\Window.styleMask] ?? [],
             backing: properties[\Window.backingType] ?? .buffered,

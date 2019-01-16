@@ -28,7 +28,7 @@ extension NSMenu: NSMenuNode {}
 private struct Component<Menu: NSMenu>: Native.Renderable {
     typealias Properties = Sx.Properties<Menu>
 
-    let menu = Menu.init()
+    let menu = Menu()
 
     init(properties: Any, children: [Any]) {
         apply((next: properties as! Properties, previous: Properties()))
