@@ -1,1 +1,1 @@
---disable redundantSelf,redundantInit
+--disable andOperator,redundantSelf,redundantInit
