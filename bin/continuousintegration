@@ -138,16 +138,25 @@ function archive_build {
             local SOURCE=$BUILD_DIRECTORY/$PLATFORM/$SCHEME
             local DESTINATION=$COMMIT/$PLATFORM/$SCHEME
 
+            local FILES=(
+                $SOURCE/build.log
+                $SOURCE/coverage.json
+            )
+
             mkdir -p "$DESTINATION"
+
+            for file in "${FILES[@]}"; do
+                if [ -e $file ]; then
+                    cp $file $DESTINATION
+                fi
+            done
 
             if [ ${EXIT_CODES[$INDEX_BUILD]} -ne 0 ]; then
                 BUILD_LABEL=failing
                 BUILD_COLOR=red
             else
-                cp $SOURCE/coverage.json $SOURCE/build.log $DESTINATION
-
-                LINES_EXECUTABLE_SCHEME=$(cat $BUILD_DIRECTORY/$PLATFORM/$SCHEME/coverage.json | jq '.executableLines' || echo 0)
-                LINES_COVERED_SCHEME=$(cat $BUILD_DIRECTORY/$PLATFORM/$SCHEME/coverage.json | jq '.coveredLines' || echo 0)
+                LINES_EXECUTABLE_SCHEME=$(cat $SOURCE/coverage.json | jq '.executableLines' || echo 0)
+                LINES_COVERED_SCHEME=$(cat $SOURCE/coverage.json | jq '.coveredLines' || echo 0)
 
                 LINES_EXECUTABLE_PLATFORM=$((LINES_EXECUTABLE_PLATFORM+LINES_EXECUTABLE_SCHEME))
                 LINES_COVERED_PLATFORM=$((LINES_COVERED_PLATFORM+LINES_COVERED_SCHEME))
