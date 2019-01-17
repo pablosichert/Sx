@@ -46,14 +46,29 @@ private struct Component<Window: NSWindow>: Native.Renderable {
     init(properties: Any, children: [Any]) {
         let properties = properties as! Properties
 
+        let contentRect = properties[\.contentRect] ?? .zero
+        let styleMask = properties[\.styleMask] ?? []
+        let backingType = properties[\.backingType] ?? .buffered
+        // swiftformat:disable:next redundantBackticks
+        let `defer` = properties[\.`defer`] ?? true
+
         window = Window(
-            contentRect: properties[\Window.contentLayoutRect] ?? .zero,
-            styleMask: properties[\Window.styleMask] ?? [],
-            backing: properties[\Window.backingType] ?? .buffered,
-            defer: properties[\Window.defer] ?? true
+            contentRect: contentRect,
+            styleMask: styleMask,
+            backing: backingType,
+            defer: `defer`
         )
 
-        apply((next: properties, previous: Properties()))
+        apply((
+            next: properties,
+            previous: Properties([
+                Property(\.contentRect, contentRect),
+                Property(\.styleMask, styleMask),
+                Property(\.backingType, backingType),
+                // swiftformat:disable:next redundantBackticks
+                Property(\.`defer`, `defer`),
+            ])
+        ))
 
         assert(children.count == 1, "You must pass in exactly one view – NSWindow.contentView expects a single NSView")
 
