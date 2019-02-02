@@ -49,7 +49,6 @@ private struct Component<Window: NSWindow>: Native.Renderable {
         let contentRect = properties[\.contentRect] ?? .zero
         let styleMask = properties[\.styleMask] ?? []
         let backingType = properties[\.backingType] ?? .buffered
-        // swiftformat:disable:next redundantBackticks
         let `defer` = properties[\.`defer`] ?? true
 
         window = Window(
@@ -65,7 +64,6 @@ private struct Component<Window: NSWindow>: Native.Renderable {
                 Property(\.contentRect, contentRect),
                 Property(\.styleMask, styleMask),
                 Property(\.backingType, backingType),
-                // swiftformat:disable:next redundantBackticks
                 Property(\.`defer`, `defer`),
             ])
         ))
