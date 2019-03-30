@@ -57,7 +57,7 @@ public class Incrementer: Composite {
             let width = CGFloat(100)
             let height = CGFloat(20)
 
-            let numbers = { (_: ()) in
+            let numbers = {
                 (1 ... self.state.count).map({ i in
                     NSText.Node(
                         key: String(i),
