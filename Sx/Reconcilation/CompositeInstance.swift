@@ -10,7 +10,7 @@ public class CompositeInstance: NodeInstance {
         assert(node.InstanceType is CompositeInstance.Type)
 
         self.init(
-            node: (node as! Composite),
+            node: node as! Composite,
             parent: parent,
             index: index
         )

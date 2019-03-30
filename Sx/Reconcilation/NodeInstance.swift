@@ -1,4 +1,4 @@
-public protocol NodeInstance: class {
+public protocol NodeInstance: AnyObject {
     var node: Node { get }
     var index: Int { get set }
     var instances: [NodeInstance] { get }

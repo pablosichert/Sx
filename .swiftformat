@@ -1,1 +1,1 @@
---disable andOperator,redundantSelf,redundantInit
+--disable andOperator,redundantSelf,redundantInit,trailingClosures
