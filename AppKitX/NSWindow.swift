@@ -49,7 +49,7 @@ private struct Component<Window: NSWindow>: Native.Renderable {
         let contentRect = properties[\.contentRect] ?? .zero
         let styleMask = properties[\.styleMask] ?? []
         let backingType = properties[\.backingType] ?? .buffered
-        let `defer` = properties[\.`defer`] ?? true
+        let `defer` = properties[\.defer] ?? true
 
         window = Window(
             contentRect: contentRect,
@@ -64,7 +64,7 @@ private struct Component<Window: NSWindow>: Native.Renderable {
                 Property(\.contentRect, contentRect),
                 Property(\.styleMask, styleMask),
                 Property(\.backingType, backingType),
-                Property(\.`defer`, `defer`),
+                Property(\.defer, `defer`),
             ])
         ))
 
