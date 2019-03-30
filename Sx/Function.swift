@@ -45,9 +45,8 @@ extension Function: Equatable {
 }
 
 extension Function: Hashable {
-    public var hashValue: Int {
-        let contextHash = contextWrapper?.pointee.context.hashValue ?? 0
-
-        return address.hashValue ^ contextHash
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(address)
+        hasher.combine(contextWrapper?.pointee.context)
     }
 }

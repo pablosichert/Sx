@@ -97,4 +97,8 @@ public struct Property<Root>: Hashable {
             valuesEqual: { _, _ in false }
         )
     }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(hashValue)
+    }
 }

@@ -7,14 +7,14 @@ private class SomeHashable: Hashable {
         return lhs.value == rhs.value
     }
 
-    var hashValue: Int {
-        return value.hashValue
-    }
-
     var value: String
 
     init(_ value: String) {
         self.value = value
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(value)
     }
 }
 
