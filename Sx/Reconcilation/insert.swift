@@ -7,7 +7,7 @@ func insert(
     for i in 0 ..< mounts.count {
         let mount = mounts[i]
 
-        insert((mount: mount, index: instance.index + 1))
+        insert((mount: mount, index: instance.index + i))
     }
 
     return mounts.count
