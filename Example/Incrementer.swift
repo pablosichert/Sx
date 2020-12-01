@@ -1,3 +1,4 @@
+import class AppKit.NSButton
 import class AppKit.NSColor
 import class AppKit.NSEvent
 import class AppKit.NSText
@@ -86,6 +87,16 @@ public class Incrementer: Composite {
                                 height: height
                             ),
                             \.string => "Count is " + String(state.count)
+                        ),
+                        NSButton.Node(
+                            key: "button",
+                            \.title => "yo",
+                            \.frame => CGRect(
+                                x: properties.x - width / 2,
+                                y: properties.y + height / 20 - 100,
+                                width: width,
+                                height: height
+                            )
                         ),
                     ] + ((state.count > 0) && numbers)
                 ),

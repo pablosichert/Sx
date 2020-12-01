@@ -14,6 +14,7 @@ public protocol NSViewNode {}
 public extension NSViewNode where Self: NSView {
     static func Node(
         key: String? = nil,
+        constraints _: Any? = nil,
         _ properties: Property<Self>...,
         children: [Node] = []
     ) -> Node {
@@ -36,7 +37,10 @@ public extension NSView {
 }
 
 private struct Component<View: NSView>: Native.Renderable {
-    typealias Properties = Sx.Properties<View>
+    struct Properties {
+        let properties: Sx.Properties<View>
+        let constraints: Any
+    }
 
     let view = View()
 
